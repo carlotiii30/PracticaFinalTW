@@ -14,7 +14,6 @@ if (isset($_POST['sumar'])) {
 echo "Contador: " . $_SESSION['contador'];
 ?>
 
-
 <!DOCTYPE html>
 <html>
 
