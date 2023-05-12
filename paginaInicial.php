@@ -1,3 +1,5 @@
+<!-- PAGINA INICIAL -->
+
 <!DOCTYPE html>
 <html lang="es">
 
