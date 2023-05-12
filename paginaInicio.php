@@ -34,12 +34,14 @@ function seleccionado($n, $v)
 <head>
     <meta charset="UTF-8">
     <title> Siempre quejandome </title>
+    <link rel="stylesheet" href="estilos.css">
 </head>
 
 <body>
 
-    <div>
+    <div class="ElegirIdioma">
         <!-- Seleccionar idioma -->
+        <p> <?php echo $mensajes[$idioma]["Lenguaje"]; ?> </p>
         <form method="get" action="">
             <div class="entrada">
                 <select name="idioma">
@@ -93,27 +95,27 @@ function seleccionado($n, $v)
         </section>
 
         <aside>
-            <div class="login">
-                <select name="login_select">
-                    <option value="es" <?php seleccionado("idioma", "es") ?>>
-                        <?php echo $mensajes[$idioma]["Espanol"]; ?>
-                    </option>
-                    <option value="en" <?php seleccionado("idioma", "en") ?>>
-                        <?php echo $mensajes[$idioma]["Ingles"]; ?>
-                    </option>
-                    <option value="fr" <?php seleccionado("idioma", "fr") ?>>
-                        <?php echo $mensajes[$idioma]["Frances"]; ?>
-                    </option>
-                </select>
-            </div>
-            <div class="botones">
-                <input type="submit" name="aplicar" <?php echo 'value="' . $mensajes[$idioma]["Aplicar"] . '"'; ?>>
-            </div>
+            <form action="">
+                <div class="login">
+                    <div class="entrada">
+                        <label for="nombre"><?php echo $mensajes[$idioma]["Nombre"]; ?></label>
+                        <input name="nombre" value="">
+                    </div>
+                    <div class="entrada">
+                        <label for="Contraseña"><?php echo $mensajes[$idioma]["Contrasenia"]; ?></label>
+                        <input name="contraseña" value="">
+                    </div>
+                </div>
+                <div class="botones">
+                    <input type="submit" name="Identificarse" <?php echo 'value="' . $mensajes[$idioma]["Identificarse"] . '"'; ?>>
+                    <a href="registrarse"></a>
+                </div>
+            </form>
         </aside>
     </main>
 
     <footer>
-        <p> Pie de página</p>
+        <p></p>
     </footer>
 </body>
 
