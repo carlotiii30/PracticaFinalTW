@@ -15,8 +15,8 @@
         "Ingles": "English",
         "Frances": "French",
         "Bienvenida": "Hello, welcome to the web",
-        "Inicio": " ",
-        "Informacion": " ",
+        "Inicio": "Here you could consult your  neighbors' complaints. In addition, you could include your own complaint, as well as interact with others'.",
+        "Informacion": "To register, contact any of the administrators: Carlota or Manu",
         "Aplicar": "Apply changes"
     },
     "fr": {
@@ -25,7 +25,7 @@
         "Ingles": "Anglais",
         "Frances": "Français",
         "Bienvenida": "Bonjour, bienvenue sur le web",
-        "Inicio": "Ici vous pourrez consulter les plaintes de vos voisins et voisines. De plus vous pourrez inclure vos propres plaintes et interagir avec  les autres.",
+        "Inicio": "Ici vous pourrez consulter les plaintes de vos voisins et voisines. De plus, vous pourrez inclure vos propres plaintes et interagir avec les autres.",
         "Informacion": "Pour s'inscrire, contactez l'un des administrateurs: Carlota ou Manu",
         "Aplicar": "Appliquer les modifications"
     }
