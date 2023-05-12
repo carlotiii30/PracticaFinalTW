@@ -4,3 +4,8 @@
     margin: 10px;
     display: flex;
 }
+
+.cabecera {
+    background-color: mediumorchid;
+    display: flex;
+}

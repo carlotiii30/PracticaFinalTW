@@ -63,8 +63,8 @@ function seleccionado($n, $v)
     </div>
 
     <header>
-        <section>
-            <img src="" alt="">
+        <section class="cabecera">
+            <img src="./Imagenes/SugQueRec.png" alt="">
             <h1> Sal y quejate </h1>
         </section>
     </header>
