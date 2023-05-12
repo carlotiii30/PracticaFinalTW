@@ -33,7 +33,7 @@ function seleccionado($n, $v)
 
 <head>
     <meta charset="UTF-8">
-    <title> Siempre quejandome </title>
+    <title> Sal y quejate </title>
     <link rel="stylesheet" href="estilos.css">
 </head>
 
@@ -69,14 +69,14 @@ function seleccionado($n, $v)
         </section>
     </header>
 
-    <nav>
+    <nav class="menu">
         <ul>
-            <li>Ver incidencias</li>
-            <li>Nueva incidencia</li>
-            <li>Mis incidencias</li>
-            <li>Gestión de usuarios</li>
-            <li>Ver Log</li>
-            <li>Gestion BBDD</li>
+            <li> <a href="#"> <?php echo $mensajes[$idioma]["VerIncidencias"]; ?> </a> </li>
+            <li> <a href="#"> <?php echo $mensajes[$idioma]["NuevaIncidencia"]; ?> </a> </li>
+            <li> <a href="#"> <?php echo $mensajes[$idioma]["MisIncidencias"]; ?> </a> </li>
+            <li> <a href="#"> <?php echo $mensajes[$idioma]["GestionUsuarios"]; ?> </a> </li>
+            <li> <a href="#"> <?php echo $mensajes[$idioma]["Log"]; ?> </a> </li>
+            <li> <a href="#"> <?php echo $mensajes[$idioma]["GestionBBDD"]; ?> </a> </li>
         </ul>
     </nav>
 

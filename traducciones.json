@@ -5,40 +5,72 @@
         "Espanol": "Español",
         "Ingles": "Inglés",
         "Frances": "Francés",
+
         "Bienvenida": "Hola, bienvenido a la web",
         "Inicio": "Aquí podrá consultar las quejas de sus vecinos y vecinas. Además, podrá incluir las suyas propias, así como interactuar con las demás.",
         "Informacion": "Para darse de alta contacte con cualquiera de los administradores: Carlota o Manu",
         "Aplicar": "Aplicar cambios",
+
         "Identificarse": "Identificarse",
         "Nombre": "Nombre",
-        "Contrasenia": "Contraseña"
+        "Contrasenia": "Contraseña",
+
+        "VerIncidencias": "Ver incidencias",
+        "NuevaIncidencia": "Nueva incidencia",
+        "MisIncidencias": "Mis incidencias",
+
+        "GestionUsuarios": "Gestión de usuarios",
+        "Log": "Ver log",
+        "GestionBBDD": "Gestión de Base de Datos"
     },
+
     "en": {
         "ElegirIdioma": "Choose language",
         "Lenguaje": "Lenguage", 
         "Espanol": "Spanish",
         "Ingles": "English",
         "Frances": "French",
+
         "Bienvenida": "Hello, welcome to the web",
         "Inicio": "Here you could consult your  neighbors' complaints. In addition, you could include your own complaint, as well as interact with others'.",
         "Informacion": "To register, contact any of the administrators: Carlota or Manu",
         "Aplicar": "Apply changes",
-        "Identificarse": "Login",
+
+        "Identificarse": "Log in",
         "Nombre": "Name",
-        "Contrasenia": "Password"
+        "Contrasenia": "Password",
+
+        "VerIncidencias": "Show complaints",
+        "NuevaIncidencia": "New complaint",
+        "MisIncidencias": "My complaints",
+
+        "GestionUsuarios": "Users Management",
+        "Log": "Show log",
+        "GestionBBDD": "Data Base Management"
     },
+
     "fr": {
         "ElegirIdioma": "Choisissez la langue",
         "Lenguaje": "Langage", 
         "Espanol": "Espagnol",
         "Ingles": "Anglais",
         "Frances": "Français",
+
         "Bienvenida": "Bonjour, bienvenue sur le web",
         "Inicio": "Ici vous pourrez consulter les plaintes de vos voisins et voisines. De plus, vous pourrez inclure vos propres plaintes et interagir avec les autres.",
         "Informacion": "Pour s'inscrire, contactez l'un des administrateurs: Carlota ou Manu",
         "Aplicar": "Appliquer les modifications",
+
         "Identificarse": "Identifier",
         "Nombre": "Prénom",
-        "Contrasenia": "Mot de passe"
+        "Contrasenia": "Mot de passe",
+
+        "VerIncidencias": "Voir plaintes",
+        "NuevaIncidencia": "Nouvel plainte",
+        "MisIncidencias": "Mes plaintes",
+
+        "GestionUsuarios": "Gestion des utilisateurs",
+        "Log": "Voir log",
+        "GestionBBDD": "Gestion Base de Données"
     }
 }
