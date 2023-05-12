@@ -1,3 +1,4 @@
+# Código que crea un botón un contador. Cada vez que se pulsa el botón aumenta el contador
 <?php
 session_start();
 
