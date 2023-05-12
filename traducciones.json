@@ -1,0 +1,32 @@
+{
+    "es": {
+        "ElegirIdioma": "Elija idioma",
+        "Espanol": "Español",
+        "Ingles": "Inglés",
+        "Frances": "Francés",
+        "Bienvenida": "Hola, bienvenido a la web",
+        "Inicio": "Aquí podrá consultar las quejas de sus vecinos y vecinas. Además, podrá incluir las suyas propias, así como interactuar con las demás.",
+        "Informacion": "Para darse de alta contacte con cualquiera de los administradores: Carlota o Manu",
+        "Aplicar": "Aplicar cambios"
+    },
+    "en": {
+        "ElegirIdioma": "Choose language",
+        "Espanol": "Spanish",
+        "Ingles": "English",
+        "Frances": "French",
+        "Bienvenida": "Hello, welcome to the web",
+        "Inicio": " ",
+        "Informacion": " ",
+        "Aplicar": "Apply changes"
+    },
+    "fr": {
+        "ElegirIdioma": "Choisissez la langue",
+        "Espanol": "Espagnol",
+        "Ingles": "Anglais",
+        "Frances": "Français",
+        "Bienvenida": "Bonjour, bienvenue sur le web",
+        "Inicio": "Ici vous pourrez consulter les plaintes de vos voisins et voisines. De plus vous pourrez inclure vos propres plaintes et interagir avec  les autres.",
+        "Informacion": "Pour s'inscrire, contactez l'un des administrateurs: Carlota ou Manu",
+        "Aplicar": "Appliquer les modifications"
+    }
+}
