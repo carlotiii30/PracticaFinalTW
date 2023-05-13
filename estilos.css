@@ -50,7 +50,7 @@
 }
 
 
-.menu li a:hover {
+.menu li a:hover:not(.activo) {
     background-color: rgb(29, 28, 28);
 }
 
