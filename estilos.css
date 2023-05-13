@@ -75,7 +75,12 @@ aside {
     flex: 20%;
 }
 
+
 footer {
-    background-color: rgb(185, 140, 185);
-    text-align: center;
+    background-color:  rgb(46, 45, 45);
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 40px;
+    color: white;
 }

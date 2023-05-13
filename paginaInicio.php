@@ -116,8 +116,7 @@ function seleccionado($n, $v)
     </main>
 
     <footer>
-        <p> Copyright &copy; 2023</p>
-        <p> Página web creada por Carlota de la Vega Soriano y Manuel Vico Arboledas</p>
+        <p> Trabajo final de Tecnologías Web. (c) Carlota de la Vega Soriano y Manuel Vico Arboledas </p>
     </footer>
 </body>
 
