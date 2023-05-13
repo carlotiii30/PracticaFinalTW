@@ -1,4 +1,5 @@
 <!-- PAGINA INICIAL -->
+
 <?php
 
 // - - - Cargamos los mensajes - - -
@@ -25,7 +26,6 @@ function seleccionado($n, $v)
     if (isset($_GET[$n]) and ($_GET[$n] == $v))
         echo 'selected';
 }
-
 ?>
 
 <!DOCTYPE html>
