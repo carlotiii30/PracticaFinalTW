@@ -72,7 +72,7 @@ function seleccionado($n, $v)
 
     <nav class="menu">
         <ul>
-            <li> <a href="#"> <?php echo $mensajes[$idioma]["VerIncidencias"]; ?> </a> </li>
+            <li> <a href="#" class="activo"> <?php echo $mensajes[$idioma]["VerIncidencias"]; ?> </a> </li>
             <li> <a href="#"> <?php echo $mensajes[$idioma]["NuevaIncidencia"]; ?> </a> </li>
             <li> <a href="#"> <?php echo $mensajes[$idioma]["MisIncidencias"]; ?> </a> </li>
             <li> <a href="#"> <?php echo $mensajes[$idioma]["GestionUsuarios"]; ?> </a> </li>
