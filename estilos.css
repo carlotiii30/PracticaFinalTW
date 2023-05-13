@@ -62,7 +62,20 @@
     background-color: rgb(185, 140, 185);
 }
 
+main{
+    display: flex;
+    padding-top: 10px;
+}
+
+.principal {
+    flex: 80%;
+}
 
 aside {
-    float: right;
+    flex: 20%;
+}
+
+footer {
+    background-color: rgb(185, 140, 185);
+    text-align: center;
 }

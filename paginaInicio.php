@@ -82,7 +82,7 @@ function seleccionado($n, $v)
     </nav>
 
     <main>
-        <section>
+        <section class="principal">
             <!-- Mostrar mensaje de bienvenida en el idioma seleccionado -->
             <h1>
                 <?php echo $mensajes[$idioma]["Bienvenida"]; ?>
@@ -116,7 +116,8 @@ function seleccionado($n, $v)
     </main>
 
     <footer>
-        <p></p>
+        <p> Copyright &copy; 2023</p>
+        <p> Página web creada por Carlota de la Vega Soriano y Manuel Vico Arboledas</p>
     </footer>
 </body>
 
