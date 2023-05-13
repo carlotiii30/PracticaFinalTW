@@ -1,4 +1,3 @@
-# Código que crea un botón un contador. Cada vez que se pulsa el botón aumenta el contador
 <?php
 session_start();
 
@@ -25,8 +24,8 @@ echo "Contador: " . $_SESSION['contador'];
 
 <body>
     <form method="post">
-        <button name="sumar" style="border: double;" width=10%>
-            <img src="./Imagenes./verde.png" width=100%>
+        <button name="sumar">
+            <img src="./Imagenes/verde.png">
         </button>
     </form>
 
