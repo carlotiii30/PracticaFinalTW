@@ -116,7 +116,7 @@ function seleccionado($n, $v)
     </main>
 
     <footer>
-        <p></p>
+        <p> Trabajo final de Tecnologías Web. (c) Carlota de la Vega Soriano y Manuel Vico Arboledas </p>
     </footer>
 </body>
 
