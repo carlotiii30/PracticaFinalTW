@@ -1,12 +1,17 @@
-.ElegirIdioma {
-    background-color: rgb(228, 135, 228);
+.elegirIdioma {
+    background-color: rgb(216, 191, 216);
     width: 100%;
-    margin: 10px;
+    margin: auto;
     display: flex;
+    color: white;
+}
+
+.elegirIdioma .botones {
+    display: inline-block;
 }
 
 .cabecera {
-    background-color: rgb(214, 131, 235);
+    background-color: rgb(185, 140, 185);
     display: flex;
     align-items: flex-end; /* alinea la imagen abajo */
     text-align: center; /* alinea el texto al centro */
@@ -15,45 +20,48 @@
 .cabecera h1 {
     font-size: 250%;
     padding-left: 35%;
+    padding-right: 35%;
 }
 
 .cabecera img {
     width: 10%;
 }
 
-.menu {
-    background-color: rgb(194, 138, 194);
-    text-align: left;
-    display: inline-block;
-    width: 100%;
-}
-
 .menu ul {
-    float: left;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: rgb(46, 45, 45);
 }
 
 .menu li {
     float: left;
-    list-style-type: none;
+    border-right: 1px solid gray;
 }
 
 .menu li a {
-    color: aliceblue;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
     text-decoration: none;
-    background-color: violet;
-    padding: 10px;
-    margin: 5px 10px;
-    border-radius: 5px;
 }
 
-.menu li *:hover {
-    background-color: brown;
-    border-radius: 10px;
-    padding: 10px 20px;
-    margin: auto;
-    box-shadow: 0px 0px 5px 5px grey;
+
+.menu li a:hover {
+    background-color: rgb(29, 28, 28);
+}
+
+.menu li:last-child {
+    border-right: none;
 }
 
 .menu .activo {
-    background-color: darkblue;
+    background-color: rgb(185, 140, 185);
+}
+
+
+aside {
+    float: right;
 }

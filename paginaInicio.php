@@ -40,7 +40,7 @@ function seleccionado($n, $v)
 
 <body>
 
-    <div class="ElegirIdioma">
+    <div class="elegirIdioma">
         <!-- Seleccionar idioma -->
         <p> <?php echo $mensajes[$idioma]["Lenguaje"]; ?> </p>
         <form method="get" action="">
