@@ -100,8 +100,17 @@ aside {
     flex: 15%;
 }
 
+aside form {
+    border-bottom: 1px solid black;
+    padding-bottom: 10px;
+}
+
 .login label{
     display: block;
+}
+
+aside .botones{
+    padding-top: 10px;
 }
 
 /* - - PIE DE PÁGINA - - */
