@@ -42,6 +42,7 @@ function seleccionado($n, $v)
 
     <div class="elegirIdioma">
         <!-- Seleccionar idioma -->
+        <img class="imgIdioma" src="./Imagenes/mundo_sf.png" alt="">
         <p> <?php echo $mensajes[$idioma]["Lenguaje"]; ?> </p>
         <form method="get" action="">
             <div class="entrada">

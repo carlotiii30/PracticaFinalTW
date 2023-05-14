@@ -7,6 +7,12 @@
     align-items: center;
 }
 
+.elegirIdioma img{
+    width: 30px;
+    height: 30px;
+    padding: 10px;
+}
+
 .elegirIdioma .entrada {
     display: inline-block;
     vertical-align: middle;
@@ -79,11 +85,11 @@ main {
 }
 
 .principal {
-    flex: 80%;
+    flex: 85%;
 }
 
 aside {
-    flex: 20%;
+    flex: 15%;
 }
 
 .login label{
