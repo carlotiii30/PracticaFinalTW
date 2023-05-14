@@ -26,6 +26,7 @@ echo "Contador: " . $_SESSION['contador'];
     <form method="post">
         <button name="sumar">
             <img src="./Imagenes/verde.png">
+            <em>hola</em>
         </button>
     </form>
 
