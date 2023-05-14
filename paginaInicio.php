@@ -42,6 +42,7 @@ function seleccionado($n, $v)
 
     <div class="elegirIdioma">
         <!-- Seleccionar idioma -->
+        <img class="imgIdioma" src="./Imagenes/mundo_sf.png" alt="">
         <p> <?php echo $mensajes[$idioma]["Lenguaje"]; ?> </p>
         <form method="get" action="">
             <div class="entrada">
@@ -82,7 +83,7 @@ function seleccionado($n, $v)
     </nav>
 
     <main>
-        <section>
+        <section class="principal">
             <!-- Mostrar mensaje de bienvenida en el idioma seleccionado -->
             <h1>
                 <?php echo $mensajes[$idioma]["Bienvenida"]; ?>
@@ -116,7 +117,7 @@ function seleccionado($n, $v)
     </main>
 
     <footer>
-        <p> Trabajo final de Tecnologías Web. (c) Carlota de la Vega Soriano y Manuel Vico Arboledas </p>
+        <p> Trabajo final de Tecnologías Web. &copy; Carlota de la Vega Soriano y Manuel Vico Arboledas </p>
     </footer>
 </body>
 
