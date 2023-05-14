@@ -94,14 +94,27 @@ main {
 
 .principal {
     flex: 85%;
+    margin: 5px 20px 5px 10px;
+    padding: 0 5% 0 15px;
+    background-color: rgb(243, 224, 245);
 }
 
 aside {
     flex: 15%;
 }
 
+aside form {
+    border-bottom: 1px solid black;
+    padding-bottom: 10px;
+
+}
+
 .login label{
     display: block;
+}
+
+aside .botones{
+    padding-top: 10px;
 }
 
 /* - - PIE DE PÁGINA - - */
