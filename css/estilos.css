@@ -2,7 +2,7 @@
 
 /* - - PRE-CABECERA - - */
 .elegirIdioma {
-    background-color: rgb(216, 191, 216);
+    background-color: rgb(172, 134, 172);
     width: 100%;
     margin: auto;
     display: flex;
@@ -11,8 +11,8 @@
 }
 
 .elegirIdioma img{
-    width: 30px;
-    height: 30px;
+    width: 27px;
+    height: 27px;
     padding: 10px;
 }
 
@@ -33,19 +33,21 @@
     background-color: rgb(185, 140, 185);
     display: flex;
     align-items: flex-end;
-    /* alinea la imagen abajo */
     text-align: center;
-    /* alinea el texto al centro */
 }
 
 .cabecera h1 {
-    font-size: 250%;
-    padding-left: 35%;
-    padding-right: 35%;
+    font-size: 350%;
+    text-shadow: 7px 4px 5px blueviolet;
+    font-family: 'Goudy Old Style', 'Garamond', 'Hoefler Text', 'Bitstream Charter', 'Georgia', serif;
+    color: whitesmoke;
+    padding-left: 30%;
+    padding-right: 30%;
 }
 
 .cabecera img {
-    width: 10%;
+    padding-left: 20px;
+    width: 150px;
 }
 
 /* - - MENU NAVEGACION - - */
@@ -111,4 +113,5 @@ footer {
     height: 40px;
     color: white;
     left: 0;
+    text-align: center;
 }
