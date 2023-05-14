@@ -4,10 +4,19 @@
     margin: auto;
     display: flex;
     color: white;
+    align-items: center;
 }
 
-.elegirIdioma .botones {
+.elegirIdioma .entrada {
     display: inline-block;
+    vertical-align: middle;
+    margin: 10px;
+}
+
+.elegirIdioma .botones{
+    display: inline-block;
+    vertical-align: middle;
+    
 }
 
 .cabecera {
@@ -75,6 +84,10 @@ main {
 
 aside {
     flex: 20%;
+}
+
+.login label{
+    display: block;
 }
 
 footer {
