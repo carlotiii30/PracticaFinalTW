@@ -1,3 +1,6 @@
+/* - - - - - - PAGINA INICIO - - - - - - */
+
+/* - - PRE-CABECERA - - */
 .elegirIdioma {
     background-color: rgb(216, 191, 216);
     width: 100%;
@@ -25,6 +28,7 @@
     
 }
 
+/* - - CABECERA - - */
 .cabecera {
     background-color: rgb(185, 140, 185);
     display: flex;
@@ -44,6 +48,7 @@
     width: 10%;
 }
 
+/* - - MENU NAVEGACION - - */
 .menu ul {
     list-style-type: none;
     margin: 0;
@@ -79,6 +84,7 @@
     background-color: rgb(185, 140, 185);
 }
 
+/* - - PARTE CENTRAL - - */
 main {
     display: flex;
     padding-top: 10px;
@@ -96,6 +102,7 @@ aside {
     display: block;
 }
 
+/* - - PIE DE PÁGINA - - */
 footer {
     background-color: rgb(46, 45, 45);
     position: absolute;
@@ -104,6 +111,4 @@ footer {
     height: 40px;
     color: white;
     left: 0;
-    
-
 }

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+	<meta charset="UTF-8">
+	<title> Página de registro </title>
+	<link rel="stylesheet" href="./css/estilos.css">
+    <link rel="stylesheet" href="./css/registro.css">
+</head>
+
+<body>
+	<div class="registro">
+		<h1>Datos del usuario</h1>
+		<form method="post" action="">
+			<div class="subform">
+				<h1>Identificación</h1>
+				<div class="datos">
+					<div class="entrada">
+						<label for="nombre">Nombre</label>
+						<input name="nombre" value="" />
+					</div>
+					<div class="entrada">
+						<label for="apellidos">Apellidos</label>
+						<input name="apellidos" value="" />
+					</div>
+					<div class="entrada">
+						<label for="dni">DNI</label>
+						<input name="dni" value="" />
+					</div>
+				</div>
+				<div class="ayuda">
+					<p>Datos identificativos del usuario. Aunque no son obligatorios, es conveniente que
+						nos los diga todos.</p>
+				</div>
+			</div>
+			<div class="subform">
+				<h1>Dirección postal</h1>
+				<div class="datos">
+					<div class="entrada">
+						<label for="provincia">Provincia</label>
+						<select name="provincia">
+							<option value="almeria">Almería</option>
+							<option value="granada" selected>Granada</option>
+							<option value="malaga">Málaga</option>
+						</select>
+					</div>
+					<div class="entrada">
+						<label for="poblacion">Poblacion</label>
+						<input name="poblacion" value="" />
+					</div>
+					<div class="entrada">
+						<label for="calle">Calle y número</label>
+						<input name="calle" value="" />
+					</div>
+				</div>
+				<div class="ayuda">
+					<p>Datos relacionados con su dirección postal.</p>
+				</div>
+			</div>
+			<div class="botones">
+				<input type="submit" value="Enviar datos">
+				<input type="reset" value="Borrar formulario">
+			</div>
+		</form>
+	</div>
+
+</body>
+
+</html>

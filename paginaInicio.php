@@ -35,7 +35,7 @@ function seleccionado($n, $v)
 <head>
     <meta charset="UTF-8">
     <title> Sal y quejate </title>
-    <link rel="stylesheet" href="estilos.css">
+    <link rel="stylesheet" href="./css/estilos.css">
 </head>
 
 <body>
@@ -110,7 +110,7 @@ function seleccionado($n, $v)
                 </div>
                 <div class="botones">
                     <input type="submit" name="Identificarse" <?php echo 'value="' . $mensajes[$idioma]["Identificarse"] . '"'; ?>>
-                    <a href="registrarse"></a>
+                    <a href="./registrarse.html"> <?php echo $mensajes[$idioma]["Registrarse"]; ?> </a>
                 </div>
             </form>
         </aside>

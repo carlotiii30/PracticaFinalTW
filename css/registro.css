@@ -1,0 +1,70 @@
+.registro {
+    border: 1px solid grey;
+    padding: 10px;
+}
+
+.registro h1 {
+    color: gray;
+}
+
+.subform:hover {
+    background-color:lightgrey;
+}
+
+.subform {
+    display: flex;
+    border: 1px solid lightgrey;
+    padding: 5px;
+    margin: 10px;
+}
+
+.subform h1 {
+    border: 1px solid lightgrey;
+    border-style:dotted;
+    border-top: white;
+    border-bottom: white;
+    border-left: white;
+    padding: 5px;
+    margin: 0px;
+    width: 20%;
+    text-align: right;
+}
+
+.registro .datos {
+    width: 65%;
+}
+
+.registro .entrada {
+    padding: 10px;
+}
+
+.entrada label {
+    display: block;
+    font-size: smaller;
+}
+
+.registro .entrada input, .registro .entrada select {
+    border: 1px solid lightgrey;
+    padding: 5px;
+    width: 100%;
+}
+
+.registro .ayuda {
+    display:none;
+    width: 10%;
+    margin: 0px 0px 0px 30px;
+}
+
+.subform:hover .ayuda {
+    display: block;
+    color: green;
+}
+
+.registro .botones {
+    text-align: center;
+    border: 1px solid lightgrey;
+    padding: 5px 10px;
+    width: 50%;
+    margin: auto;
+}
+
