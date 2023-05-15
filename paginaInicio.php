@@ -1,5 +1,4 @@
 <!-- PAGINA INICIAL -->
-<!-- probando ubuntu -->
 
 <?php
 
@@ -34,7 +33,7 @@ function seleccionado($n, $v)
 
 <head>
     <meta charset="UTF-8">
-    <title> Sal y quejate </title>
+    <title> Sal y quéjate </title>
     <link rel="stylesheet" href="./css/estilos.css">
 </head>
 
@@ -67,7 +66,7 @@ function seleccionado($n, $v)
     <header>
         <section class="cabecera">
             <img src="./Imagenes/SugQueRec.png" alt="">
-            <h1> SAL Y QUEJATE </h1>
+            <h1> SAL Y QUÉJATE </h1>
         </section>
     </header>
 
