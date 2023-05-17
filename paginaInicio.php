@@ -4,7 +4,7 @@
 <?php
 
 // - - - Cargamos los mensajes - - -
-$mensajes = json_decode(file_get_contents('traducciones.json'), true);
+$mensajes = json_decode(file_get_contents('./vista/traducciones/traducciones.json'), true);
 
 // - - - Comprobamos si el formulario se ha enviado - - -
 if (isset($_GET) and !empty($_GET)) {
@@ -35,14 +35,14 @@ function seleccionado($n, $v)
 <head>
     <meta charset="UTF-8">
     <title> Sal y quejate </title>
-    <link rel="stylesheet" href="./css/estilos.css">
+    <link rel="stylesheet" href="./vista/css/estilos.css">
 </head>
 
 <body>
 
     <div class="elegirIdioma">
         <!-- Seleccionar idioma -->
-        <img class="imgIdioma" src="./Imagenes/mundo_sf.png" alt="">
+        <img class="imgIdioma" src="./vista/imagenes/mundo_sf.png" alt="">
         <p> <?php echo $mensajes[$idioma]["Lenguaje"]; ?> </p>
         <form method="get" action="">
             <div class="entrada">
@@ -66,7 +66,7 @@ function seleccionado($n, $v)
 
     <header>
         <section class="cabecera">
-            <img src="./Imagenes/SugQueRec.png" alt="">
+            <img src="./vista/imagenes/SugQueRec.png" alt="">
             <h1> SAL Y QUEJATE </h1>
         </section>
     </header>
