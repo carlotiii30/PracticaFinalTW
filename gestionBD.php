@@ -60,16 +60,6 @@ include "codigoInicial.php";
 
     <main>
         <section class="principal">
-            <!-- Mostrar mensaje de bienvenida en el idioma seleccionado -->
-            <h1>
-                <?php echo $mensajes[$idioma]["Bienvenida"]; ?>
-            </h1>
-            <p>
-                <?php echo $mensajes[$idioma]["Inicio"]; ?>
-            </p>
-            <p>
-                <?php echo $mensajes[$idioma]["Informacion"]; ?>
-            </p>
         </section>
 
         <aside>
