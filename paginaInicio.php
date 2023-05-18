@@ -34,7 +34,7 @@ function seleccionado($n, $v)
 <head>
     <meta charset="UTF-8">
     <title> Sal y quéjate </title>
-    <link rel="stylesheet" href="./css/estilos.css">
+    <link rel="stylesheet" href="./vista/css/estilos.css">
 </head>
 
 <body>
@@ -65,7 +65,7 @@ function seleccionado($n, $v)
 
     <header>
         <section class="cabecera">
-            <img src="./Imagenes/SugQueRec.png" alt="">
+            <img src="./vista/imagenes/SugQueRec.png" alt="">
             <h1> SAL Y QUÉJATE </h1>
         </section>
     </header>
