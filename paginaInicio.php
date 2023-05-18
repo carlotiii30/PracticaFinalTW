@@ -1,8 +1,9 @@
 <!-- PAGINA INICIAL -->
+
 <?php
 
 // - - - Cargamos los mensajes - - -
-$mensajes = json_decode(file_get_contents('traducciones.json'), true);
+$mensajes = json_decode(file_get_contents('./vista/traducciones/traducciones.json'), true);
 
 // - - - Comprobamos si el formulario se ha enviado - - -
 if (isset($_GET) and !empty($_GET)) {
@@ -25,7 +26,6 @@ function seleccionado($n, $v)
     if (isset($_GET[$n]) and ($_GET[$n] == $v))
         echo 'selected';
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -33,14 +33,15 @@ function seleccionado($n, $v)
 
 <head>
     <meta charset="UTF-8">
-    <title> Sal y quejate </title>
-    <link rel="stylesheet" href="estilos.css">
+    <title> Sal y quéjate </title>
+    <link rel="stylesheet" href="./css/estilos.css">
 </head>
 
 <body>
 
-    <div class="ElegirIdioma">
+    <div class="elegirIdioma">
         <!-- Seleccionar idioma -->
+        <img class="imgIdioma" src="./vista/imagenes/mundo_sf.png" alt="">
         <p> <?php echo $mensajes[$idioma]["Lenguaje"]; ?> </p>
         <form method="get" action="">
             <div class="entrada">
@@ -65,13 +66,13 @@ function seleccionado($n, $v)
     <header>
         <section class="cabecera">
             <img src="./Imagenes/SugQueRec.png" alt="">
-            <h1> Sal y quejate </h1>
+            <h1> SAL Y QUÉJATE </h1>
         </section>
     </header>
 
     <nav class="menu">
         <ul>
-            <li> <a href="#"> <?php echo $mensajes[$idioma]["VerIncidencias"]; ?> </a> </li>
+            <li> <a href="#" class="activo"> <?php echo $mensajes[$idioma]["VerIncidencias"]; ?> </a> </li>
             <li> <a href="#"> <?php echo $mensajes[$idioma]["NuevaIncidencia"]; ?> </a> </li>
             <li> <a href="#"> <?php echo $mensajes[$idioma]["MisIncidencias"]; ?> </a> </li>
             <li> <a href="#"> <?php echo $mensajes[$idioma]["GestionUsuarios"]; ?> </a> </li>
@@ -81,7 +82,7 @@ function seleccionado($n, $v)
     </nav>
 
     <main>
-        <section>
+        <section class="principal">
             <!-- Mostrar mensaje de bienvenida en el idioma seleccionado -->
             <h1>
                 <?php echo $mensajes[$idioma]["Bienvenida"]; ?>
@@ -108,14 +109,14 @@ function seleccionado($n, $v)
                 </div>
                 <div class="botones">
                     <input type="submit" name="Identificarse" <?php echo 'value="' . $mensajes[$idioma]["Identificarse"] . '"'; ?>>
-                    <a href="registrarse"></a>
+                    <a href="./registrarse.html"> <?php echo $mensajes[$idioma]["Registrarse"]; ?> </a>
                 </div>
             </form>
         </aside>
     </main>
 
     <footer>
-        <p></p>
+        <p> Trabajo final de Tecnologías Web. &copy; Carlota de la Vega Soriano y Manuel Vico Arboledas </p>
     </footer>
 </body>
 
