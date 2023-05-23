@@ -5,56 +5,60 @@
 	<meta charset="UTF-8">
 	<title> Página de registro </title>
 	<link rel="stylesheet" href="./vista/css/estilos.css">
-    <link rel="stylesheet" href="./vista/css/registro.css">
+	<link rel="stylesheet" href="./vista/css/registro.css">
 </head>
 
 <body>
 	<div class="registro">
 		<h1>Datos del usuario</h1>
-		<form method="post" action="">
+		<form method="post" action="procesarRegistro.php">
 			<div class="subform">
-				<h1>Identificación</h1>
+				<h1>Datos personales</h1>
 				<div class="datos">
 					<div class="entrada">
 						<label for="nombre">Nombre</label>
-						<input name="nombre" value="" />
+						<input name="nombre" value="" required />
 					</div>
 					<div class="entrada">
 						<label for="apellidos">Apellidos</label>
-						<input name="apellidos" value="" />
+						<input name="apellidos" value="" required />
 					</div>
 					<div class="entrada">
-						<label for="dni">DNI</label>
-						<input name="dni" value="" />
+						<label for="telefono">Teléfono</label>
+						<input name="telefono" value="" required />
 					</div>
 				</div>
 				<div class="ayuda">
-					<p>Datos identificativos del usuario. Aunque no son obligatorios, es conveniente que
-						nos los diga todos.</p>
+					<p> Datos personales del usuario. Son obligatorios.</p>
 				</div>
 			</div>
 			<div class="subform">
 				<h1>Dirección postal</h1>
 				<div class="datos">
 					<div class="entrada">
-						<label for="provincia">Provincia</label>
-						<select name="provincia">
-							<option value="almeria">Almería</option>
-							<option value="granada" selected>Granada</option>
-							<option value="malaga">Málaga</option>
-						</select>
-					</div>
-					<div class="entrada">
-						<label for="poblacion">Poblacion</label>
-						<input name="poblacion" value="" />
-					</div>
-					<div class="entrada">
-						<label for="calle">Calle y número</label>
-						<input name="calle" value="" />
+						<label for="direccion">Dirección</label>
+						<input name="direccion" value="" />
 					</div>
 				</div>
 				<div class="ayuda">
-					<p>Datos relacionados con su dirección postal.</p>
+					<p>Datos relacionados con su dirección. Así podemos cerciorar que es un vecino de la
+						comunidad. Son obligatorios.</p>
+				</div>
+			</div>
+			<div class="subform">
+				<h1>Inicio sesión</h1>
+				<div class="datos">
+					<div class="entrada">
+						<label for="email">Email</label>
+						<input name="email" value="" />
+					</div>
+					<div class="entrada">
+						<label for="contraseña">Contraseña</label>
+						<input name="contraseña" value="" />
+					</div>
+				</div>
+				<div class="ayuda">
+					<p>Datos para iniciar sesión. Son obligatorios.</p>
 				</div>
 			</div>
 			<div class="botones">
