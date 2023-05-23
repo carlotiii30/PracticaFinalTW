@@ -1,4 +1,3 @@
-
 <?php
 
 // - - - - Guardamos la URL de la página actual - - - -

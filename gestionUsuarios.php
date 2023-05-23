@@ -1,51 +1,6 @@
-<!-- PAGINA INICIAL -->
 <?php
-include "codigoInicial.php";
+include "cabecera.html";
 ?>
-
-<!DOCTYPE html>
-<html lang="es">
-
-<head>
-    <meta charset="UTF-8">
-    <title> Sal y quéjate </title>
-    <link rel="stylesheet" href="./vista/css/estilos.css">
-</head>
-
-<body>
-
-    <div class="elegirIdioma">
-        <!-- Seleccionar idioma -->
-        <img class="imgIdioma" src="./vista/imagenes/mundo_sf.png" alt="">
-        <p>
-            <?php echo $mensajes[$idioma]["Lenguaje"]; ?>
-        </p>
-        <form method="get" action="">
-            <div class="entrada">
-                <select name="idioma">
-                    <option value="es" <?php seleccionado("idioma", "es") ?>>
-                        <?php echo $mensajes[$idioma]["Espanol"]; ?>
-                    </option>
-                    <option value="en" <?php seleccionado("idioma", "en") ?>>
-                        <?php echo $mensajes[$idioma]["Ingles"]; ?>
-                    </option>
-                    <option value="fr" <?php seleccionado("idioma", "fr") ?>>
-                        <?php echo $mensajes[$idioma]["Frances"]; ?>
-                    </option>
-                </select>
-            </div>
-            <div class="botones">
-                <input type="submit" name="aplicar" <?php echo 'value="' . $mensajes[$idioma]["Aplicar"] . '"'; ?>>
-            </div>
-        </form>
-    </div>
-
-    <header>
-        <section class="cabecera">
-            <img src="./vista/imagenes/SugQueRec.png" alt="">
-            <h1> SAL Y QUÉJATE </h1>
-        </section>
-    </header>
 
     <nav class="menu">
         <ul>
@@ -88,9 +43,7 @@ include "codigoInicial.php";
         </aside>
     </main>
 
-    <footer>
-        <p> Trabajo final de Tecnologías Web. &copy; Carlota de la Vega Soriano y Manuel Vico Arboledas </p>
-    </footer>
+    <?php include "piePagina.html"; ?>
 </body>
 
 </html>
