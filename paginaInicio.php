@@ -45,7 +45,7 @@ include "cabecera.html";
             </div>
             <div class="botones">
                 <input type="submit" name="Identificarse" <?php echo 'value="' . $mensajes[$idioma]["Identificarse"] . '"'; ?>>
-                <a href="./registrarse.html">
+                <a href="./registrarse.php">
                     <?php echo $mensajes[$idioma]["Registrarse"]; ?>
                 </a>
             </div>

@@ -1,3 +1,19 @@
+<?php 
+
+function valor($n)
+{
+	if (!empty($_COOKIE[$n]))
+		echo 'value="' . $_COOKIE[$n] . '"';
+}
+
+function mostrarErrores($error)
+{
+	if (!empty($_COOKIE[$error]))
+		echo '<p class="error">' . $_COOKIE[$error] . '</p>';
+} 
+
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -17,15 +33,18 @@
 				<div class="datos">
 					<div class="entrada">
 						<label for="nombre">Nombre</label>
-						<input name="nombre" value="" required />
+						<input name="nombre" <?php valor('nombre'); ?> />
+						<?php mostrarErrores('errorNombre'); ?>
 					</div>
 					<div class="entrada">
 						<label for="apellidos">Apellidos</label>
-						<input name="apellidos" value="" required />
+						<input name="apellidos" <?php valor('apellidos'); ?> />
+						<?php mostrarErrores('errorApellidos'); ?>
 					</div>
 					<div class="entrada">
 						<label for="telefono">Teléfono</label>
-						<input name="telefono" value="" required />
+						<input name="telefono" <?php valor('telefono'); ?> />
+						<?php mostrarErrores('errorTelefono'); ?>
 					</div>
 				</div>
 				<div class="ayuda">
@@ -37,7 +56,8 @@
 				<div class="datos">
 					<div class="entrada">
 						<label for="direccion">Dirección</label>
-						<input name="direccion" value="" />
+						<input name="direccion" <?php valor('direccion'); ?> />
+						<?php mostrarErrores('errorDireccion'); ?>
 					</div>
 				</div>
 				<div class="ayuda">
@@ -50,11 +70,13 @@
 				<div class="datos">
 					<div class="entrada">
 						<label for="email">Email</label>
-						<input name="email" value="" />
+						<input name="email" <?php valor('email'); ?> />
+						<?php mostrarErrores('errorEmail'); ?>
 					</div>
 					<div class="entrada">
 						<label for="contraseña">Contraseña</label>
-						<input name="contraseña" value="" />
+						<input name="contraseña" <?php valor('contraseña'); ?> />
+						<?php mostrarErrores('errorContraseña'); ?>
 					</div>
 				</div>
 				<div class="ayuda">
