@@ -68,3 +68,7 @@
     margin: auto;
 }
 
+.registro .error {
+    color: red;
+}
+
