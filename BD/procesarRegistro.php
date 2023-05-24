@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (count($errores) === 0) {
 
         // Conexión
-        $db = new mysqli($host, $admin, $clave, $bbdd);
+        $db = new mysqli(host, admin, clave, bbdd);
 
         if ($db) {
             // Crear usuario

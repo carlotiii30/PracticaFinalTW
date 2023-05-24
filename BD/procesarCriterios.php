@@ -2,7 +2,7 @@
 // Datos de la conexión
 require_once('credenciales.php');
 
-$db = new mysqli($host, $admin, $clave, $bbdd);
+$db = new mysqli(host, admin, clave, bbdd);
 
 if ($db) {
     // Procesar los datos del formulario
@@ -11,9 +11,9 @@ if ($db) {
         $ordenar = $_POST['ordenar'];
 
         // Realizar la consulta en la base de datos según los criterios de búsqueda
-        $sql = "SELECT * FROM tabla_datos ORDER BY ";
+        $sql = "SELECT * FROM incidencias ORDER BY ";
         if ($ordenar === "Antiguedad") {
-            $sql .= "fecha_creacion";
+            $sql .= "fecha DESC";
         } elseif ($ordenar === "Mg") {
             $sql .= "me_gustas";
         } elseif ($ordenar === "NoMg") {
@@ -21,18 +21,26 @@ if ($db) {
         }
 
         // Mostrar los resultados de la consulta
-        if ($db->query($sql)->num_rows > 0) {
-            while ($row = $db->query($sql)->fetch_assoc()) {
+        $result = $db->query($sql);
+        if ($result && $result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
                 // Mostrar los datos obtenidos según tus necesidades
                 echo "ID: " . $row["id"] . "<br>";
                 echo "Título: " . $row["titulo"] . "<br>";
-                // ...
+                echo "Descripción: " . $row["descripcion"] . "<br>";
+                echo "Fecha: " . $row["fecha"] . "<br>";
+                echo "Lugar: " . $row["lugar"] . "<br>";
+                echo "Palabras clave: " . $row["keywords"] . "<br>";
+                echo "ID Usuario: " . $row["idusuario"] . "<br>";
+                echo "Estado: " . $row["estado"] . "<br>";
+                echo "<br>";
             }
         } else {
             echo "No se encontraron resultados.";
         }
 
-        // Cerrar la conexión con la base de datos
+        // Liberar el resultado y cerrar la conexión con la base de datos
+        $result->free();
         mysqli_close($db);
     }
 }

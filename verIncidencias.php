@@ -16,7 +16,7 @@ $mensajes = json_decode(file_get_contents('./vista/traducciones/formularioCriter
     <h1>
         <?php echo $mensajes[$idioma]["Titulo"]; ?>
     </h1>
-    <form method="post" action="procesarCriterios.php">
+    <form method="post" action="./BD/procesarCriterios.php">
         <h1>
             <?php echo $mensajes[$idioma]["Criterios"]; ?>
         </h1>
