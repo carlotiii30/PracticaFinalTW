@@ -13,19 +13,19 @@ if ($db) {
 	echo "<p>Conexión con éxito</p>";
 
 	// Borrar tabla anterior si existe
-	$sql = "DROP TABLE IF EXISTS usuarios";
+	//$sql = "DROP TABLE IF EXISTS usuarios";
 
 	// Ejecutar la consulta
-	if ($db->query($sql) === TRUE) {
+	/*if ($db->query($sql) === TRUE) {
 		echo "Tabla anterior eliminada";
 	} else {
 		echo "Error al eliminar tabla anterior: " . $db->error;
 		exit;
-	}
+	}*/
 
 	// Crear la tabla con la columna de foto
-	$sql = "CREATE TABLE usuarios (
-            id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+	/*$sql = "CREATE TABLE usuarios (
+            id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
             nombre VARCHAR(50) DEFAULT NULL,
             apellidos VARCHAR(100) DEFAULT NULL,
             email VARCHAR(100) DEFAULT NULL,
@@ -35,6 +35,17 @@ if ($db) {
             estado CHAR(30) DEFAULT NULL,
             rol VARCHAR(15) DEFAULT NULL,
             foto LONGBLOB
+            )";*/
+	
+	$sql = "CREATE TABLE incidencias (
+			id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+            titulo VARCHAR(50) DEFAULT NULL,
+            descripcion text DEFAULT NULL,
+            fecha datetime DEFAULT NULL,
+            lugar VARCHAR(50) DEFAULT NULL,
+            keywords VARCHAR(30) DEFAULT NULL,
+            idusuario INT(10) DEFAULT NULL,
+            estado CHAR(30) DEFAULT NULL,
             )";
 
 	// Ejecutar la consulta

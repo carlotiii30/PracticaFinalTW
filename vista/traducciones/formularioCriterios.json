@@ -1,0 +1,73 @@
+{
+    "es": {
+        "Titulo": "Listado de incidencias",
+
+        "Criterios": "Criterios de búsqueda", 
+
+        "Ordenar": "Ordenar por",
+        "Antiguedad": "Antigüedad (primero la más reciente)",
+        "MeGustas": "Número de me gustas (de más a menos)",
+        "NoMeGustas": "Número total de me gustas (incluye no me gustas)",
+
+        "Incidencias": "Incidencias que contengan",
+        "Texto": "Texto de búsqueda",
+        "Lugar": "Lugar",
+
+        "Estado": "Estado",
+        "Pendiente": "Pendiente",
+        "Comprobada": "Comprobada",
+        "Tramitada": "Tramitada",
+        "Irresoluble": "Irresoluble",
+        "Resuelta": "Resuelta",
+
+        "Aplicar": "Aplicar criterios de búsqueda"
+    },
+
+    "en": {
+        "Titulo": "Listado de incidencias",
+
+        "Criterios": "Criterios de búsqueda", 
+
+        "Ordenar": "Ordenar por",
+        "Antiguedad": "Antigüedad (primero la más reciente)",
+        "MeGustas": "Número de me gustas (de más a menos)",
+        "NoMeGustas": "Número total de me gustas (incluye no me gustas)",
+
+        "Incidencias": "Incidencias que contengan",
+        "Texto": "Texto de búsqueda",
+        "Lugar": "Lugar",
+
+        "Estado": "Estado",
+        "Pendiente": "Pendiente",
+        "Comprobada": "Comprobada",
+        "Tramitada": "Tramitada",
+        "Irresoluble": "Irresoluble",
+        "Resuelta": "Resuelta",
+
+        "Aplicar": "Aplicar criterios de búsqueda"
+    },
+
+    "fr": {
+        "Titulo": "Listado de incidencias",
+
+        "Criterios": "Criterios de búsqueda", 
+
+        "Ordenar": "Ordenar por",
+        "Antiguedad": "Antigüedad (primero la más reciente)",
+        "MeGustas": "Número de me gustas (de más a menos)",
+        "NoMeGustas": "Número total de me gustas (incluye no me gustas)",
+
+        "Incidencias": "Incidencias que contengan",
+        "Texto": "Texto de búsqueda",
+        "Lugar": "Lugar",
+
+        "Estado": "Estado",
+        "Pendiente": "Pendiente",
+        "Comprobada": "Comprobada",
+        "Tramitada": "Tramitada",
+        "Irresoluble": "Irresoluble",
+        "Resuelta": "Resuelta",
+
+        "Aplicar": "Aplicar criterios de búsqueda"
+    }
+}

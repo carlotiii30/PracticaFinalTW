@@ -173,7 +173,7 @@ function htmlAside($login){
                 </div>
                 <div class="botones">
                     <input type="submit" name="Identificarse" value="{$mensajes[$idioma]["Identificarse"]}">
-                    <a href="./registrarse.php">
+                    <a href="./registrarUsuario.php">
                         {$mensajes[$idioma]["Registrarse"]}
                     </a>
                 </div>

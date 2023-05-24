@@ -1,9 +1,6 @@
 <?php
 // Datos de la conexión
-$host = "localhost";
-$admin = "carlotadlavega2223";
-$clave = "nQ69ZPy3";
-$bbdd = "carlotadlavega2223";
+require_once('credenciales.php');
 
 // Datos del formulario
 
@@ -77,12 +74,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
     } else {
-        include('registrarse.php');
+        include('registrarUsuario.php');
     }
 
 } else {
     // Si se accede directamente a este archivo sin enviar el formulario, redirige al formulario.php
-    header("Location: registrarse.php");
+    header("Location: registrarUsuario.php");
     exit;
 }
 ?>

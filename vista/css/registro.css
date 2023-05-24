@@ -8,7 +8,11 @@
 }
 
 .subform:hover {
-    background-color:lightgrey;
+    background-color: rgba(196, 167, 196, 0.844);
+}
+
+.subform:hover h1 {
+    color: rgb(46, 45, 45);
 }
 
 .subform {
@@ -27,7 +31,6 @@
     padding: 5px;
     margin: 0px;
     width: 20%;
-    text-align: right;
 }
 
 .registro .datos {
@@ -57,7 +60,7 @@
 
 .subform:hover .ayuda {
     display: block;
-    color: green;
+    color: rgb(82, 15, 163);
 }
 
 .registro .botones {

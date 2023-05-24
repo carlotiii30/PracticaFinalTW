@@ -1,0 +1,58 @@
+{
+    "es": {
+        "DatosGeneral": "Datos del usuario",
+
+        "DatosPersonales": "Datos personales", 
+        "Nombre": "Nombre",
+        "Apellidos": "Apellidos",
+        "Telefono": "Teléfono",
+        "Direccion": "Dirección",
+        "AyudaPersonales": "Datos personales del usuario. Son obligatorios.",
+
+        "DatosSesion": "Datos inicio de sesión",
+        "Email": "Correo electrónico",
+        "Contrasenia": "Contraseña",
+        "AyudaSesion": "Datos para iniciar sesión. Son obligatorios.",
+
+        "Enviar": "Enviar formulario",
+        "Borrar": "Borrar formulario"
+    },
+
+    "en": {
+        "DatosGeneral": "User data",
+
+        "DatosPersonales": "Personal information", 
+        "Nombre": "Name",
+        "Apellidos": "Surname",
+        "Telefono": "Phone number",
+        "Direccion": "Address",
+        "AyudaPersonales": "User's personal data. They are mandatory.",
+
+        "DatosSesion": "Login data",
+        "Email": "Email",
+        "Contrasenia": "Password",
+        "AyudaSesion": "Data to log in. They are mandatory.",
+
+        "Enviar": "Submit form",
+        "Borrar": "Reset form"
+    },
+
+    "fr": {
+        "DatosGeneral": "Données d'utilisateur",
+
+        "DatosPersonales": "Informations personnelles", 
+        "Nombre": "Prénom",
+        "Apellidos": "Nom",
+        "Telefono": "Téléphone",
+        "Direccion": "Adresse",
+        "AyudaPersonales": "Données personnelles de l'utilisateur. Elles sont obligatoires.",
+
+        "DatosSesion": "Données de connexion",
+        "Email": "Émail",
+        "Contrasenia": "Mot de passe",
+        "AyudaSesion": "Données pour se connecter. Elles sont obligatoires.",
+
+        "Enviar": "Soumettre le formulaire",
+        "Borrar": "Supprimer le formulaire"
+    }
+}
