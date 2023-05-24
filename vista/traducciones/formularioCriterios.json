@@ -24,50 +24,50 @@
     },
 
     "en": {
-        "Titulo": "Listado de incidencias",
+        "Titulo": "List of complaints",
 
-        "Criterios": "Criterios de búsqueda", 
+        "Criterios": "Search criteria", 
 
-        "Ordenar": "Ordenar por",
-        "Antiguedad": "Antigüedad (primero la más reciente)",
-        "MeGustas": "Número de me gustas (de más a menos)",
-        "NoMeGustas": "Número total de me gustas (incluye no me gustas)",
+        "Ordenar": "Sort by",
+        "Antiguedad": "Antiquity (most recent first)",
+        "MeGustas": "Number of likes (of more less)",
+        "NoMeGustas": "Total number of likes (includes dislikes)",
 
-        "Incidencias": "Incidencias que contengan",
-        "Texto": "Texto de búsqueda",
-        "Lugar": "Lugar",
+        "Incidencias": "Complaints containing",
+        "Texto": "Search text",
+        "Lugar": "Place",
 
-        "Estado": "Estado",
-        "Pendiente": "Pendiente",
-        "Comprobada": "Comprobada",
-        "Tramitada": "Tramitada",
-        "Irresoluble": "Irresoluble",
-        "Resuelta": "Resuelta",
+        "Estado": "Status",
+        "Pendiente": "Pending",
+        "Comprobada": "Checked",
+        "Tramitada": "Processed",
+        "Irresoluble": "Irresolvable",
+        "Resuelta": "Solved",
 
-        "Aplicar": "Aplicar criterios de búsqueda"
+        "Aplicar": "Apply search criteria"
     },
 
     "fr": {
-        "Titulo": "Listado de incidencias",
+        "Titulo": "Liste des plaintes",
 
-        "Criterios": "Criterios de búsqueda", 
+        "Criterios": "Critères de recherche", 
 
-        "Ordenar": "Ordenar por",
-        "Antiguedad": "Antigüedad (primero la más reciente)",
-        "MeGustas": "Número de me gustas (de más a menos)",
-        "NoMeGustas": "Número total de me gustas (incluye no me gustas)",
+        "Ordenar": "Trier par",
+        "Antiguedad": "Antiquité (le plus récent d'abord)",
+        "MeGustas": "Nombre de likes (de plus moins)",
+        "NoMeGustas": "Nombre total de likes (inclut les aversions)",
 
-        "Incidencias": "Incidencias que contengan",
-        "Texto": "Texto de búsqueda",
-        "Lugar": "Lugar",
+        "Incidencias": "Plaintes contenant",
+        "Texto": "Texte de recherche",
+        "Lugar": "Lieu",
 
-        "Estado": "Estado",
-        "Pendiente": "Pendiente",
-        "Comprobada": "Comprobada",
-        "Tramitada": "Tramitada",
-        "Irresoluble": "Irresoluble",
-        "Resuelta": "Resuelta",
+        "Estado": "État",
+        "Pendiente": "En attendant",
+        "Comprobada": "Éprouvé",
+        "Tramitada": "Traité",
+        "Irresoluble": "Insoluble",
+        "Resuelta": "Résolu",
 
-        "Aplicar": "Aplicar criterios de búsqueda"
+        "Aplicar": "Appliquer les critères de recherche"
     }
 }

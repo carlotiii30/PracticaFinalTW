@@ -1,0 +1,40 @@
+{
+    "es": {
+        "Nueva": "Nueva incidencia",
+
+        "Datos": "Datos principales", 
+
+        "Titulo": "Titulo",
+        "Descripcion": "Descripcion",
+        "Lugar": "Lugar",
+        "PalabrasClave": "Palabras clave",
+
+        "Enviar": "Enviar datos"
+    },
+
+    "en": {
+        "Nueva": "New complaint",
+
+        "Datos": "Main data", 
+
+        "Titulo": "Title",
+        "Descripcion": "Description",
+        "Lugar": "Place",
+        "PalabrasClave": "Keywords",
+
+        "Enviar": "Submit data"
+    },
+
+    "fr": {
+        "Nueva": "Nueva incidencia",
+
+        "Datos": "Donnée principale", 
+
+        "Titulo": "Titre",
+        "Descripcion": "Description",
+        "Lugar": "Lieu",
+        "PalabrasClave": "Mots-clés",
+
+        "Enviar": "Soumettre des données"
+    }
+}
