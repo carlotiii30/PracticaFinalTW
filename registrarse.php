@@ -1,19 +1,3 @@
-<?php 
-
-function valor($n)
-{
-	if (!empty($_COOKIE[$n]))
-		echo 'value="' . $_COOKIE[$n] . '"';
-}
-
-function mostrarErrores($error)
-{
-	if (!empty($_COOKIE[$error]))
-		echo '<p class="error">' . $_COOKIE[$error] . '</p>';
-} 
-
-?>
-
 <!DOCTYPE html>
 <html lang="es">
 
@@ -33,18 +17,30 @@ function mostrarErrores($error)
 				<div class="datos">
 					<div class="entrada">
 						<label for="nombre">Nombre</label>
-						<input name="nombre" <?php valor('nombre'); ?> />
-						<?php mostrarErrores('errorNombre'); ?>
+						<input name="nombre" value="<?php echo isset($_POST['nombre']) ? $_POST['nombre'] : ''; ?>">
+						<?php if (isset($errores['nombre'])) { ?>
+							<p class="error">
+								<?php echo $errores['nombre']; ?>
+							</p>
+						<?php } ?>
 					</div>
 					<div class="entrada">
 						<label for="apellidos">Apellidos</label>
-						<input name="apellidos" <?php valor('apellidos'); ?> />
-						<?php mostrarErrores('errorApellidos'); ?>
+						<input name="apellidos" value="<?php echo isset($_POST['apellidos']) ? $_POST['apellidos'] : ''; ?>">
+						<?php if (isset($errores['apellidos'])) { ?>
+							<p class="error">
+								<?php echo $errores['apellidos']; ?>
+							</p>
+						<?php } ?>
 					</div>
 					<div class="entrada">
 						<label for="telefono">Teléfono</label>
-						<input name="telefono" <?php valor('telefono'); ?> />
-						<?php mostrarErrores('errorTelefono'); ?>
+						<input name="telefono" value="<?php echo isset($_POST['telefono']) ? $_POST['telefono'] : ''; ?>">
+						<?php if (isset($errores['telefono'])) { ?>
+							<p class="error">
+								<?php echo $errores['telefono']; ?>
+							</p>
+						<?php } ?>
 					</div>
 				</div>
 				<div class="ayuda">
@@ -56,8 +52,12 @@ function mostrarErrores($error)
 				<div class="datos">
 					<div class="entrada">
 						<label for="direccion">Dirección</label>
-						<input name="direccion" <?php valor('direccion'); ?> />
-						<?php mostrarErrores('errorDireccion'); ?>
+						<input name="direccion" value="<?php echo isset($_POST['direccion']) ? $_POST['direccion'] : ''; ?>">
+						<?php if (isset($errores['direccion'])) { ?>
+							<p class="error">
+								<?php echo $errores['direccion']; ?>
+							</p>
+						<?php } ?>
 					</div>
 				</div>
 				<div class="ayuda">
@@ -70,13 +70,21 @@ function mostrarErrores($error)
 				<div class="datos">
 					<div class="entrada">
 						<label for="email">Email</label>
-						<input name="email" <?php valor('email'); ?> />
-						<?php mostrarErrores('errorEmail'); ?>
+						<input name="email" value="<?php echo isset($_POST['email']) ? $_POST['email'] : ''; ?>">
+						<?php if (isset($errores['email'])) { ?>
+							<p class="error">
+								<?php echo $errores['email']; ?>
+							</p>
+						<?php } ?>
 					</div>
 					<div class="entrada">
 						<label for="contraseña">Contraseña</label>
-						<input name="contraseña" <?php valor('contraseña'); ?> />
-						<?php mostrarErrores('errorContraseña'); ?>
+						<input name="contraseña" value="<?php echo isset($_POST['contraseña']) ? $_POST['contraseña'] : ''; ?>">
+						<?php if (isset($errores['contraseña'])) { ?>
+							<p class="error">
+								<?php echo $errores['contraseña']; ?>
+							</p>
+						<?php } ?>
 					</div>
 				</div>
 				<div class="ayuda">

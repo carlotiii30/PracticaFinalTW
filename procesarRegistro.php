@@ -8,107 +8,81 @@ $bbdd = "carlotadlavega2223";
 // Datos del formulario
 
 // - - - Comprobamos los datos recibidos - - - 
-if (isset($_POST['nombre'])) {
-    $nombre = strip_tags($_POST['nombre']);
-    htmlentities($nombre, ENT_QUOTES);
-}
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $nombre = isset($_POST['nombre']) ? $_POST['nombre'] : '';
+    $apellidos = isset($_POST['apellidos']) ? $_POST['apellidos'] : '';
+    $email = isset($_POST['email']) ? $_POST['email'] : '';
+    $contraseña = isset($_POST['contraseña']) ? $_POST['contraseña'] : '';
+    $telefono = isset($_POST['telefono']) ? $_POST['telefono'] : '';
+    $direccion = isset($_POST['direccion']) ? $_POST['direccion'] : '';
 
-if (isset($_POST['apellidos'])) {
-    $apellidos = strip_tags($_POST['apellidos']);
-}
+    // Array para almacenar los errores que pueda haber.
+    $errores = array();
 
-if (isset($_POST['email']))
-    $email = $_POST['email'];
+    // - - - Validamos los datos - - - 
+    if (empty($nombre)) {
+        $errores['nombre'] = "El nombre no puede estar vacío";
+    }
+    if (empty($apellidos)) {
+        $errores['apellidos'] = "El apellido no puede estar vacío";
+    }
 
-if (isset($_POST['contraseña']))
-    $contraseña = password_hash($_POST['contraseña'], PASSWORD_DEFAULT);
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $errores['email'] = "El email no es correcto";
+    }
 
-if (isset($_POST['telefono']))
-    $telefono = $_POST['telefono'];
+    if (empty($contraseña)) {
+        $errores['contraseña'] = "La contraseña no puede estar vacía";
+    }
 
-if (isset($_POST['direccion']))
-    $direccion = $_POST['direccion'];
+    if (!preg_match("/^[0-9]{9}$/", $telefono)) {
+        $errores['telefono'] = "El teléfono no es correcto";
+    }
 
-// Array para almacenar los errores que pueda haber.
-$errores = array();
+    if (empty($direccion)) {
+        $errores['direccion'] = "La dirección no puede estar vacía";
+    }
 
-// - - - Validamos los datos - - - 
-if (empty($nombre)) {
-    $errores['nombre'] = "El nombre no puede estar vacío";
-    setcookie('errorNombre', $errores['nombre']);
-} else
-    setcookie('nombre', $nombre);
+    // Si no hay errores, procesamos los datos.
+    if (count($errores) === 0) {
 
-if (empty($apellidos)) {
-    $errores['apellidos'] = "El apellido no puede estar vacío";
-    setcookie('errorApellidos', $errores['apellidos']);
-} else
-    setcookie('apellidos', $apellidos);
+        // Conexión
+        $db = new mysqli($host, $admin, $clave, $bbdd);
 
-if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    $errores['email'] = "El email no es correcto";
-    setcookie('errorEmail', $errores['email']);
-} else
-    setcookie('email', $email);
-
-if (empty($contraseña)) {
-    $errores['contraseña'] = "La contraseña no puede estar vacía";
-    setcookie('errorContraseña', $errores['contraseña']);
-} else
-    setcookie('contraseña', $contraseña);
-
-if (!preg_match("/^[0-9]{9}$/", $telefono)) {
-    $errores['telefono'] = "El teléfono no es correcto";
-    setcookie('errorTelefono', $errores['telefono']);
-} else
-    setcookie('telefono', $telefono);
-
-if (empty($direccion)) {
-    $errores['direccion'] = "La dirección no puede estar vacía";
-    setcookie('errorDireccion', $errores['direccion']);
-} else
-    setcookie('direccion', $direccion);
-
-// Si hay algún error, redirigimos al formulario.
-if (!empty($errores)) {
-    header('Location: registrarse.php');
-    exit;
-}
-
-// Conexión
-$db = new mysqli($host, $admin, $clave, $bbdd);
-
-if ($db) {
-    // Crear usuario
-    $sql = "INSERT INTO usuarios (nombre, apellidos, email, password, telefono, direccion) 
+        if ($db) {
+            // Crear usuario
+            $sql = "INSERT INTO usuarios (nombre, apellidos, email, password, telefono, direccion) 
             VALUES ('$nombre', '$apellidos', '$email', '$contraseña', '$telefono', '$direccion')";
 
-    // Ejecutar la consulta
-    if ($db->query($sql) == TRUE) {
-        $registrado = "Usuario creado correctamente";
+            // Ejecutar la consulta
+            if ($db->query($sql) == TRUE) {
+                // Guardamos el usuario
+                $_SESSION['usuario'] = $email;
 
-        // Borramos las cookies relacionadas con el formulario
-        foreach ($_COOKIE as $nombre => $valor) {
-            if (strpos($nombre, 'error') !== false || in_array($nombre, ['nombre', 'apellidos', 'email', 'contraseña', 'telefono', 'direccion'])) {
-                unset($_COOKIE[$nombre]);
-                setcookie($nombre, '', time() - 3600, '/');
+                // Redirigimos.
+                header('Location: index.php');
+                exit;
+            } else {
+                $registrado = "Error al crear el usuario";
             }
+
+            mysqli_close($db);
+
+        } else {
+            echo "<p>Error de conexión</p>";
+            echo "<p>Código: " . mysqli_connect_errno() . "</p>";
+            echo "<p>Mensaje: " . mysqli_connect_error() . "</p>";
+            die("Adiós");
         }
 
 
-        header('Location: paginaInicio.php');
-        exit;
     } else {
-        $registrado = "Error al crear el usuario";
+        include('registrarse.php');
     }
 
-    mysqli_close($db);
-
 } else {
-    echo "<p>Error de conexión</p>";
-    echo "<p>Código: " . mysqli_connect_errno() . "</p>";
-    echo "<p>Mensaje: " . mysqli_connect_error() . "</p>";
-    die("Adiós");
+    // Si se accede directamente a este archivo sin enviar el formulario, redirige al formulario.php
+    header("Location: registrarse.php");
+    exit;
 }
-
 ?>
