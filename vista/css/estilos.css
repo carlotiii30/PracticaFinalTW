@@ -16,6 +16,10 @@
     padding: 10px;
 }
 
+.elegirIdioma form {
+    margin: 0;
+}
+
 .elegirIdioma .entrada {
     display: inline-block;
     vertical-align: middle;
