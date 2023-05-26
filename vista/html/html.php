@@ -82,13 +82,19 @@ function htmlAside($login){
     <form method="get" action="">
         <div class="entrada">
             <select name="idioma">
-                <option value="es">
+    HTML;
+                echo '<option value="es" '.seleccionado("idioma","es").'>';
+    echo <<< HTML
                     {$mensajes[$idioma]["Espanol"]}
                 </option>
-                <option value="en">
+    HTML;
+                echo '<option value="en" '.seleccionado("idioma","en").'>';
+    echo <<< HTML
                     {$mensajes[$idioma]["Ingles"]}
                 </option>
-                <option value="fr">
+    HTML;
+                echo '<option value="fr" '.seleccionado("idioma","fr").'>';
+   echo <<<HTML
                     {$mensajes[$idioma]["Frances"]}
                 </option>
             </select>

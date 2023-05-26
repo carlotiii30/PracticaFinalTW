@@ -35,7 +35,8 @@ if (isset($_GET) and !empty($_GET)) {
 function seleccionado($n, $v)
 {
     if (isset($_GET[$n]) and ($_GET[$n] == $v))
-        echo 'selected';
+        return 'selected';
+    
 }
 
 

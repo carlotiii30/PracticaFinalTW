@@ -1,30 +1,37 @@
 <?php
 
 // Datos de la conexión
-$host = "localhost";
-$usuario = "carlotadlavega2223";
-$clave = "nQ69ZPy3";
-$bbdd = "carlotadlavega2223";
+#$host = "localhost";
+#$usuario = "carlotadlavega2223";
+#$clave = "nQ69ZPy3";
+#$bbdd = "carlotadlavega2223";
+
+$host = 'localhost';
+$usuario = 'manuelvico01022223';
+$clave = 'ABifAxaC';
+$bbdd = 'manuelvico01022223';
+$port = '8889';
 
 // Conexión
 $db = new mysqli($host, $usuario, $clave, $bbdd);
+#$db = mysqli_connect($host,$usuario,$clave,$bbdd,$port);
 
 if ($db) {
 	echo "<p>Conexión con éxito</p>";
 
 	// Borrar tabla anterior si existe
-	//$sql = "DROP TABLE IF EXISTS usuarios";
+	$sql = "DROP TABLE IF EXISTS usuarios";
 
 	// Ejecutar la consulta
-	/*if ($db->query($sql) === TRUE) {
+	if ($db->query($sql) === TRUE) {
 		   echo "Tabla anterior eliminada";
 	   } else {
 		   echo "Error al eliminar tabla anterior: " . $db->error;
 		   exit;
-	   }*/
+	   }
 
 	// Crear la tabla con la columna de foto
-	/*$sql = "CREATE TABLE usuarios (
+	$sql = "CREATE TABLE usuarios (
 			   id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 			   nombre VARCHAR(50) DEFAULT NULL,
 			   apellidos VARCHAR(100) DEFAULT NULL,
@@ -35,7 +42,7 @@ if ($db) {
 			   estado CHAR(30) DEFAULT NULL,
 			   rol VARCHAR(15) DEFAULT NULL,
 			   foto LONGBLOB
-			   )";*/
+			   )";
 
 	/*$sql = "CREATE TABLE incidencias (
 			   id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -78,7 +85,7 @@ if ($db) {
 			'estado' => 'resuelta'
 		]
 	];
-
+	
 	// Generar y ejecutar las consultas de inserción
 	foreach ($incidencias as $incidencia) {
 		$sql = "INSERT INTO incidencias (titulo, descripcion, fecha, lugar, keywords, idusuario, estado) 
@@ -95,12 +102,12 @@ if ($db) {
 
 
 	// Ejecutar la consulta
-	/*if ($db->query($sql) === TRUE) {
+	if ($db->query($sql) === TRUE) {
 		echo "Tabla creada correctamente";
 	} else {
 		echo "Error al crear tabla: " . $db->error;
 		exit;
-	}*/
+	}
 
 	mysqli_close($db);
 } else {
