@@ -1,4 +1,5 @@
 <?php
+# En realidad no he cambiado nada
 session_start();
 
 if (!isset($_SESSION['contador'])) {

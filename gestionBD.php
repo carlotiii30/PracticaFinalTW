@@ -7,4 +7,18 @@
     htmlPagInicio();
     htmlAside(false);
     htmlEnd();
+
+
+    /*
+        Hay tres opciones:
+            -  Descargar copia de seguridad.
+                -> Documento que borra y crea cada tabla.
+                -> Inserta los logs.
+                -> Los usuarios.
+                -> Las incidencias.
+
+            - Restaurar copia de seguridad (opcional).
+            - Borrar la BBDD (se reinicia)
+                -> Borra y crea cada tabla.
+     */
 ?>

@@ -1,16 +1,16 @@
 <?php
 
 // Datos de la conexión
-#$host = "localhost";
-#$usuario = "carlotadlavega2223";
-#$clave = "nQ69ZPy3";
-#$bbdd = "carlotadlavega2223";
+$host = "localhost";
+$usuario = "carlotadlavega2223";
+$clave = "nQ69ZPy3";
+$bbdd = "carlotadlavega2223";
 
-$host = 'localhost';
+/*$host = 'localhost';
 $usuario = 'manuelvico01022223';
 $clave = 'ABifAxaC';
 $bbdd = 'manuelvico01022223';
-$port = '8889';
+$port = '8889';*/
 
 // Conexión
 $db = new mysqli($host, $usuario, $clave, $bbdd);
@@ -20,18 +20,18 @@ if ($db) {
 	echo "<p>Conexión con éxito</p>";
 
 	// Borrar tabla anterior si existe
-	$sql = "DROP TABLE IF EXISTS usuarios";
+	//$sql = "DROP TABLE IF EXISTS usuarios";
 
 	// Ejecutar la consulta
-	if ($db->query($sql) === TRUE) {
+	/*if ($db->query($sql) === TRUE) {
 		   echo "Tabla anterior eliminada";
 	   } else {
 		   echo "Error al eliminar tabla anterior: " . $db->error;
 		   exit;
-	   }
+	   }*/
 
 	// Crear la tabla con la columna de foto
-	$sql = "CREATE TABLE usuarios (
+	/*$sql = "CREATE TABLE usuarios (
 			   id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 			   nombre VARCHAR(50) DEFAULT NULL,
 			   apellidos VARCHAR(100) DEFAULT NULL,
@@ -42,7 +42,7 @@ if ($db) {
 			   estado CHAR(30) DEFAULT NULL,
 			   rol VARCHAR(15) DEFAULT NULL,
 			   foto LONGBLOB
-			   )";
+			   )";*/
 
 	/*$sql = "CREATE TABLE incidencias (
 			   id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -56,7 +56,7 @@ if ($db) {
 			   )";*/
 
 	// Ejemplo de datos para insertar en la tabla
-	$incidencias = [
+	/*$incidencias = [
 		[
 			'titulo' => 'Incidencia 1',
 			'descripcion' => 'Descripción de la incidencia 1',
@@ -84,10 +84,10 @@ if ($db) {
 			'idusuario' => 1,
 			'estado' => 'resuelta'
 		]
-	];
+	];*/
 	
 	// Generar y ejecutar las consultas de inserción
-	foreach ($incidencias as $incidencia) {
+	/*foreach ($incidencias as $incidencia) {
 		$sql = "INSERT INTO incidencias (titulo, descripcion, fecha, lugar, keywords, idusuario, estado) 
             VALUES ('{$incidencia['titulo']}', '{$incidencia['descripcion']}', '{$incidencia['fecha']}', 
                     '{$incidencia['lugar']}', '{$incidencia['keywords']}', {$incidencia['idusuario']}, 
@@ -98,8 +98,14 @@ if ($db) {
 		} else {
 			echo "Error al insertar la incidencia: " . $db->error . "<br>";
 		}
-	}
+	}*/
 
+	// Tabla logs
+	$sql = "CREATE TABLE logs (
+		id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+		fecha DATETIME,
+		accion VARCHAR(255)
+	  )";
 
 	// Ejecutar la consulta
 	if ($db->query($sql) === TRUE) {
