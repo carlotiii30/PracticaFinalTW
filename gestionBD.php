@@ -18,6 +18,8 @@
                 -> Las incidencias.
 
             - Restaurar copia de seguridad (opcional).
+                -> Página 33 de TW33.
+
             - Borrar la BBDD (se reinicia)
                 -> Borra y crea cada tabla.
      */
