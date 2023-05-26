@@ -8,4 +8,6 @@
     htmlPagInicio();
     htmlAside(false);
     htmlEnd();
+
+    # Esta es igual que ver incidencias, solo que hay que añadir a la consulta WHERE idusuario = usuario activo
 ?>
