@@ -1,7 +1,7 @@
 <?php
 include "codigoInicial.php";
 session_start();
-function htmlStart($titulo,$activo='') {
+function htmlStart($titulo, $activo = '') {
     __htmlIdiomas();
     __htmlInicio($titulo);
     __htmlEncabezado($activo);
@@ -22,28 +22,27 @@ function htmlStart($titulo,$activo='') {
                   ['texto'=>$mensajes[$idioma]["Log"], 'url'=>'log.php'],
                   ['texto'=>$mensajes[$idioma]["GestionBBDD"], 'url'=>'gestionBD.php']],$activo);
   }
-  
-  
 
-  function htmlNav($clase,$menu,$activo='') {
-    echo "<nav class='$clase'>";
-      echo "<ul>";  
-        foreach ($menu as $elem) {
-            echo "<li> <a ".($activo==$elem['texto']?"class='activo' ":'')."href='{$elem['url']}'>{$elem['texto']}</a> </li>";
-        }
-      echo "</ul>";
-    echo '</nav>';
-    __htmlContenidosIni();
+function htmlNav($clase, $menu, $activo = '')
+{
+  echo "<nav class='$clase'>";
+  echo "<ul>";
+  foreach ($menu as $elem) {
+    echo "<li> <a " . ($activo == $elem['texto'] ? "class='activo' " : '') . "href='{$elem['url']}'>{$elem['texto']}</a> </li>";
   }
+  echo "</ul>";
+  echo '</nav>';
+  __htmlContenidosIni();
+}
 
-  function htmlPagInicio(){
-    global $mensajes;
-    global $idioma;
+function htmlPagInicio()
+{
+  global $mensajes;
+  global $idioma;
 
-    echo <<< HTML
+  echo <<<HTML
     <section class="principal">
-            <!-- Mostrar mensaje de bienvenida en el idioma seleccionado -->
-            <h1>
+        <h1>
             {$mensajes[$idioma]["Bienvenida"]}
         </h1>
         <p>
@@ -56,27 +55,28 @@ function htmlStart($titulo,$activo='') {
     HTML;
 }
 
-function htmlAside(){
-    echo '<aside>';
-    if(!isset($_SESSION['autenticado'])){
-      __htmlLogin();
-    }else{
+function htmlAside($login){
+  echo '<aside>';
+  if(!isset($_SESSION['autenticado'])){
+    __htmlLogin();
+  }else{
 
-    }
+  }
 }
   
   
 
 
-  
-  
-  // ******** Funciones privadas de este módulo
-  
-  function __htmlIdiomas(){
-    global $mensajes;
-    global $idioma;
 
-    echo <<< HTML
+
+// ******** Funciones privadas de este módulo
+
+function __htmlIdiomas()
+{
+  global $mensajes;
+  global $idioma;
+
+  echo <<<HTML
     <div class="elegirIdioma">
     <!-- Seleccionar idioma -->
     <img class="imgIdioma" src="./vista/imagenes/mundo_sf.png" alt="">
@@ -87,18 +87,18 @@ function htmlAside(){
         <div class="entrada">
             <select name="idioma">
     HTML;
-                echo '<option value="es" '.seleccionado("idioma","es").'>';
-    echo <<< HTML
+  echo '<option value="es" ' . seleccionado("idioma", "es") . '>';
+  echo <<<HTML
                     {$mensajes[$idioma]["Espanol"]}
                 </option>
     HTML;
-                echo '<option value="en" '.seleccionado("idioma","en").'>';
-    echo <<< HTML
+  echo '<option value="en" ' . seleccionado("idioma", "en") . '>';
+  echo <<<HTML
                     {$mensajes[$idioma]["Ingles"]}
                 </option>
     HTML;
-                echo '<option value="fr" '.seleccionado("idioma","fr").'>';
-   echo <<<HTML
+  echo '<option value="fr" ' . seleccionado("idioma", "fr") . '>';
+  echo <<<HTML
                     {$mensajes[$idioma]["Frances"]}
                 </option>
             </select>
@@ -110,11 +110,12 @@ function htmlAside(){
     </div>
     HTML;
 
-  }
+}
 
-  // Cabecera de página web
-  function __htmlInicio($titulo) {
-  echo <<< HTML
+// Cabecera de página web
+function __htmlInicio($titulo)
+{
+  echo <<<HTML
   <!DOCTYPE html>
   <html>
   <head>
@@ -124,43 +125,48 @@ function htmlAside(){
   </head>
   <body>	
   HTML;
-  }
-  
-  // Contenidos INICIO
-  function __htmlContenidosIni() {
+}
+
+// Contenidos INICIO
+function __htmlContenidosIni()
+{
   echo '<main>';
-  }
-  
-  // Encabezado
-  function __htmlEncabezado($activo) {
-  echo <<< HTML
+}
+
+// Encabezado
+function __htmlEncabezado($activo)
+{
+  echo <<<HTML
   <div class='cabecera'>
     <img src="./vista/imagenes/SugQueRec.png" alt="">
     <h1>SAL Y QUÉJATE</h1>
   </div>
   HTML;
-  }
+}
 
-  
-  // Pie de página
-  function __htmlPiepagina() {
+
+// Pie de página
+function __htmlPiepagina()
+{
   __htmlContenidosFin();
-  echo <<< HTML
+  echo <<<HTML
   <footer>
     <p>Trabajo final de Tecnologías Web. &copy; Carlota de la Vega Soriano y Manuel Vico Arboledas</p>
   </footer>
   HTML;
-  }
-  
-  // Contenidos FIN
-  function __htmlContenidosFin() {
+}
+
+// Contenidos FIN
+function __htmlContenidosFin()
+{
   echo '</aside></main>';
-  }
-  
-  // Cierre de página web
-  function __htmlFin() {
+}
+
+// Cierre de página web
+function __htmlFin()
+{
   echo '</body></html>';
-  }
+}
 
   function __htmlLogin(){
     global $mensajes;
@@ -189,5 +195,5 @@ function htmlAside(){
                 </div>
         </form>
     HTML;
-  }
+}
 ?>

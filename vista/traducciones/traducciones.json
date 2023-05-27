@@ -22,7 +22,10 @@
 
         "GestionUsuarios": "Gestión de usuarios",
         "Log": "Ver log",
-        "GestionBBDD": "Gestión de Base de Datos"
+        "GestionBBDD": "Gestión de Base de Datos",
+
+        "Fecha": "Fecha",
+        "Accion": "Acción"
     },
 
     "en": {
@@ -48,7 +51,10 @@
 
         "GestionUsuarios": "Users Management",
         "Log": "Show log",
-        "GestionBBDD": "Data Base Management"
+        "GestionBBDD": "Data Base Management",
+
+        "Fecha": "Date",
+        "Accion": "Action"
     },
 
     "fr": {
@@ -74,6 +80,9 @@
 
         "GestionUsuarios": "Gestion des utilisateurs",
         "Log": "Voir log",
-        "GestionBBDD": "Gestion Base de Données"
+        "GestionBBDD": "Gestion Base de Données",
+
+        "Fecha": "Date",
+        "Accion": "Action"
     }
 }

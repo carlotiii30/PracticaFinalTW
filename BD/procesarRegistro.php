@@ -1,6 +1,6 @@
 <?php
-// Datos de la conexión
-require_once('credenciales.php');
+require('baseDatos.php'); // Conexión y desconexión
+
 
 // Datos del formulario
 
@@ -44,42 +44,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (count($errores) === 0) {
 
         // Conexión
-        $db = new mysqli(host, admin, clave, bbdd);
+        $db = conexion();
 
-        if ($db) {
-            // Crear usuario
-            $sql = "INSERT INTO usuarios (nombre, apellidos, email, password, telefono, direccion) 
+
+        // Crear usuario
+        $sql = "INSERT INTO usuarios (nombre, apellidos, email, password, telefono, direccion) 
             VALUES ('$nombre', '$apellidos', '$email', '$contraseña', '$telefono', '$direccion')";
 
-            // Ejecutar la consulta
-            if ($db->query($sql) == TRUE) {
-                // Guardamos el usuario
-                $_SESSION['usuario'] = $email;
+        // Ejecutar la consulta
+        if ($db->query($sql) == TRUE) {
+            // Guardamos el usuario
+            $_SESSION['usuario'] = $email;
 
-                // Redirigimos.
-                header('Location: index.php');
-                exit;
-            } else {
-                $registrado = "Error al crear el usuario";
-            }
-
-            mysqli_close($db);
-
+            // Redirigimos.
+            header('Location: ../index.php');
+            exit;
         } else {
-            echo "<p>Error de conexión</p>";
-            echo "<p>Código: " . mysqli_connect_errno() . "</p>";
-            echo "<p>Mensaje: " . mysqli_connect_error() . "</p>";
-            die("Adiós");
+            $registrado = "Error al crear el usuario";
         }
+
+        desconexion($db);
 
 
     } else {
-        include('registrarUsuario.php');
+        include('../registrarUsuario.php');
     }
 
 } else {
     // Si se accede directamente a este archivo sin enviar el formulario, redirige al formulario.php
-    header("Location: registrarUsuario.php");
+    header("Location: ../registrarUsuario.php");
     exit;
 }
 ?>
