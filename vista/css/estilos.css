@@ -10,7 +10,7 @@
     align-items: center;
 }
 
-.elegirIdioma img{
+.elegirIdioma img {
     width: 27px;
     height: 27px;
     padding: 10px;
@@ -26,10 +26,10 @@
     margin: 10px;
 }
 
-.elegirIdioma .botones{
+.elegirIdioma .botones {
     display: inline-block;
     vertical-align: middle;
-    
+
 }
 
 /* - - CABECERA - - */
@@ -112,13 +112,92 @@ aside form {
     padding-bottom: 10px;
 }
 
-.login label{
+.login label {
     display: block;
 }
 
-aside .botones{
+aside .botones {
     padding-top: 10px;
 }
+
+/* - - TABLA LOG - - */
+.log {
+    margin-top: 20px;
+}
+
+.log table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.log th,
+.log td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid black;
+}
+
+.log th {
+    background-color: rgb(172, 134, 172);
+    color: white;
+}
+
+.log tr:nth-child(even) {
+    background-color: rgb(243, 224, 245);
+}
+
+.log tr:nth-child(odd) {
+    background-color: white;
+}
+
+/* - - NUEVA INCIDENCIA - - */
+.nueva {
+    padding: 20px;
+}
+
+.nueva .titulo {
+    background-color: rgb(185, 140, 185);
+    color: whitesmoke;
+    padding: 10px;
+    font-size: 24px;
+}
+
+.nueva .subtitulo {
+    color: rgb(46, 45, 45);
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.nueva form {
+    margin-bottom: 20px;
+    background-color: rgb(243, 224, 245);
+}
+
+.nueva .entrada label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.nueva .entrada input,
+.nueva .entrada textarea {
+    width: 70%;
+    padding: 5px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+}
+
+.nueva .botones input {
+    background-color: rgb(172, 134, 172);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+}
+
+.nueva .botones input:hover {
+    background-color: rgb(185, 140, 185);
+}
+
 
 /* - - PIE DE PÁGINA - - */
 footer {
