@@ -22,7 +22,7 @@
                 session_start();
                 $_SESSION['autenticado'] = true;
                 $_SESSION['rol'] = $usuario["rol"];
-                header("Location: ../index.php");
+                header("Location: index.php");
                 //echo "inicio de sesion correcto";
             }else{
                 // El inicio de sesión falló, muestra un mensaje de error

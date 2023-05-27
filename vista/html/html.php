@@ -1,5 +1,6 @@
 <?php
 include "codigoInicial.php";
+
 session_start();
 function htmlStart($titulo, $activo = '')
 {
@@ -18,6 +19,7 @@ function htmlNavAdmin($activo)
 {
   global $mensajes;
   global $idioma;
+
   htmlNav('menu', [
     ['texto' => $mensajes[$idioma]["VerIncidencias"], 'url' => 'verIncidencias.php'],
     ['texto' => $mensajes[$idioma]["NuevaIncidencia"], 'url' => 'nuevaIncidencia.php'],

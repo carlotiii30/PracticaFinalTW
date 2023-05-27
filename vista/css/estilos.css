@@ -124,7 +124,8 @@ aside .botones {
 /* - - TABLA LOG - - */
 .log {
     flex: 85%;
-    margin-top: 10px;
+    margin: 5px 20px 5px 10px;
+    padding: 0 5% 0 15px;
 }
 
 .log table {
@@ -155,7 +156,8 @@ aside .botones {
 /* - - NUEVA INCIDENCIA - - */
 .nueva {
     flex: 85%;
-    margin-top: 10px;
+    margin: 5px 20px 5px 10px;
+    padding: 0 5% 0 15px;
 }
 
 .nueva .titulo {

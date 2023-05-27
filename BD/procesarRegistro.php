@@ -57,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['usuario'] = $email;
 
             // Redirigimos.
-            header('Location: ../index.php');
+            header('Location: index.php');
             exit;
         } else {
             $registrado = "Error al crear el usuario";
@@ -67,12 +67,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
     } else {
-        include('../registrarUsuario.php');
+        include('registrarUsuario.php');
     }
 
 } else {
     // Si se accede directamente a este archivo sin enviar el formulario, redirige al formulario.php
-    header("Location: ../registrarUsuario.php");
+    header("Location: registrarUsuario.php");
     exit;
 }
 ?>
