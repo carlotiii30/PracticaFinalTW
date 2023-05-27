@@ -124,7 +124,7 @@ aside .botones {
 /* - - TABLA LOG - - */
 .log {
     flex: 85%;
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 .log table {
@@ -136,7 +136,7 @@ aside .botones {
 .log td {
     padding: 10px;
     text-align: center;
-    border: 1px solid black;
+    border: 1px solid rgb(46, 45, 45);
 }
 
 .log th {
@@ -155,7 +155,7 @@ aside .botones {
 /* - - NUEVA INCIDENCIA - - */
 .nueva {
     flex: 85%;
-    padding: 20px;
+    margin-top: 10px;
 }
 
 .nueva .titulo {
@@ -163,6 +163,7 @@ aside .botones {
     color: whitesmoke;
     padding: 10px;
     font-size: 24px;
+    margin: 0;
 }
 
 .nueva .subtitulo {
@@ -173,7 +174,9 @@ aside .botones {
 
 .nueva form {
     margin-bottom: 20px;
+    padding: 5px;
     background-color: rgb(243, 224, 245);
+    border: 1px solid rgb(172, 134, 172);
 }
 
 .nueva .entrada label {
@@ -188,6 +191,8 @@ aside .botones {
     padding: 5px;
     margin-bottom: 10px;
     margin-left: 10px;
+    border: 1px solid rgb(172, 134, 172);
+    padding: 5px;
 }
 
 .nueva .botones input {
