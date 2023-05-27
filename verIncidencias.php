@@ -7,10 +7,10 @@ htmlNavAdmin($mensajes[$idioma]["VerIncidencias"]);
 htmlAside(false);
 htmlEnd();
 
+
 // - - - Cargamos los mensajes - - -
 $mensajes = json_decode(file_get_contents('./vista/traducciones/formularioCriterios.json'), true);
 ?>
-
 
 <div class="criterios">
     <h1>
@@ -79,3 +79,4 @@ $mensajes = json_decode(file_get_contents('./vista/traducciones/formularioCriter
         </div>
     </form>
 </div>
+

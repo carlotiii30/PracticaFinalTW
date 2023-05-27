@@ -5,6 +5,6 @@
     htmlStart('Sal y quéjate'); 
     htmlNavAdmin('');
     htmlPagInicio();
-    htmlAside(false);
+    htmlAside();
     htmlEnd();
 ?>

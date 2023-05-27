@@ -1,6 +1,6 @@
 <?php
 include "codigoInicial.php";
-
+session_start();
 function htmlStart($titulo,$activo='') {
     __htmlIdiomas();
     __htmlInicio($titulo);
@@ -22,6 +22,8 @@ function htmlStart($titulo,$activo='') {
                   ['texto'=>$mensajes[$idioma]["Log"], 'url'=>'log.php'],
                   ['texto'=>$mensajes[$idioma]["GestionBBDD"], 'url'=>'gestionBD.php']],$activo);
   }
+  
+  
 
   function htmlNav($clase,$menu,$activo='') {
     echo "<nav class='$clase'>";
@@ -54,11 +56,13 @@ function htmlStart($titulo,$activo='') {
     HTML;
 }
 
-function htmlAside($login){
+function htmlAside(){
     echo '<aside>';
-    if($login == false)
-        __htmlLogin();
-    
+    if(!isset($_SESSION['autenticado'])){
+      __htmlLogin();
+    }else{
+
+    }
 }
   
   
@@ -162,19 +166,19 @@ function htmlAside($login){
     global $mensajes;
     global $idioma;
     echo <<< HTML
-        <form action="">
+        <form action="BD/procesarInicioSesion.php" method="POST">
                 <div class="login">
                     <div class="entrada">
                         <label for="nombre">
                             {$mensajes[$idioma]["Nombre"]}
                         </label>
-                        <input name="nombre" value="">
+                        <input type="text" name="username" required>
                     </div>
                     <div class="entrada">
                         <label for="Contraseña">
                             {$mensajes[$idioma]["Contrasenia"]}
                         </label>
-                        <input name="contraseña" value="">
+                        <input type= "password" name="password" required>
                     </div>
                 </div>
                 <div class="botones">
