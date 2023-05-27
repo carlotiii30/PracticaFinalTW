@@ -105,6 +105,7 @@ main {
 
 aside {
     flex: 15%;
+    margin-left: 10px;
 }
 
 aside form {
@@ -122,6 +123,7 @@ aside .botones {
 
 /* - - TABLA LOG - - */
 .log {
+    flex: 85%;
     margin-top: 20px;
 }
 
@@ -152,6 +154,7 @@ aside .botones {
 
 /* - - NUEVA INCIDENCIA - - */
 .nueva {
+    flex: 85%;
     padding: 20px;
 }
 

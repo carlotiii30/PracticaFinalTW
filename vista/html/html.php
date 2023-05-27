@@ -1,47 +1,53 @@
 <?php
 include "codigoInicial.php";
 
-function htmlStart($titulo,$activo='') {
-    __htmlIdiomas();
-    __htmlInicio($titulo);
-    __htmlEncabezado($activo);
-  }
-  
-  function htmlEnd() {
-    __htmlPiepagina();
-    __htmlFin();
-  }
-  
-  function htmlNavAdmin($activo){
-    global $mensajes;
-    global $idioma;
-    htmlNav('menu',[['texto'=>$mensajes[$idioma]["VerIncidencias"], 'url'=>'verIncidencias.php'],
-                  ['texto'=>$mensajes[$idioma]["NuevaIncidencia"], 'url'=>'nuevaIncidencia.php'],
-                  ['texto'=>$mensajes[$idioma]["MisIncidencias"], 'url'=>'misIncidencias.php'],
-                  ['texto'=>$mensajes[$idioma]["GestionUsuarios"], 'url'=>'gestionUsuarios.php'],
-                  ['texto'=>$mensajes[$idioma]["Log"], 'url'=>'log.php'],
-                  ['texto'=>$mensajes[$idioma]["GestionBBDD"], 'url'=>'gestionBD.php']],$activo);
-  }
+function htmlStart($titulo, $activo = '')
+{
+  __htmlIdiomas();
+  __htmlInicio($titulo);
+  __htmlEncabezado($activo);
+}
 
-  function htmlNav($clase,$menu,$activo='') {
-    echo "<nav class='$clase'>";
-      echo "<ul>";  
-        foreach ($menu as $elem) {
-            echo "<li> <a ".($activo==$elem['texto']?"class='activo' ":'')."href='{$elem['url']}'>{$elem['texto']}</a> </li>";
-        }
-      echo "</ul>";
-    echo '</nav>';
-    __htmlContenidosIni();
+function htmlEnd()
+{
+  __htmlPiepagina();
+  __htmlFin();
+}
+
+function htmlNavAdmin($activo)
+{
+  global $mensajes;
+  global $idioma;
+  htmlNav('menu', [
+    ['texto' => $mensajes[$idioma]["VerIncidencias"], 'url' => 'verIncidencias.php'],
+    ['texto' => $mensajes[$idioma]["NuevaIncidencia"], 'url' => 'nuevaIncidencia.php'],
+    ['texto' => $mensajes[$idioma]["MisIncidencias"], 'url' => 'misIncidencias.php'],
+    ['texto' => $mensajes[$idioma]["GestionUsuarios"], 'url' => 'gestionUsuarios.php'],
+    ['texto' => $mensajes[$idioma]["Log"], 'url' => 'log.php'],
+    ['texto' => $mensajes[$idioma]["GestionBBDD"], 'url' => 'gestionBD.php']
+  ], $activo);
+}
+
+function htmlNav($clase, $menu, $activo = '')
+{
+  echo "<nav class='$clase'>";
+  echo "<ul>";
+  foreach ($menu as $elem) {
+    echo "<li> <a " . ($activo == $elem['texto'] ? "class='activo' " : '') . "href='{$elem['url']}'>{$elem['texto']}</a> </li>";
   }
+  echo "</ul>";
+  echo '</nav>';
+  __htmlContenidosIni();
+}
 
-  function htmlPagInicio(){
-    global $mensajes;
-    global $idioma;
+function htmlPagInicio()
+{
+  global $mensajes;
+  global $idioma;
 
-    echo <<< HTML
+  echo <<<HTML
     <section class="principal">
-            <!-- Mostrar mensaje de bienvenida en el idioma seleccionado -->
-            <h1>
+        <h1>
             {$mensajes[$idioma]["Bienvenida"]}
         </h1>
         <p>
@@ -54,25 +60,96 @@ function htmlStart($titulo,$activo='') {
     HTML;
 }
 
-function htmlAside($login){
-    echo '<aside>';
-    if($login == false)
-        __htmlLogin();
-    
+function htmlAside($login)
+{
+  echo '<aside>';
+  if ($login == false)
+    __htmlLogin();
+
 }
-  
-  
 
+function htmlPagLog($datos)
+{
+  global $mensajes;
+  global $idioma;
 
-  
-  
-  // ******** Funciones privadas de este módulo
-  
-  function __htmlIdiomas(){
-    global $mensajes;
+  echo <<<HTML
+  <div class='log'>
+  <table>
+      <tr>
+      <th>{$mensajes[$idioma]["Fecha"]}</th>
+      <th>{$mensajes[$idioma]["Accion"]}</th>
+      </tr>
+  HTML;
+
+  foreach ($datos as $dato) {
+    echo '<tr>';
+    echo '<td class="log_fecha">' . htmlentities($dato['fecha']) . '</td>';
+    echo '<td class="log_accion">' . htmlentities($dato['accion']) . '</td>';
+    echo '</tr>';
+  }
+
+  echo <<<HTML
+  </table>
+  </div>
+  HTML;
+}
+
+function htmlPagNuevaIncidencia()
+{
+    global $mensajesIncidencias;
     global $idioma;
 
-    echo <<< HTML
+    echo <<<HTML
+    <div class="nueva">
+        <h1 class="titulo">
+            {$mensajesIncidencias[$idioma]["Nueva"]}
+        </h1>
+        <form method="post" action="./BD/procesarIncidencia.php">
+            <h2 class="subtitulo">
+                {$mensajesIncidencias[$idioma]["Datos"]}
+            </h2>
+            <div class="entrada">
+                <label for="titulo">
+                    {$mensajesIncidencias[$idioma]["Titulo"]}
+                </label>
+                <input name="titulo" value="">
+
+                <label for="descripcion">
+                    {$mensajesIncidencias[$idioma]["Descripcion"]}
+                </label>
+                <textarea name="descripcion" rows="4" cols="50"></textarea>
+
+                <label for="lugar">
+                    {$mensajesIncidencias[$idioma]["Lugar"]}
+                </label>
+                <input name="lugar" value="">
+
+                <label for="keywords">
+                    {$mensajesIncidencias[$idioma]["PalabrasClave"]}
+                </label>
+                <input name="keywords" value="">
+
+            </div>
+            <div class="botones">
+                <input type="submit" value="{$mensajesIncidencias[$idioma]["Enviar"]}">
+            </div>
+        </form>
+    </div>
+    HTML;
+}
+
+
+
+
+// ******** Funciones privadas de este módulo
+
+function __htmlIdiomas()
+{
+  global $mensajes;
+  global $idioma;
+
+  echo <<<HTML
     <div class="elegirIdioma">
     <!-- Seleccionar idioma -->
     <img class="imgIdioma" src="./vista/imagenes/mundo_sf.png" alt="">
@@ -83,18 +160,18 @@ function htmlAside($login){
         <div class="entrada">
             <select name="idioma">
     HTML;
-                echo '<option value="es" '.seleccionado("idioma","es").'>';
-    echo <<< HTML
+  echo '<option value="es" ' . seleccionado("idioma", "es") . '>';
+  echo <<<HTML
                     {$mensajes[$idioma]["Espanol"]}
                 </option>
     HTML;
-                echo '<option value="en" '.seleccionado("idioma","en").'>';
-    echo <<< HTML
+  echo '<option value="en" ' . seleccionado("idioma", "en") . '>';
+  echo <<<HTML
                     {$mensajes[$idioma]["Ingles"]}
                 </option>
     HTML;
-                echo '<option value="fr" '.seleccionado("idioma","fr").'>';
-   echo <<<HTML
+  echo '<option value="fr" ' . seleccionado("idioma", "fr") . '>';
+  echo <<<HTML
                     {$mensajes[$idioma]["Frances"]}
                 </option>
             </select>
@@ -106,11 +183,12 @@ function htmlAside($login){
     </div>
     HTML;
 
-  }
+}
 
-  // Cabecera de página web
-  function __htmlInicio($titulo) {
-  echo <<< HTML
+// Cabecera de página web
+function __htmlInicio($titulo)
+{
+  echo <<<HTML
   <!DOCTYPE html>
   <html>
   <head>
@@ -120,48 +198,54 @@ function htmlAside($login){
   </head>
   <body>	
   HTML;
-  }
-  
-  // Contenidos INICIO
-  function __htmlContenidosIni() {
+}
+
+// Contenidos INICIO
+function __htmlContenidosIni()
+{
   echo '<main>';
-  }
-  
-  // Encabezado
-  function __htmlEncabezado($activo) {
-  echo <<< HTML
+}
+
+// Encabezado
+function __htmlEncabezado($activo)
+{
+  echo <<<HTML
   <div class='cabecera'>
     <img src="./vista/imagenes/SugQueRec.png" alt="">
     <h1>SAL Y QUÉJATE</h1>
   </div>
   HTML;
-  }
+}
 
-  
-  // Pie de página
-  function __htmlPiepagina() {
+
+// Pie de página
+function __htmlPiepagina()
+{
   __htmlContenidosFin();
-  echo <<< HTML
+  echo <<<HTML
   <footer>
     <p>Trabajo final de Tecnologías Web. &copy; Carlota de la Vega Soriano y Manuel Vico Arboledas</p>
   </footer>
   HTML;
-  }
-  
-  // Contenidos FIN
-  function __htmlContenidosFin() {
-  echo '</aside></main>';
-  }
-  
-  // Cierre de página web
-  function __htmlFin() {
-  echo '</body></html>';
-  }
+}
 
-  function __htmlLogin(){
-    global $mensajes;
-    global $idioma;
-    echo <<< HTML
+// Contenidos FIN
+function __htmlContenidosFin()
+{
+  echo '</aside></main>';
+}
+
+// Cierre de página web
+function __htmlFin()
+{
+  echo '</body></html>';
+}
+
+function __htmlLogin()
+{
+  global $mensajes;
+  global $idioma;
+  echo <<<HTML
         <form action="">
                 <div class="login">
                     <div class="entrada">
@@ -185,5 +269,5 @@ function htmlAside($login){
                 </div>
         </form>
     HTML;
-  }
+}
 ?>
