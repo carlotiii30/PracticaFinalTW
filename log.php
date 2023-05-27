@@ -16,7 +16,7 @@ desconexion($db);
 
 // Visualización de log, aside y fin
 htmlPagLog($datos);
-htmlAside(false);
+htmlAside();
 htmlEnd();
 
 /*

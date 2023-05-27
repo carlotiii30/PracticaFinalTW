@@ -55,15 +55,81 @@ function htmlPagInicio()
     HTML;
 }
 
-function htmlAside($login){
+function htmlAside(){
   echo '<aside>';
   if(!isset($_SESSION['autenticado'])){
     __htmlLogin();
   }else{
-
+    #Aqui hay que añadir para que se muestre el usuario que ha iniciado la sesion
   }
 }
-  
+
+function htmlPagLog($datos)
+{
+  global $mensajes;
+  global $idioma;
+
+  echo <<<HTML
+  <div class='log'>
+  <table>
+      <tr>
+      <th>{$mensajes[$idioma]["Fecha"]}</th>
+      <th>{$mensajes[$idioma]["Accion"]}</th>
+      </tr>
+  HTML;
+
+  foreach ($datos as $dato) {
+    echo '<tr>';
+    echo '<td class="log_fecha">' . htmlentities($dato['fecha']) . '</td>';
+    echo '<td class="log_accion">' . htmlentities($dato['accion']) . '</td>';
+    echo '</tr>';
+  }
+
+  echo <<<HTML
+  </table>
+  </div>
+  HTML;
+}
+
+function htmlPagNuevaIncidencia()
+{
+    global $mensajesIncidencias;
+    global $idioma;
+    echo <<<HTML
+    <div class="nueva">
+        <h1 class="titulo">
+            {$mensajesIncidencias[$idioma]["Nueva"]}
+        </h1>
+        <form method="post" action="./BD/procesarIncidencia.php">
+            <h2 class="subtitulo">
+                {$mensajesIncidencias[$idioma]["Datos"]}
+            </h2>
+            <div class="entrada">
+                <label for="titulo">
+                    {$mensajesIncidencias[$idioma]["Titulo"]}
+                </label>
+                <input name="titulo" value="">
+                <label for="descripcion">
+                    {$mensajesIncidencias[$idioma]["Descripcion"]}
+                </label>
+                <textarea name="descripcion" rows="4" cols="50"></textarea>
+                <label for="lugar">
+                    {$mensajesIncidencias[$idioma]["Lugar"]}
+                </label>
+                <input name="lugar" value="">
+                <label for="keywords">
+                    {$mensajesIncidencias[$idioma]["PalabrasClave"]}
+                </label>
+                <input name="keywords" value="">
+            </div>
+            <div class="botones">
+                <input type="submit" value="{$mensajesIncidencias[$idioma]["Enviar"]}">
+            </div>
+        </form>
+    </div>
+    HTML;
+}
+
   
 
 

@@ -1,8 +1,8 @@
 <?php
-    require('db.php');       // Operaciones con BBDD
+    require('baseDatos.php'); // Conexión y desconexión
 
     // Conexión con la BBDD
-    if (is_string($db=DB_conexion())) {
+    if (is_string($db=conexion())) {
         $msg_err = $db;
     }else{
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -32,7 +32,7 @@
             }
             
             // Desconectar de la BBDD (se puede omitir)
-            DB_desconexion($db);
+            desconexion($db);
         }
     }
 ?>
