@@ -6,7 +6,7 @@
     htmlStart('Sal y quéjate'); 
     htmlNavAdmin($mensajes[$idioma]["MisIncidencias"]);
     htmlPagInicio();
-    htmlAside(false);
+    htmlAside();
     htmlEnd();
 
     # Esta es igual que ver incidencias, solo que hay que añadir a la consulta WHERE idusuario = usuario activo

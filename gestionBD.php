@@ -5,7 +5,7 @@
     htmlStart('Sal y quéjate'); 
     htmlNavAdmin($mensajes[$idioma]["GestionBBDD"]);
     htmlPagInicio();
-    htmlAside(false);
+    htmlAside();
     htmlEnd();
 
 

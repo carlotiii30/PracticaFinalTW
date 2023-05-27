@@ -20,6 +20,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Mostrar los resultados de la consulta
     $result = $db->query($sql);
+
+    include("../verIncidencias.php");
     
     if ($result && $result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {

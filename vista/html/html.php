@@ -1,27 +1,32 @@
 <?php
 include "codigoInicial.php";
 session_start();
-function htmlStart($titulo, $activo = '') {
-    __htmlIdiomas();
-    __htmlInicio($titulo);
-    __htmlEncabezado($activo);
-  }
-  
-  function htmlEnd() {
-    __htmlPiepagina();
-    __htmlFin();
-  }
-  
-  function htmlNavAdmin($activo){
-    global $mensajes;
-    global $idioma;
-    htmlNav('menu',[['texto'=>$mensajes[$idioma]["VerIncidencias"], 'url'=>'verIncidencias.php'],
-                  ['texto'=>$mensajes[$idioma]["NuevaIncidencia"], 'url'=>'nuevaIncidencia.php'],
-                  ['texto'=>$mensajes[$idioma]["MisIncidencias"], 'url'=>'misIncidencias.php'],
-                  ['texto'=>$mensajes[$idioma]["GestionUsuarios"], 'url'=>'gestionUsuarios.php'],
-                  ['texto'=>$mensajes[$idioma]["Log"], 'url'=>'log.php'],
-                  ['texto'=>$mensajes[$idioma]["GestionBBDD"], 'url'=>'gestionBD.php']],$activo);
-  }
+function htmlStart($titulo, $activo = '')
+{
+  __htmlIdiomas();
+  __htmlInicio($titulo);
+  __htmlEncabezado($activo);
+}
+
+function htmlEnd()
+{
+  __htmlPiepagina();
+  __htmlFin();
+}
+
+function htmlNavAdmin($activo)
+{
+  global $mensajes;
+  global $idioma;
+  htmlNav('menu', [
+    ['texto' => $mensajes[$idioma]["VerIncidencias"], 'url' => 'verIncidencias.php'],
+    ['texto' => $mensajes[$idioma]["NuevaIncidencia"], 'url' => 'nuevaIncidencia.php'],
+    ['texto' => $mensajes[$idioma]["MisIncidencias"], 'url' => 'misIncidencias.php'],
+    ['texto' => $mensajes[$idioma]["GestionUsuarios"], 'url' => 'gestionUsuarios.php'],
+    ['texto' => $mensajes[$idioma]["Log"], 'url' => 'log.php'],
+    ['texto' => $mensajes[$idioma]["GestionBBDD"], 'url' => 'gestionBD.php']
+  ], $activo);
+}
 
 function htmlNav($clase, $menu, $activo = '')
 {
@@ -55,11 +60,12 @@ function htmlPagInicio()
     HTML;
 }
 
-function htmlAside(){
+function htmlAside()
+{
   echo '<aside>';
-  if(!isset($_SESSION['autenticado'])){
+  if (!isset($_SESSION['autenticado'])) {
     __htmlLogin();
-  }else{
+  } else {
     #Aqui hay que añadir para que se muestre el usuario que ha iniciado la sesion
   }
 }
@@ -93,9 +99,10 @@ function htmlPagLog($datos)
 
 function htmlPagNuevaIncidencia()
 {
-    global $mensajesIncidencias;
-    global $idioma;
-    echo <<<HTML
+  global $mensajesIncidencias;
+  global $idioma;
+
+  echo <<<HTML
     <div class="nueva">
         <h1 class="titulo">
             {$mensajesIncidencias[$idioma]["Nueva"]}
@@ -130,7 +137,81 @@ function htmlPagNuevaIncidencia()
     HTML;
 }
 
-  
+function htmlPagVerIncidencias()
+{
+  global $mensajesCriterios;
+  global $idioma;
+
+  echo <<<HTML
+  <div class="criterios">
+    <h1 class="titulo">
+        {$mensajesCriterios[$idioma]["Titulo"]}
+    </h1>
+    <form method="post" action="./BD/procesarCriterios.php">
+        <h2 class="subtitulo">
+            {$mensajesCriterios[$idioma]["Criterios"]}
+        </h2>
+        <div class="entrada">
+            <fieldset>
+                <legend>
+                    {$mensajesCriterios[$idioma]["Ordenar"]}
+                </legend>
+                <label><input type="radio" name="ordenar" value="Antiguedad">
+                    {$mensajesCriterios[$idioma]["Antiguedad"]}
+                </label>
+                <label><input type="radio" name="ordenar" value="Mg">
+                    {$mensajesCriterios[$idioma]["MeGustas"]}
+                </label>
+                <label><input type="radio" name="ordenar" value="NoMg">
+                    {$mensajesCriterios[$idioma]["NoMeGustas"]}
+                </label>
+            </fieldset>
+        </div>
+        <div class="entrada">
+            <fieldset>
+                <legend>
+                    {$mensajesCriterios[$idioma]["Incidencias"]}
+                </legend>
+                <label for="texto">
+                    {$mensajesCriterios[$idioma]["Texto"]}
+                </label>
+                <input name="texto" value="">
+
+                <label for="lugar">
+                    {$mensajesCriterios[$idioma]["Lugar"]}
+                </label>
+                <input name="lugar" value="">
+            </fieldset>
+        </div>
+        <div class="entrada">
+            <fieldset>
+                <legend>
+                    {$mensajesCriterios[$idioma]["Estado"]}
+                </legend>
+                <label> <input type="checkbox" name="estado[]" value="pendiente">
+                    {$mensajesCriterios[$idioma]["Pendiente"]}
+                </label>
+                <label> <input type="checkbox" name="estado[]" value="comprobada">
+                    {$mensajesCriterios[$idioma]["Comprobada"]}
+                </label>
+                <label> <input type="checkbox" name="estado[]" value="tramitada">
+                    {$mensajesCriterios[$idioma]["Tramitada"]}
+                </label>
+                <label> <input type="checkbox" name="estado[]" value="irresoluble">
+                    {$mensajesCriterios[$idioma]["Irresoluble"]}
+                </label>
+                <label> <input type="checkbox" name="estado[]" value="resuelta">
+                    {$mensajesCriterios[$idioma]["Resuelta"]}
+                </label>
+            </fieldset>
+        </div>
+        <div class="botones">
+            <input type="submit" value="{$mensajesCriterios[$idioma]["Aplicar"]}">
+        </div>
+    </form>
+  </div>
+  HTML;
+}
 
 
 
@@ -234,10 +315,11 @@ function __htmlFin()
   echo '</body></html>';
 }
 
-  function __htmlLogin(){
-    global $mensajes;
-    global $idioma;
-    echo <<< HTML
+function __htmlLogin()
+{
+  global $mensajes;
+  global $idioma;
+  echo <<<HTML
         <form action="BD/procesarInicioSesion.php" method="POST">
                 <div class="login">
                     <div class="entrada">

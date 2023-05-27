@@ -5,6 +5,6 @@ require('vista/html/html.php'); // Maquetado de página
 htmlStart('Sal y quéjate');
 htmlNavAdmin($mensajes[$idioma]["NuevaIncidencia"]);
 htmlPagNuevaIncidencia();
-htmlAside(false);
+htmlAside();
 htmlEnd();
 ?>

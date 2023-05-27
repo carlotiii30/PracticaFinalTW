@@ -9,6 +9,9 @@ $mensajes = json_decode(file_get_contents('./vista/traducciones/traducciones.jso
 // - - - Traducciones para nueva incidencia - - -
 $mensajesIncidencias = json_decode(file_get_contents('./vista/traducciones/formularioNueva.json'), true);
 
+// - - - Traducciones para ver incidencias - - - 
+$mensajesCriterios = json_decode(file_get_contents('./vista/traducciones/formularioCriterios.json'), true);
+
 // - - - - URLs - - - - 
 $enlaces = array(
     "verIncidencias.php" => "VerIncidencias",
