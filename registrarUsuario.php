@@ -4,6 +4,8 @@ require('./vista/html/html.php'); // Maquetado de página
 htmlStart('Página de registro');
 htmlEnd();
 
+// - - - Traducciones - - - 
+$mensajes = json_decode(file_get_contents('./vista/traducciones/formularioRegistro.json'), true);
 ?>
 
 <head>
