@@ -6,7 +6,7 @@ function backup($db)
     // Obtener listado de tablas
     $tablas = array();
     $result = mysqli_query($db, 'SHOW TABLES');
-    
+
     while ($row = mysqli_fetch_row($result))
         $tablas[] = $row[0];
 
@@ -41,10 +41,17 @@ function backup($db)
     }
     //return $salida;
 
-    // Guardamos la copia en un archivo.
+    // Guardamos la copia en un archivo y ofrecemos la descarga.
     $f = fopen('db-backup-' . time() . '-' . (md5(implode(',', $tablas))) . '.sql', 'w+');
     fwrite($f, $salida);
     fclose($f);
+
+    $archivo = 'db-backup-' . time() . '-' . (md5(implode(',', $tablas))) . '.sql';
+    header('Content-Type: application/octet-stream');
+    header('Content-Disposition: attachment; filename="' . $archivo . '"');
+    readfile($archivo);
+    exit;
+
 }
 
 // Restaurar base de datos
