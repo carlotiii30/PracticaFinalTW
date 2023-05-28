@@ -15,14 +15,15 @@ function htmlEnd()
   __htmlFin();
 }
 
-function htmlNavGeneral($activo){
-    if(!isset($_SESSION['autenticado'])){
-        htmlNavVisitante($activo);
-    }else if($_SESSION['rol'] == 'admin'){
-        htmlNavAdmin($activo);
-    }else{
-        htmlNavColaborador($activo);
-    }
+function htmlNavGeneral($activo)
+{
+  if (!isset($_SESSION['autenticado'])) {
+    htmlNavVisitante($activo);
+  } else if ($_SESSION['rol'] == 'admin') {
+    htmlNavAdmin($activo);
+  } else {
+    htmlNavColaborador($activo);
+  }
 }
 
 function htmlNavVisitante($activo)
@@ -100,7 +101,7 @@ function htmlAside()
   if (!isset($_SESSION['autenticado'])) {
     __htmlLogin();
   } else {
-    #Aqui hay que añadir para que se muestre el usuario que ha iniciado la sesion
+    __htmlLogeado();
   }
 }
 
@@ -353,6 +354,7 @@ function __htmlLogin()
 {
   global $mensajes;
   global $idioma;
+
   echo <<<HTML
         <form action="BD/procesarInicioSesion.php" method="POST">
                 <div class="login">
@@ -378,4 +380,30 @@ function __htmlLogin()
         </form>
     HTML;
 }
+
+function __htmlLogout()
+{
+  session_destroy();
+  header("Location: index.php");
+  exit;
+}
+
+function __htmlLogeado()
+{
+  echo <<<HTML
+    <div class="login">
+      {$_SESSION["nombreUsuario"]}
+      <form method="post" action="">
+        <input type="hidden" name="logout" value="true">
+        <input type="submit" value="Cerrar sesión">
+      </form>
+    </div>
+    HTML;
+}
+
+// Verificar si se ha enviado el formulario de logout
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["logout"])) {
+  __htmlLogout();
+}
+
 ?>

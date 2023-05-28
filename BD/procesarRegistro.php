@@ -68,12 +68,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
     } else {
-        include('registrarUsuario.php');
+        include('../registrarUsuario.php');
     }
 
 } else {
     // Si se accede directamente a este archivo sin enviar el formulario, redirige al formulario.php
-    header("Location: registrarUsuario.php");
+    header("Location: ../registrarUsuario.php");
     exit;
 }
 ?>
