@@ -1,5 +1,6 @@
 <?php
     require('baseDatos.php'); // Conexión y desconexión
+    require('../funcion.php');
 
     // Conexión con la BBDD
     if (is_string($db=conexion())) {
@@ -8,6 +9,7 @@
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             /******************Procesamiento******************/
             $usuario = $_POST['username'];
+            $nombreUsuario = $usuario;
             $password = $_POST['password'];
 
             // Para prevenir inyección SQL
@@ -16,13 +18,19 @@
 
             $sql = "SELECT * FROM usuarios where email='$usuario' and password='$password'";
             $result = $db->query($sql);
-            var_dump($result);
+            //var_dump($result);
+            
             if ($result && $result->num_rows > 0) {
                 $usuario = $result->fetch_assoc();
+                
                 session_start();
                 $_SESSION['autenticado'] = true;
                 $_SESSION['rol'] = $usuario["rol"];
-                header("Location: index.php");
+                $_SESSION['nombreUsuario'] = $nombreUsuario;
+                
+                insertarLog("El usuario $nombreUsuario ha iniciado sesión", $db);
+
+                header("Location: ../index.php");
                 //echo "inicio de sesion correcto";
             }else{
                 // El inicio de sesión falló, muestra un mensaje de error

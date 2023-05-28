@@ -1,5 +1,8 @@
 <?php
 require('baseDatos.php'); // Conexión y desconexión
+require('../funcion.php');
+
+session_start();
 
 // Verificar si se ha enviado el formulario
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -19,10 +22,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt = $db->prepare($sql);
     $stmt->bind_param("ssss", $titulo, $descripcion, $lugar, $keywords);
 
-
+    $nombreUsuario = $_SESSION['nombreUsuario'];
     // Ejecutar la consulta
     if ($stmt->execute()) {
-        echo "Los datos se han insertado correctamente.";
+        insertarLog("El usuario $nombreUsuario ha insertado una nueva incidencia", $db);
     } else {
         echo "Ocurrió un error al insertar los datos.";
     }
