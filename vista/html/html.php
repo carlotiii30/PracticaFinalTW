@@ -399,11 +399,13 @@ function __htmlLogeado()
       </form>
     </div>
     HTML;
+
+  // Verificar si se ha enviado el formulario de logout
+  if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["logout"])) {
+    __htmlLogout();
+  }
 }
 
-// Verificar si se ha enviado el formulario de logout
-if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["logout"])) {
-  __htmlLogout();
-}
+
 
 ?>
