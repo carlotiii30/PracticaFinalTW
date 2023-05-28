@@ -161,7 +161,7 @@ aside .botones {
 }
 
 .nueva .titulo {
-    background-color: rgb(185, 140, 185);
+    background-color: rgb(172, 134, 172);
     color: whitesmoke;
     padding: 10px;
     font-size: 24px;
@@ -177,7 +177,7 @@ aside .botones {
 .nueva form {
     margin-bottom: 20px;
     padding: 5px;
-    background-color: rgb(243, 224, 245);
+    background-color: rgb(208, 185, 208);
     border: 1px solid rgb(172, 134, 172);
 }
 
@@ -210,6 +210,43 @@ aside .botones {
 
 
 /* - - VER INCIDENCIAS - - */
+.criterios {
+    flex: 85%;
+    margin: 5px 20px 5px 10px;
+    padding: 0 5% 0 15px;
+}
+
+.criterios .titulo {
+    background-color: rgb(172, 134, 172);
+    color: whitesmoke;
+    padding: 10px;
+    font-size: 24px;
+    margin: 0;
+}
+
+.criterios .subtitulo {
+    color: rgb(46, 45, 45);
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.criterios form {
+    margin-bottom: 20px;
+    padding: 5px;
+    background-color: rgb(208, 185, 208);
+    border: 1px solid rgb(172, 134, 172);
+}
+
+.criterios .botones input {
+    background-color: rgb(172, 134, 172);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+}
+
+.criterios .botones input:hover {
+    background-color: rgb(185, 140, 185);
+}
 
 
 /* - - PIE DE PÁGINA - - */
