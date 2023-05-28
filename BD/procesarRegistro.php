@@ -13,6 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $telefono = isset($_POST['telefono']) ? $_POST['telefono'] : '';
     $direccion = isset($_POST['direccion']) ? $_POST['direccion'] : '';
 
+    $rol = "colaborador";
     // Array para almacenar los errores que pueda haber.
     $errores = array();
 
@@ -48,8 +49,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
         // Crear usuario
-        $sql = "INSERT INTO usuarios (nombre, apellidos, email, password, telefono, direccion) 
-            VALUES ('$nombre', '$apellidos', '$email', '$contraseña', '$telefono', '$direccion')";
+        $sql = "INSERT INTO usuarios (nombre, apellidos, email, password, telefono, direccion, rol) 
+            VALUES ('$nombre', '$apellidos', '$email', '$contraseña', '$telefono', '$direccion', '$rol')";
 
         // Ejecutar la consulta
         if ($db->query($sql) == TRUE) {
@@ -57,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['usuario'] = $email;
 
             // Redirigimos.
-            header('Location: index.php');
+            header('Location: ../index.php');
             exit;
         } else {
             $registrado = "Error al crear el usuario";

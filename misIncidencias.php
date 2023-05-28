@@ -4,7 +4,7 @@
     global $idioma;
     // ************* Inicio de la página
     htmlStart('Sal y quéjate'); 
-    htmlNavAdmin($mensajes[$idioma]["MisIncidencias"]);
+    htmlNavGeneral($mensajes[$idioma]["MisIncidencias"]);
     htmlPagInicio();
     htmlAside();
     htmlEnd();

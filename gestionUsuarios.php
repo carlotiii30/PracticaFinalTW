@@ -3,7 +3,7 @@
 
     // ************* Inicio de la página
     htmlStart('Sal y quéjate'); 
-    htmlNavAdmin($mensajes[$idioma]["GestionUsuarios"]);
+    htmlNavGeneral($mensajes[$idioma]["GestionUsuarios"]);
     htmlPagInicio();
     htmlAside();
     htmlEnd();

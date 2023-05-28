@@ -15,6 +15,26 @@ function htmlEnd()
   __htmlFin();
 }
 
+function htmlNavGeneral($activo){
+    if(!isset($_SESSION['autenticado'])){
+        htmlNavVisitante($activo);
+    }else if($_SESSION['rol'] == 'admin'){
+        htmlNavAdmin($activo);
+    }else{
+        htmlNavColaborador($activo);
+    }
+}
+
+function htmlNavVisitante($activo)
+{
+  global $mensajes;
+  global $idioma;
+
+  htmlNav('menu', [
+    ['texto' => $mensajes[$idioma]["VerIncidencias"], 'url' => 'verIncidencias.php']
+  ], $activo);
+}
+
 function htmlNavAdmin($activo)
 {
   global $mensajes;
@@ -27,6 +47,18 @@ function htmlNavAdmin($activo)
     ['texto' => $mensajes[$idioma]["GestionUsuarios"], 'url' => 'gestionUsuarios.php'],
     ['texto' => $mensajes[$idioma]["Log"], 'url' => 'log.php'],
     ['texto' => $mensajes[$idioma]["GestionBBDD"], 'url' => 'gestionBD.php']
+  ], $activo);
+}
+
+function htmlNavColaborador($activo)
+{
+  global $mensajes;
+  global $idioma;
+
+  htmlNav('menu', [
+    ['texto' => $mensajes[$idioma]["VerIncidencias"], 'url' => 'verIncidencias.php'],
+    ['texto' => $mensajes[$idioma]["NuevaIncidencia"], 'url' => 'nuevaIncidencia.php'],
+    ['texto' => $mensajes[$idioma]["MisIncidencias"], 'url' => 'misIncidencias.php']
   ], $activo);
 }
 

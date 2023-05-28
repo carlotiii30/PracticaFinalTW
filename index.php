@@ -3,7 +3,7 @@
 
     // ************* Inicio de la página
     htmlStart('Sal y quéjate'); 
-    htmlNavAdmin('');
+    htmlNavGeneral('');
     htmlPagInicio();
     htmlAside();
     htmlEnd();

@@ -4,7 +4,7 @@ require('BD/baseDatos.php'); // Conexión y desconexión
 
 // Cabecera y menu
 htmlStart('Sal y quéjate');
-htmlNavAdmin($mensajes[$idioma]["Log"]);
+htmlNavGeneral($mensajes[$idioma]["Log"]);
 
 // Código de log
 $db = conexion();
