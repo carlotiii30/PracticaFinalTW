@@ -390,12 +390,17 @@ function __htmlLogout()
 
 function __htmlLogeado()
 {
+  global $mensajes;
+  global $idioma;
+
   echo <<<HTML
     <div class="login">
-      {$_SESSION["nombreUsuario"]}
-      <form method="post" action="">
-        <input type="hidden" name="logout" value="true">
-        <input type="submit" value="Cerrar sesión">
+      <p>{$_SESSION["nombreUsuario"]}</p>
+      <p>{$_SESSION["rol"]}</p>
+      <form method="post" action="" enctype="multipart/form-data">
+        <input type="file" name="images">
+        <input type="submit" name="editar" value="{$mensajes[$idioma]["Editar"]}">
+        <input type="submit" name="logout" value="{$mensajes[$idioma]["Desconectar"]}">
       </form>
     </div>
     HTML;
@@ -404,8 +409,12 @@ function __htmlLogeado()
   if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["logout"])) {
     __htmlLogout();
   }
+
+  if($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["editar"])){
+    # redirigir para editar al usuario
+
+  }
+
 }
-
-
 
 ?>

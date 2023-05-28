@@ -13,6 +13,8 @@
 
         "Identificarse": "Identificarse",
         "Registrarse": "Registrarse",
+        "Editar": "Editar",
+        "Desconectar": "Desconectar",
         "Nombre": "Nombre",
         "Contrasenia": "Contraseña",
 
@@ -42,6 +44,8 @@
 
         "Identificarse": "Log in",
         "Registrarse": "Sign up",
+        "Editar": "Edit",
+        "Desconectar": "Log out",
         "Nombre": "Name",
         "Contrasenia": "Password",
 
@@ -71,6 +75,8 @@
 
         "Identificarse": "Identifier",
         "Registrarse": "S'inscrire",
+        "Editar": "Modifier",
+        "Desconectar": "Déconnecter",
         "Nombre": "Prénom",
         "Contrasenia": "Mot de passe",
 
