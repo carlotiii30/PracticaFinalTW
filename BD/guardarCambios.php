@@ -1,5 +1,6 @@
 <?php
 require('baseDatos.php'); // Conexión y desconexión
+require('../funcion.php');
 
 session_start();
 
@@ -60,6 +61,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($db->query($sql) == TRUE) {
 
             // Mensaje de correcto ??
+
+            // Insertar en el log
+            insertarLog("El usuario $nombre ha modificado sus datos", $db);
 
             // Redirigimos.
             header('Location: ../index.php');
