@@ -98,7 +98,7 @@ $mensajes = json_decode(file_get_contents('./vista/traducciones/formularioRegist
 						<label for="contraseña">
 							<?php echo $mensajes[$idioma]["Contrasenia"]; ?>
 						</label>
-						<input name="contraseña"
+						<input type="password" name="contraseña"
 							value="<?php echo isset($_POST['contraseña']) ? $_POST['contraseña'] : ''; ?>">
 						<?php if (isset($errores['contraseña'])) { ?>
 							<p class="error">

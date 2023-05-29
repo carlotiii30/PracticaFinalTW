@@ -283,7 +283,6 @@ function htmlPagMisIncidencias($datos)
 
 
 
-
 // ******** Funciones privadas de este módulo
 
 function __htmlIdiomas()
@@ -443,8 +442,8 @@ function __htmlLogeado()
   }
 
   if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["editar"])) {
-    # redirigir para editar al usuario
-
+    # Página que muestra todos los datos del usuario, una vez dentro, se editan.
+    header("Location: modificarUsuario.php");
   }
 
 }

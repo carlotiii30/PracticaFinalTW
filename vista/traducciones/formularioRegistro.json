@@ -12,7 +12,10 @@
         "DatosSesion": "Datos inicio de sesión",
         "Email": "Correo electrónico",
         "Contrasenia": "Contraseña",
+        "Confirmar": "Confirmar contraseña",
         "AyudaSesion": "Datos para iniciar sesión. Son obligatorios.",
+
+        "Estado": "Estado",
 
         "Enviar": "Enviar formulario",
         "Borrar": "Borrar formulario"
@@ -31,7 +34,10 @@
         "DatosSesion": "Login data",
         "Email": "Email",
         "Contrasenia": "Password",
+        "Confirmar": "Confirm password",
         "AyudaSesion": "Data to log in. They are mandatory.",
+
+        "Estado": "Status",
 
         "Enviar": "Submit form",
         "Borrar": "Reset form"
@@ -50,7 +56,10 @@
         "DatosSesion": "Données de connexion",
         "Email": "Émail",
         "Contrasenia": "Mot de passe",
+        "Confirmar": "Confirmer mot de passe",
         "AyudaSesion": "Données pour se connecter. Elles sont obligatoires.",
+
+        "Estado": "État",
 
         "Enviar": "Soumettre le formulaire",
         "Borrar": "Supprimer le formulaire"
