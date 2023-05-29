@@ -1,5 +1,7 @@
 <?php
+include "funcion.php";
 include "codigoInicial.php";
+include "BD/baseDatos.php";
 
 session_start();
 function htmlStart($titulo, $activo = '')
@@ -430,10 +432,10 @@ function __htmlLogeado()
     <div class="logeado">
       <div class="imagen-usuario">
     HTML;
-  
-  /*$db = conexion();
-  descargarFoto('usuarios', $db);
-  desconexion($db);*/
+
+  $db1 = conexion();
+  descargarFoto('usuarios', $db1);
+  desconexion($db1);
 
   echo <<<HTML
       </div>
@@ -469,16 +471,24 @@ function MostrarIncidencias($incidencias)
 
 function __formatoIncidencia($incidencia)
 {
+  global $mensajesIncidencias;
+  global $idioma;
+
   echo <<<HTML
     <div class="incidencia">
       <h1>{$incidencia["titulo"]}</h1>
-      <ul>
-        <li>Lugar: {$incidencia["lugar"]}</li>
-        <li>Fecha: {$incidencia["fecha"]}</li>
-        <li>Creado por: {$incidencia["idusuario"]}</li>
-        <li>Palabras clave: {$incidencia["keywords"]}</li>
-        <li>Estado: {$incidencia["estado"]}</li>
-      </ul>
+      <div class="cabecera">
+        <ul>
+          <li>{$mensajesIncidencias[$idioma]["Lugar"]}: {$incidencia["lugar"]}</li>
+          <li>{$mensajesIncidencias[$idioma]["Fecha"]}: {$incidencia["fecha"]}</li>
+          <li>{$mensajesIncidencias[$idioma]["Creador"]}: {$incidencia["idusuario"]}</li>
+          <li>{$mensajesIncidencias[$idioma]["PalabrasClave"]}: {$incidencia["keywords"]}</li>
+          <li>{$mensajesIncidencias[$idioma]["Estado"]}: {$incidencia["estado"]}</li>
+        </ul>
+      </div>
+      <div class="cuerpo">
+        <p> {$incidencia["descripcion"]} </p>
+      </div>
     </div>
   HTML;
 }

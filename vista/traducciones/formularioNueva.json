@@ -8,6 +8,9 @@
         "Descripcion": "Descripcion",
         "Lugar": "Lugar",
         "PalabrasClave": "Palabras clave",
+        "Fecha": "Fecha",
+        "Estado": "Estado",
+        "Creador": "Creado por",
 
         "Enviar": "Enviar datos"
     },
@@ -21,6 +24,9 @@
         "Descripcion": "Description",
         "Lugar": "Place",
         "PalabrasClave": "Keywords",
+        "Fecha": "Date",
+        "Estado": "Status",
+        "Creador": "Created by",
 
         "Enviar": "Submit data"
     },
@@ -34,6 +40,9 @@
         "Descripcion": "Description",
         "Lugar": "Lieu",
         "PalabrasClave": "Mots-clés",
+        "Fecha": "Date",
+        "Estado": "État",
+        "Creador": "Créé par",
 
         "Enviar": "Soumettre des données"
     }
