@@ -427,9 +427,11 @@ function __htmlLogeado()
   global $idioma;
 
   echo <<<HTML
-    <div class="login">
+    <div class="logeado">
+      <div class="imagen-usuario">
+      </div>
       <p>{$_SESSION["nombreUsuario"]}</p>
-      <p>{$_SESSION["rol"]}</p>
+      <p class="rol">{$_SESSION["rol"]}</p>
       <form method="post" action="">
         <input type="submit" name="editar" value="{$mensajes[$idioma]["Editar"]}">
         <input type="submit" name="logout" value="{$mensajes[$idioma]["Desconectar"]}">
@@ -443,7 +445,6 @@ function __htmlLogeado()
   }
 
   if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["editar"])) {
-    # Página que muestra todos los datos del usuario, una vez dentro, se editan.
     header("Location: modificarUsuario.php");
   }
 
