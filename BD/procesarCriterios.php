@@ -1,5 +1,4 @@
 <?php
-require('baseDatos.php'); // Conexión y desconexión
 
 $db = conexion();
 

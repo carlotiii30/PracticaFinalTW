@@ -1,5 +1,4 @@
 <?php
-require('BD/baseDatos.php'); // Conexión y desconexión
 require('./vista/html/html.php'); // Maquetado de página
 require('funcion.php');
 

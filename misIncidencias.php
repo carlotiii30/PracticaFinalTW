@@ -1,6 +1,5 @@
 <?php
 require('vista/html/html.php');     // Maquetado de página
-require('BD/baseDatos.php');        // Conexión y desconexión
 
 // ************* Inicio de la página
 htmlStart('Sal y quéjate');

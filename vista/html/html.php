@@ -433,9 +433,9 @@ function __htmlLogeado()
       <div class="imagen-usuario">
     HTML;
 
-  $db1 = conexion();
-  descargarFoto('usuarios', $db1);
-  desconexion($db1);
+  $db = conexion();
+  descargarFoto('usuarios', $db);
+  desconexion($db);
 
   echo <<<HTML
       </div>
@@ -474,16 +474,18 @@ function __formatoIncidencia($incidencia)
   global $mensajesIncidencias;
   global $idioma;
 
+  $nombre = obtenerNombreUsuario($incidencia["idusuario"]);
+
   echo <<<HTML
     <div class="incidencia">
       <h1>{$incidencia["titulo"]}</h1>
-      <div class="cabecera">
+      <div class="cabecera-incidencia">
         <ul>
-          <li>{$mensajesIncidencias[$idioma]["Lugar"]}: {$incidencia["lugar"]}</li>
-          <li>{$mensajesIncidencias[$idioma]["Fecha"]}: {$incidencia["fecha"]}</li>
-          <li>{$mensajesIncidencias[$idioma]["Creador"]}: {$incidencia["idusuario"]}</li>
-          <li>{$mensajesIncidencias[$idioma]["PalabrasClave"]}: {$incidencia["keywords"]}</li>
-          <li>{$mensajesIncidencias[$idioma]["Estado"]}: {$incidencia["estado"]}</li>
+          <li> <div class="cabecera-texto"> {$mensajesIncidencias[$idioma]["Lugar"]}: </div> {$incidencia["lugar"]}</li>
+          <li> <div class="cabecera-texto"> {$mensajesIncidencias[$idioma]["Fecha"]}: </div> {$incidencia["fecha"]}</li>
+          <li> <div class="cabecera-texto"> {$mensajesIncidencias[$idioma]["Creador"]}: </div> {$nombre}</li>
+          <li> <div class="cabecera-texto"> {$mensajesIncidencias[$idioma]["PalabrasClave"]}: </div> {$incidencia["keywords"]}</li>
+          <li> <div class="cabecera-texto"> {$mensajesIncidencias[$idioma]["Estado"]}: </div> {$incidencia["estado"]}</li>
         </ul>
       </div>
       <div class="cuerpo">
@@ -491,6 +493,26 @@ function __formatoIncidencia($incidencia)
       </div>
     </div>
   HTML;
+}
+
+// Método para obtener el nombre de usuario a partir de la id de la tabla de incidencias.
+function obtenerNombreUsuario($idUsuario)
+{
+  $db = conexion();
+
+  $sql = "SELECT nombre FROM usuarios WHERE id = $idUsuario";
+  $result = $db->query($sql);
+
+  if ($result && $result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+    $nombreUsuario = $row['nombre'];
+  } else {
+    $nombreUsuario = 'Usuario no encontrado';
+  }
+
+  desconexion($db);
+
+  return $nombreUsuario;
 }
 
 ?>

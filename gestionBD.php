@@ -1,7 +1,6 @@
 <?php
     require('vista/html/html.php');     // Maquetado de página
     require('BD/copiaSeguridad.php');  // Backup
-    require('BD/baseDatos.php');        // Conexion base de datos
 
     // ************* Inicio de la página
     htmlStart('Sal y quéjate'); 

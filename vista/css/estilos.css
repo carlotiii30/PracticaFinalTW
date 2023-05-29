@@ -148,7 +148,7 @@ aside form {
     margin-top: 10px;
 }
 
-.login .entrada input{
+.login .entrada input {
     width: 100%;
 }
 
@@ -296,7 +296,7 @@ aside form {
 
 
 /* - - VER INCIDENCIAS - - */
-.incidencias{
+.incidencias {
     flex: 85%;
     margin: 5px 20px 5px 10px;
     padding: 0 5% 0 15px;
@@ -363,6 +363,49 @@ aside form {
     background-color: rgb(185, 140, 185);
     cursor: pointer;
 }
+
+.incidencia {
+    border: 1px solid rgb(172, 134, 172);
+    margin-bottom: 20px;
+}
+
+.incidencia h1 {
+    font-size: 24px;
+    background-color: rgb(172, 134, 172);
+    color: white;
+    padding: 5px;
+    margin: 0;
+}
+
+.incidencia .cabecera-incidencia {
+    background-color: rgb(243, 224, 245);
+    padding: 0;
+    margin: 0;
+    display: inline-block;
+    width: 100%;
+}
+
+.incidencia .cabecera-incidencia ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.incidencia .cabecera-incidencia ul li {
+    display: inline-block;
+}
+
+.incidencia .cabecera-texto {
+    font-weight: bold;
+}
+
+.incidencia .cuerpo p {
+    font-size: 16px;
+    line-height: 1.5;
+    background-color: white;
+}
+
+
 
 /* - - MODIFICAR USUARIO - - */
 .modificar form {
