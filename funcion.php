@@ -17,13 +17,33 @@ function insertarLog($accion, $db)
 // <input type="file" name="images"> y poner <form method="POST" action="esto da igual" enctype="multipart/form-data">
 function subirFoto($tabla, $db){
     $image = file_get_contents($_FILES['images']['tmp_name']);
-    $query = "INSERT INTO $tabla (foto) VALUES(?)";
+    $id = $_SESSION['idUsuario'];
+    $query = "UPDATE $tabla SET foto = ? WHERE id = ?";
     $stmt = $db->prepare($query);
-    $stmt->bind_param('s', $image);
+    $stmt->bind_param('si', $image, $id);
     $stmt->execute();
 }
 
-//Obtener foto no consigo que funcione
+// Descargar foto de un usuario
+function descargarFoto($tabla, $db) {
+    $foto = null;
+    $id = $_SESSION['idUsuario'];
+    $query = "SELECT foto FROM $tabla WHERE id = ?";
+    $stmt = $db->prepare($query);
+    $stmt->bind_param('i', $id);
+    $stmt->execute();
+    $stmt->bind_result($foto);
+    
+    if ($stmt->fetch()) {
+        $fotoData = base64_encode($foto);
+        $src = 'data:image/jpeg;base64,' . $fotoData;
+        echo "<img src='$src' alt='Foto'>";
+    } else {
+        echo "Foto no encontrada.";
+    }
+    
+    $stmt->close();
+}
 
 
 ?>

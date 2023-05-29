@@ -182,7 +182,7 @@ function htmlPagVerIncidencias()
     <h1 class="titulo">
         {$mensajesCriterios[$idioma]["Titulo"]}
     </h1>
-    <form method="post" action="./BD/procesarCriterios.php">
+    <form method="post" action="">
         <h2 class="subtitulo">
             {$mensajesCriterios[$idioma]["Criterios"]}
         </h2>
@@ -430,8 +430,7 @@ function __htmlLogeado()
     <div class="login">
       <p>{$_SESSION["nombreUsuario"]}</p>
       <p>{$_SESSION["rol"]}</p>
-      <form method="post" action="" enctype="multipart/form-data">
-        <input type="file" name="images">
+      <form method="post" action="">
         <input type="submit" name="editar" value="{$mensajes[$idioma]["Editar"]}">
         <input type="submit" name="logout" value="{$mensajes[$idioma]["Desconectar"]}">
       </form>
