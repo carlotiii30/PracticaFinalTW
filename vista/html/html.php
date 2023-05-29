@@ -178,6 +178,7 @@ function htmlPagVerIncidencias()
   global $idioma;
 
   echo <<<HTML
+  <div class="incidencias">
   <div class="criterios">
     <h1 class="titulo">
         {$mensajesCriterios[$idioma]["Titulo"]}
@@ -446,6 +447,30 @@ function __htmlLogeado()
     header("Location: modificarUsuario.php");
   }
 
+}
+
+function MostrarIncidencias($incidencias){
+  #Para cada incidencia mostrarla con el formato por lo que estara en un for y 
+  #dentro del for se llama a una funcion que le da el formato a una incidencia
+  foreach($incidencias as $dato){
+    __formatoIncidencia($dato);
+  }
+  echo '</div>';
+}
+
+function __formatoIncidencia($incidencia){
+  echo <<< HTML
+    <div class="incidencia">
+      <h1>{$incidencia["titulo"]}</h1>
+      <ul>
+        <li>Lugar: {$incidencia["lugar"]}</li>
+        <li>Fecha: {$incidencia["fecha"]}</li>
+        <li>Creado por: {$incidencia["idusuario"]}</li>
+        <li>Palabras clave: {$incidencia["keywords"]}</li>
+        <li>Estado: {$incidencia["estado"]}</li>
+      </ul>
+    </div>
+  HTML;
 }
 
 ?>

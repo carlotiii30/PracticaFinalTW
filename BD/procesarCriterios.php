@@ -23,11 +23,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     //include("../verIncidencias.php");
-    $resultadosHTML = '';
+    //$resultadosHTML = '';
     if(isset($result)){
+        $incidencias = array();
         if ($result && $result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
-                // Mostrar los datos obtenidos según tus necesidades
+                $incidencias[] = $row;
+                /*// Mostrar los datos obtenidos según tus necesidades
                 $resultadosHTML .= "ID: " . $row["id"] . "<br>";
                 $resultadosHTML .= "Título: " . $row["titulo"] . "<br>";
                 $resultadosHTML .= "Descripción: " . $row["descripcion"] . "<br>";
@@ -36,10 +38,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $resultadosHTML .= "Palabras clave: " . $row["keywords"] . "<br>";
                 $resultadosHTML .= "ID Usuario: " . $row["idusuario"] . "<br>";
                 $resultadosHTML .= "Estado: " . $row["estado"] . "<br>";
-                $resultadosHTML .= "<br>";
+                $resultadosHTML .= "<br>";*/
             }
         } else {
-            $resultadosHTML .= "No se encontraron resultados.";
+            //$resultadosHTML .= "No se encontraron resultados.";
         }
         // Liberar el resultado
         $result->free();
@@ -47,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // cerrar la conexión con la base de datos
     desconexion($db);
-    echo $resultadosHTML;
+    //echo $resultadosHTML;
 }
 
 ?>
