@@ -17,10 +17,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Conectar a la base de datos
     $db = conexion();
 
+    echo "Id del usuario que ha insertado la incidencia: " . $_SESSION['idUsuario'];
     // Preparar la consulta para insertar los datos en la tabla incidencias
-    $sql = "INSERT INTO incidencias (titulo, descripcion, lugar, keywords, fecha) VALUES (?, ?, ?, ?, NOW())";
+    $sql = "INSERT INTO incidencias (titulo, descripcion, lugar, keywords, fecha, idusuario) VALUES (?, ?, ?, ?, NOW(), ?)";
     $stmt = $db->prepare($sql);
-    $stmt->bind_param("ssss", $titulo, $descripcion, $lugar, $keywords);
+    $stmt->bind_param("sssss", $titulo, $descripcion, $lugar, $keywords, $_SESSION['idUsuario']);
 
     $nombreUsuario = $_SESSION['nombreUsuario'];
     // Ejecutar la consulta
