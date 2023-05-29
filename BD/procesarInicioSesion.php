@@ -16,7 +16,17 @@
             $usuario = mysqli_real_escape_string($db, $usuario);
             $password = mysqli_real_escape_string($db, $password);
 
-            $sql = "SELECT * FROM usuarios where email='$usuario' and password='$password'";
+            // Obtenemos el id del usuario
+            $sql = "SELECT id FROM usuarios WHERE nombre = '$nombreUsuario'";
+            $result = $db->query($sql);
+
+            if ($result->num_rows > 0) {
+                $fila = $result->fetch_assoc();
+                $idUsuario = $fila["id"];
+            }
+
+            // Continuamos
+            $sql = "SELECT * FROM usuarios WHERE email='$usuario' AND password='$password'";
             $result = $db->query($sql);
             //var_dump($result);
             
@@ -27,6 +37,7 @@
                 $_SESSION['autenticado'] = true;
                 $_SESSION['rol'] = $usuario["rol"];
                 $_SESSION['nombreUsuario'] = $nombreUsuario;
+                $_SESSION['idUsuario'] = $idUsuario;
                 
                 insertarLog("El usuario $nombreUsuario ha iniciado sesión", $db);
 

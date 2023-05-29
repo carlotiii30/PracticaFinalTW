@@ -202,7 +202,7 @@ function htmlPagVerIncidencias()
                 </label>
             </fieldset>
         </div>
-        <div class="entrada">
+        <div class="texto">
             <fieldset>
                 <legend>
                     {$mensajesCriterios[$idioma]["Incidencias"]}
@@ -244,6 +244,39 @@ function htmlPagVerIncidencias()
             <input type="submit" value="{$mensajesCriterios[$idioma]["Aplicar"]}">
         </div>
     </form>
+  </div>
+  HTML;
+}
+
+function htmlPagMisIncidencias($datos)
+{
+  global $mensajesIncidencias;
+  global $idioma;
+
+  echo <<<HTML
+  <div class='log'>
+  <table>
+      <tr>
+      <th>{$mensajesIncidencias[$idioma]["Titulo"]}</th>
+      <th>{$mensajesIncidencias[$idioma]["Descripcion"]}</th>
+      <th>{$mensajesIncidencias[$idioma]["Lugar"]}</th>
+      <th>{$mensajesIncidencias[$idioma]["PalabrasClave"]}</th>
+      </tr>
+  HTML;
+
+  if ($datos != null) {
+    foreach ($datos as $dato) {
+      echo '<tr>';
+      echo '<td class="inc_titulo">' . htmlentities($dato['titulo']) . '</td>';
+      echo '<td class="inc_desc">' . htmlentities($dato['descripcion']) . '</td>';
+      echo '<td class="inc_lugar">' . htmlentities($dato['lugar']) . '</td>';
+      echo '<td class="inc_keyword">' . htmlentities($dato['keywords']) . '</td>';
+      echo '</tr>';
+    }
+  }
+
+  echo <<<HTML
+  </table>
   </div>
   HTML;
 }
@@ -410,7 +443,7 @@ function __htmlLogeado()
     __htmlLogout();
   }
 
-  if($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["editar"])){
+  if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["editar"])) {
     # redirigir para editar al usuario
 
   }

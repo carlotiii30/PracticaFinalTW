@@ -1,13 +1,20 @@
 <?php
-    require('vista/html/html.php');     // Maquetado de página
-	global $mensajes;
-    global $idioma;
-    // ************* Inicio de la página
-    htmlStart('Sal y quéjate'); 
-    htmlNavGeneral($mensajes[$idioma]["MisIncidencias"]);
-    htmlPagInicio();
-    htmlAside();
-    htmlEnd();
+require('vista/html/html.php');     // Maquetado de página
+require('BD/baseDatos.php');        // Conexión y desconexión
 
-    # Esta es igual que ver incidencias, solo que hay que añadir a la consulta WHERE idusuario = usuario activo
+// ************* Inicio de la página
+htmlStart('Sal y quéjate');
+htmlNavGeneral($mensajes[$idioma]["MisIncidencias"]);
+
+$db = conexion();
+
+$id = $_SESSION['idUsuario'];
+$sql = "SELECT * FROM incidencias WHERE idusuario = $id ORDER BY fecha DESC";
+$datos = $db->query($sql);
+
+desconexion($db);
+
+htmlPagMisIncidencias($datos);
+htmlAside();
+htmlEnd();
 ?>

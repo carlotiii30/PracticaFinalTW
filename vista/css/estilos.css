@@ -237,6 +237,35 @@ aside .botones {
     border: 1px solid rgb(172, 134, 172);
 }
 
+.criterios .entrada {
+    margin-bottom: 20px;
+}
+
+.criterios fieldset {
+    border: 1px solid rgb(172, 134, 172);
+    margin: 0;
+    padding: 10px;
+}
+
+.criterios legend {
+    font-weight: bold;
+}
+
+.criterios .entrada input {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 5px;
+}
+
+.criterios .texto input {
+    display: block;
+    width: 70%;
+    padding: 5px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    border: 1px solid rgb(172, 134, 172);
+}
+
 .criterios .botones input {
     background-color: rgb(172, 134, 172);
     color: white;
