@@ -253,7 +253,8 @@ function htmlPagVerIncidencias()
 
 function htmlPagMisIncidencias($datos)
 {
-  global $mensajesIncidencias;
+  MostrarIncidencias($datos);
+  /*global $mensajesIncidencias;
   global $idioma;
 
   echo <<<HTML
@@ -281,7 +282,7 @@ function htmlPagMisIncidencias($datos)
   echo <<<HTML
   </table>
   </div>
-  HTML;
+  HTML;*/
 }
 
 

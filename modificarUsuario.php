@@ -1,6 +1,5 @@
 <?php
 require('./vista/html/html.php'); // Maquetado de página
-require('funcion.php');
 
 htmlStart('Modificar usuario');
 htmlNavGeneral('');
