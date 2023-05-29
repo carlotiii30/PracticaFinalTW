@@ -128,12 +128,40 @@ aside form {
     padding-bottom: 10px;
 }
 
-.login label {
-    display: block;
+.login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgb(172, 134, 172);
+    font-size: 16px;
+    padding-top: 10px;
+    margin-bottom: 20px;
 }
 
-aside .botones {
-    padding-top: 10px;
+.login label {
+    display: block;
+    margin: 5px;
+}
+
+.login form {
+    margin-top: 10px;
+}
+
+.login .entrada input{
+    width: 100%;
+}
+
+.login .botones input {
+    background-color: rgb(172, 134, 172);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    margin: 10px;
+}
+
+.login .botones input:hover {
+    background-color: rgb(185, 140, 185);
     cursor: pointer;
 }
 
@@ -144,8 +172,8 @@ aside .botones {
     align-items: center;
     justify-content: center;
     border: 1px solid rgb(172, 134, 172);
-    padding: 10px;
     font-size: 16px;
+    padding-top: 10px;
     margin-bottom: 20px;
 }
 
@@ -174,6 +202,7 @@ aside .botones {
 
 .logeado input:hover {
     background-color: rgb(185, 140, 185);
+    cursor: pointer;
 }
 
 /* - - TABLA LOG - - */
@@ -262,17 +291,13 @@ aside .botones {
 
 .nueva .botones input:hover {
     background-color: rgb(185, 140, 185);
+    cursor: pointer;
 }
 
 
 /* - - VER INCIDENCIAS - - */
 .incidencias{
     flex: 85%;
-    margin: 5px 20px 5px 10px;
-    padding: 0 5% 0 15px;
-}
-
-.criterios {
     margin: 5px 20px 5px 10px;
     padding: 0 5% 0 15px;
 }
@@ -336,6 +361,7 @@ aside .botones {
 
 .criterios .botones input:hover {
     background-color: rgb(185, 140, 185);
+    cursor: pointer;
 }
 
 /* - - MODIFICAR USUARIO - - */
@@ -371,6 +397,7 @@ aside .botones {
 
 .modificar .botones input:hover {
     background-color: rgb(185, 140, 185);
+    cursor: pointer;
 }
 
 .modificar .imagen-usuario {

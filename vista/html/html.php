@@ -403,12 +403,12 @@ function __htmlLogin()
                         </label>
                         <input type= "password" name="password" required>
                     </div>
-                </div>
-                <div class="botones">
-                    <input type="submit" name="Identificarse" value="{$mensajes[$idioma]["Identificarse"]}">
-                    <a href="./registrarUsuario.php">
-                        {$mensajes[$idioma]["Registrarse"]}
-                    </a>
+                  <div class="botones">
+                      <input type="submit" name="Identificarse" value="{$mensajes[$idioma]["Identificarse"]}">
+                      <a href="./registrarUsuario.php">
+                          {$mensajes[$idioma]["Registrarse"]}
+                      </a>
+                  </div>
                 </div>
         </form>
     HTML;
@@ -450,17 +450,19 @@ function __htmlLogeado()
 
 }
 
-function MostrarIncidencias($incidencias){
+function MostrarIncidencias($incidencias)
+{
   #Para cada incidencia mostrarla con el formato por lo que estara en un for y 
   #dentro del for se llama a una funcion que le da el formato a una incidencia
-  foreach($incidencias as $dato){
+  foreach ($incidencias as $dato) {
     __formatoIncidencia($dato);
   }
   echo '</div>';
 }
 
-function __formatoIncidencia($incidencia){
-  echo <<< HTML
+function __formatoIncidencia($incidencia)
+{
+  echo <<<HTML
     <div class="incidencia">
       <h1>{$incidencia["titulo"]}</h1>
       <ul>
