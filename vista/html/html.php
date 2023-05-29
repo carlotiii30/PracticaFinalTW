@@ -429,10 +429,17 @@ function __htmlLogeado()
   echo <<<HTML
     <div class="logeado">
       <div class="imagen-usuario">
+    HTML;
+  
+  /*$db = conexion();
+  descargarFoto('usuarios', $db);
+  desconexion($db);*/
+
+  echo <<<HTML
       </div>
       <p>{$_SESSION["nombreUsuario"]}</p>
       <p class="rol">{$_SESSION["rol"]}</p>
-      <form method="post" action="">
+    <form method="post" action="">
         <input type="submit" name="editar" value="{$mensajes[$idioma]["Editar"]}">
         <input type="submit" name="logout" value="{$mensajes[$idioma]["Desconectar"]}">
       </form>

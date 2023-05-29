@@ -1,6 +1,7 @@
 <?php
 require('BD/baseDatos.php'); // Conexión y desconexión
 require('./vista/html/html.php'); // Maquetado de página
+require('funcion.php');
 
 htmlStart('Modificar usuario');
 htmlNavGeneral('');
@@ -26,8 +27,7 @@ if (is_string($db = conexion())) {
             <form method="POST" action="BD/guardarCambios.php">
                 <div class="imagen-usuario">
                     <?php
-                    $fotoUsuario = base64_encode($usuario['foto']);
-                    echo '<img src="data:image/jpeg;base64,' . $fotoUsuario . '" alt="Imagen de usuario">';
+                    descargarFoto('usuarios', $db);
                     ?>
                 </div>
                 <div class="entrada">
