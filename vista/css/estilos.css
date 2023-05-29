@@ -29,7 +29,7 @@
 .elegirIdioma .botones {
     display: inline-block;
     vertical-align: middle;
-
+    cursor: pointer;
 }
 
 /* - - CABECERA - - */
@@ -119,6 +119,7 @@ aside form {
 
 aside .botones {
     padding-top: 10px;
+    cursor: pointer;
 }
 
 /* - - TABLA LOG - - */
@@ -202,6 +203,7 @@ aside .botones {
     color: white;
     padding: 10px 20px;
     border: none;
+    cursor: pointer;
 }
 
 .nueva .botones input:hover {
@@ -277,6 +279,55 @@ aside .botones {
     background-color: rgb(185, 140, 185);
 }
 
+/* - - MODIFICAR USUARIO - - */
+.modificar form {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: rgb(208, 185, 208);
+    border: 1px solid rgb(172, 134, 172);
+}
+
+.modificar form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.modificar .entrada input {
+    width: 50%;
+    padding: 5px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    border: 1px solid rgb(172, 134, 172);
+}
+
+.modificar .botones input {
+    background-color: rgb(172, 134, 172);
+    color: white;
+    padding: 10px 20px;
+    margin-left: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.modificar .botones input:hover {
+    background-color: rgb(185, 140, 185);
+}
+
+.modificar .imagen-usuario {
+    float: right;
+    margin-left: 20px;
+    width: 200px;
+    height: auto;
+}
+
+.modificar .contrasenia-contenedor {
+    display: flex;
+}
+
+.modificar .contrasenia-contenedor .campo {
+    width: 50%;
+}
 
 /* - - PIE DE PÁGINA - - */
 footer {
