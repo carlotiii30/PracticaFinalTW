@@ -38,7 +38,7 @@ if (is_string($db = conexion())) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $comentario = isset($_POST['comentario']) ? $_POST['comentario'] : '';
 
-    $sql = "INSERT INTO comentarios (idUsuario, idIncidencia, comentario, fecha) VALUES ($id, $idIncidencia, $comentario, NOW())";
+    $sql = "INSERT INTO comentarios (idUsuario, idIncidencia, comentario, fecha) VALUES ($id, $idIncidencia, '$comentario', NOW())";
 
     // Ejecutar la consulta
     if ($db->query($sql) == TRUE) {

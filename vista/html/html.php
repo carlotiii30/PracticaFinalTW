@@ -255,35 +255,6 @@ function htmlPagVerIncidencias()
 function htmlPagMisIncidencias($datos)
 {
   MostrarIncidencias($datos);
-  /*global $mensajesIncidencias;
-  global $idioma;
-
-  echo <<<HTML
-  <div class='log'>
-  <table>
-      <tr>
-      <th>{$mensajesIncidencias[$idioma]["Titulo"]}</th>
-      <th>{$mensajesIncidencias[$idioma]["Descripcion"]}</th>
-      <th>{$mensajesIncidencias[$idioma]["Lugar"]}</th>
-      <th>{$mensajesIncidencias[$idioma]["PalabrasClave"]}</th>
-      </tr>
-  HTML;
-
-  if ($datos != null) {
-    foreach ($datos as $dato) {
-      echo '<tr>';
-      echo '<td class="inc_titulo">' . htmlentities($dato['titulo']) . '</td>';
-      echo '<td class="inc_desc">' . htmlentities($dato['descripcion']) . '</td>';
-      echo '<td class="inc_lugar">' . htmlentities($dato['lugar']) . '</td>';
-      echo '<td class="inc_keyword">' . htmlentities($dato['keywords']) . '</td>';
-      echo '</tr>';
-    }
-  }
-
-  echo <<<HTML
-  </table>
-  </div>
-  HTML;*/
 }
 
 
@@ -467,7 +438,7 @@ function MostrarIncidencias($incidencias)
   #dentro del for se llama a una funcion que le da el formato a una incidencia
   if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // Posibilidades del formulario.
-    if (isset($_POST["incidencia"])){
+    if (isset($_POST["incidencia"])) {
       $incidencia = $_POST["incidencia"];
 
       if (isset($_POST["sumar"])) {
@@ -512,12 +483,19 @@ function __formatoIncidencia($incidencia)
         <p> {$incidencia["descripcion"]} </p>
       </div>
       <div class="comentarios">
-        <p> Habría que mostrar los comentarios aquí.</p>
+  HTML;
+
+  mostrarComentarios($incidencia["id"]);
+
+  echo <<<HTML
       </div>
       <div class="opiniones">
         <form method="post" action="">
   HTML;
-          echo '<input type="hidden" name="incidencia" value="'. $incidencia["id"] .'">';
+
+  echo '<input type="hidden" name="incidencia" value="' . $incidencia["id"] . '">';
+
+
   echo <<<HTML
           <button name="sumar">
               <img src="vista/imagenes/verde.png">
@@ -532,6 +510,32 @@ function __formatoIncidencia($incidencia)
       </div>
     </div>
   HTML;
+}
+
+// Formato para los comentarios
+function mostrarComentarios($id)
+{
+  $db = conexion();
+
+  $sql = "SELECT comentario FROM comentarios WHERE idIncidencia = $id";
+  $result = $db->query($sql);
+
+  if ($result && $result->num_rows > 0) {
+    $fila = 0; // Variable de contador para filas
+
+    while ($row = $result->fetch_assoc()) {
+      $comentario = $row["comentario"];
+      $fila++;
+
+      // Determinar clase CSS para la fila actual
+      $fila_class = ($fila % 2 == 0) ? 'fila-par' : 'fila-impar';
+
+      // Mostrar el comentario con la clase CSS correspondiente
+      echo "<p class='$fila_class'>$comentario</p>";
+    }
+  }
+
+  desconexion($db);
 }
 
 function __htmlWidgets($opcion)

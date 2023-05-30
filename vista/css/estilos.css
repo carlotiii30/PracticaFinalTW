@@ -410,6 +410,7 @@ aside form {
 
 .incidencia .opiniones {
     text-align: right;
+    background-color: rgb(172, 134, 172);
 }
 
 .incidencia .opiniones button {
@@ -426,7 +427,13 @@ aside form {
     height: 100%;
 }
 
+.incidencia .comentarios .fila-par {
+    background-color: white;
+}
 
+.incidencia .comentarios .fila-impar {
+    background-color: rgb(243, 224, 245);
+}
 
 /* - - MODIFICAR USUARIO - - */
 .modificar form {
