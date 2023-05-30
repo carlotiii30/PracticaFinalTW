@@ -465,6 +465,23 @@ function MostrarIncidencias($incidencias)
 {
   #Para cada incidencia mostrarla con el formato por lo que estara en un for y 
   #dentro del for se llama a una funcion que le da el formato a una incidencia
+  if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    // Posibilidades del formulario.
+    if (isset($_POST["incidencia"])){
+      $incidencia = $_POST["incidencia"];
+
+      if (isset($_POST["sumar"])) {
+        valoracion($incidencia, "sumar");
+      } else if (isset($_POST["restar"])) {
+        valoracion($incidencia, "restar");
+      } else if (isset($_POST["comentar"])) {
+        $_SESSION["idIncidencia"] = $incidencia;
+        header("Location: insertarComentario.php");
+        exit;
+      }
+    }
+  }
+
   foreach ($incidencias as $dato) {
     __formatoIncidencia($dato);
   }
@@ -477,19 +494,6 @@ function __formatoIncidencia($incidencia)
   global $idioma;
 
   $nombre = obtenerNombreUsuario($incidencia["idusuario"]);
-
-  if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    // Posibilidades del formulario.
-    if (isset($_POST["sumar"])) {
-      valoracion($incidencia, "sumar");
-    } else if (isset($_POST["restar"])) {
-      valoracion($incidencia, "restar");
-    } else if (isset($_POST["comentar"])) {
-      $_SESSION["idIncidencia"] = $incidencia["id"];
-      header("Location: insertarComentario.php");
-      exit;
-    }
-  }
 
   echo <<<HTML
     <div class="incidencia">
@@ -508,10 +512,13 @@ function __formatoIncidencia($incidencia)
         <p> {$incidencia["descripcion"]} </p>
       </div>
       <div class="comentarios">
-        <p> Habría que mostrar los comentarios aquí.
+        <p> Habría que mostrar los comentarios aquí.</p>
       </div>
       <div class="opiniones">
         <form method="post" action="">
+  HTML;
+          echo '<input type="hidden" name="incidencia" value="'. $incidencia["id"] .'">';
+  echo <<<HTML
           <button name="sumar">
               <img src="vista/imagenes/verde.png">
           </button>

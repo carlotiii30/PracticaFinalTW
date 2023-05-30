@@ -49,7 +49,7 @@ function descargarFoto($tabla, $db) {
 // Función para las valoraciones
 function valoracion($incidencia, $accion) {
     $db = conexion();
-    $id = $incidencia["id"];
+    $id = $incidencia;
 
     // Obtener el valor actual de valoraciones positivas y negativas
     $sql = "SELECT valoracionesPositivas, valoracionesNegativas FROM incidencias WHERE id = $id";
