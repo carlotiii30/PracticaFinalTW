@@ -461,6 +461,14 @@ aside form {
     width: 50%;
 }
 
+/* - - Gestión Base de Datos - - */
+.gestion {
+    flex: 85%;
+    margin: 5px 20px 5px 10px;
+    padding: 0 5% 0 15px;
+}
+
+
 /* - - PIE DE PÁGINA - - */
 footer {
     background-color: rgb(46, 45, 45);

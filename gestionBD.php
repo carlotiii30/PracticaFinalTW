@@ -27,17 +27,18 @@
         desconexion($db);
     }
 ?>
+<div class ="gestion">
+    <form method="post" action="">
+        <!-- Opción 1: Descargar copia de seguridad -->
+        <input type="submit" name="descargar" value="Descargar copia de seguridad">
 
-<form method="post" action="">
-    <!-- Opción 1: Descargar copia de seguridad -->
-    <input type="submit" name="descargar" value="Descargar copia de seguridad">
+        <!-- Opción 2: Restaurar copia de seguridad -->
+        <input type="submit" name="restaurar" value="Restaurar copia de seguridad">
 
-    <!-- Opción 2: Restaurar copia de seguridad -->
-    <input type="submit" name="restaurar" value="Restaurar copia de seguridad">
-
-    <!-- Opción 3: Borrar la BBDD (se reinicia) -->
-    <input type="submit" name="borrar" value="Borrar la base de datos">
-</form>
+        <!-- Opción 3: Borrar la BBDD (se reinicia) -->
+        <input type="submit" name="borrar" value="Borrar la base de datos">
+    </form>
+</div>
 
 <?php
     htmlAside();
