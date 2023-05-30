@@ -105,6 +105,7 @@ function htmlAside()
   } else {
     __htmlLogeado();
   }
+  __htmlWidgets(1);
 }
 
 function htmlPagLog($datos)
@@ -514,6 +515,42 @@ function obtenerNombreUsuario($idUsuario)
   desconexion($db);
 
   return $nombreUsuario;
+}
+
+function __htmlWidgets($opcion){
+  $db = conexion();
+  if($opcion == 1){
+    $sql = "SELECT u.nombre, COUNT(i.id) AS total_incidencias
+          FROM usuarios u
+          INNER JOIN incidencias i ON u.id = i.idusuario
+          GROUP BY u.id
+          ORDER BY total_incidencias DESC
+          LIMIT 3";
+  }else if($opcion == 2){
+
+  }
+
+  $result = $db->query($sql);
+  if ($result && $result->num_rows > 0) {
+    $top = array();
+    while ($row = $result->fetch_assoc()) {
+      $top[] = $row;
+    }
+  }
+  desconexion($db);
+  __htmlWidgetsFormato($top, $opcion);
+}
+
+function __htmlWidgetsFormato($top, $opcion){
+  if($opcion == 1){
+    $titulo = "Los que más añaden";
+  }
+  echo "<h1>{$titulo}</h1>";
+  echo "<ol>";
+  foreach ($top as $elem) {
+    echo "<li>({$elem['total_incidencias']}) {$elem['nombre']}</li>";
+  }
+  echo "</ol>";
 }
 
 ?>

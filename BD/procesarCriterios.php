@@ -3,7 +3,7 @@
 $db = conexion();
 
 // Procesar los datos del formulario
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && (!isset($_POST['editar']) && !isset($_POST['logout']))) {
     // Sentencia por defecto si no se rellena el formulario, pero se envia, se muestran todas las incidencias
     $sql = "SELECT * FROM incidencias WHERE 1=1";
 
