@@ -1,0 +1,49 @@
+{
+    "es": {
+        "Nueva": "Nueva incidencia",
+
+        "Datos": "Datos principales", 
+
+        "Titulo": "Titulo",
+        "Descripcion": "Descripcion",
+        "Lugar": "Lugar",
+        "PalabrasClave": "Palabras clave",
+        "Fecha": "Fecha",
+        "Estado": "Estado",
+        "Creador": "Creado por",
+
+        "Enviar": "Enviar datos"
+    },
+
+    "en": {
+        "Nueva": "New complaint",
+
+        "Datos": "Main data", 
+
+        "Titulo": "Title",
+        "Descripcion": "Description",
+        "Lugar": "Place",
+        "PalabrasClave": "Keywords",
+        "Fecha": "Date",
+        "Estado": "Status",
+        "Creador": "Created by",
+
+        "Enviar": "Submit data"
+    },
+
+    "fr": {
+        "Nueva": "Nouvel plainte",
+
+        "Datos": "Donnée principale", 
+
+        "Titulo": "Titre",
+        "Descripcion": "Description",
+        "Lugar": "Lieu",
+        "PalabrasClave": "Mots-clés",
+        "Fecha": "Date",
+        "Estado": "État",
+        "Creador": "Créé par",
+
+        "Enviar": "Soumettre des données"
+    }
+}
