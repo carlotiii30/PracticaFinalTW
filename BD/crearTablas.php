@@ -4,30 +4,30 @@ require('baseDatos.php'); // Conexión y desconexión
 // Conexión
 $db = conexion();
 
-	// Borrar tabla anterior si existe
-	//$sql = "DROP TABLE IF EXISTS usuarios";
+// Borrar tabla anterior si existe
+//$sql = "DROP TABLE IF EXISTS usuarios";
 
-	// Ejecutar la consulta
-	/*if ($db->query($sql) === TRUE) {
-		   echo "Tabla anterior eliminada";
-	   } else {
-		   echo "Error al eliminar tabla anterior: " . $db->error;
-		   exit;
-	   }*/
+// Ejecutar la consulta
+/*if ($db->query($sql) === TRUE) {
+		  echo "Tabla anterior eliminada";
+	  } else {
+		  echo "Error al eliminar tabla anterior: " . $db->error;
+		  exit;
+	  }*/
 
-	// Crear la tabla con la columna de foto
-	/*$sql = "CREATE TABLE usuarios (
-			   id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-			   nombre VARCHAR(50) DEFAULT NULL,
-			   apellidos VARCHAR(100) DEFAULT NULL,
-			   email VARCHAR(100) DEFAULT NULL,
-			   password VARCHAR(255) DEFAULT NULL,
-			   telefono VARCHAR(11) DEFAULT NULL,
-			   direccion VARCHAR(100) DEFAULT NULL,
-			   estado CHAR(30) DEFAULT NULL,
-			   rol VARCHAR(15) DEFAULT NULL,
-			   foto LONGBLOB
-			   )";*/
+// Crear la tabla con la columna de foto
+/*$sql = "CREATE TABLE usuarios (
+			  id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+			  nombre VARCHAR(50) DEFAULT NULL,
+			  apellidos VARCHAR(100) DEFAULT NULL,
+			  email VARCHAR(100) DEFAULT NULL,
+			  password VARCHAR(255) DEFAULT NULL,
+			  telefono VARCHAR(11) DEFAULT NULL,
+			  direccion VARCHAR(100) DEFAULT NULL,
+			  estado CHAR(30) DEFAULT NULL,
+			  rol VARCHAR(15) DEFAULT NULL,
+			  foto LONGBLOB
+			  )";*/
 
 /*$sql = "CREATE TABLE incidencias (
 			  id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -85,12 +85,47 @@ $db = conexion();
 	   }
    }*/
 
-	// Tabla logs
-	$sql = "CREATE TABLE logs (
-		id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-		fecha DATETIME,
-		accion VARCHAR(255)
-	  )";
+// Tabla logs
+/*$sql = "CREATE TABLE logs (
+	   id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+	   fecha DATETIME,
+	   accion VARCHAR(255)
+	 )";
+*/
+
+// Tabla comentarios.
+/*
+// Borrar tabla anterior si existe
+$sql = "DROP TABLE IF EXISTS comentarios";
+
+// Ejecutar la consulta
+if ($db->query($sql) === TRUE) {
+	echo "Tabla anterior eliminada";
+} else {
+	echo "Error al eliminar tabla anterior: " . $db->error;
+	exit;
+}
+
+$sql = "CREATE TABLE comentarios (
+    id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    idUsuario INT(10) DEFAULT NULL,
+    comentario TEXT DEFAULT NULL,
+    fecha DATETIME DEFAULT NULL
+)";
+
+$sql = "ALTER TABLE comentarios
+ADD COLUMN idIncidencia INT(10) UNSIGNED,
+ADD CONSTRAINT fk_comentarios_incidencias
+FOREIGN KEY (idIncidencia) REFERENCES incidencias(id)
+ON DELETE CASCADE";
+
+// Ejecutar la consulta
+if ($db->query($sql)) {
+	echo "Relación entre tablas creada correctamente.";
+} else {
+	echo "Error al crear la relación entre tablas: " . $db->error;
+}
+
 
 // Ejecutar la consulta
 if ($db->query($sql) === TRUE) {
@@ -98,7 +133,25 @@ if ($db->query($sql) === TRUE) {
 } else {
 	echo "Error al crear tabla: " . $db->error;
 	exit;
+}*/
+
+// tabla incidencias
+$sql = "ALTER TABLE incidencias ADD COLUMN valoracionesPositivas INT DEFAULT 0";
+
+if ($db->query($sql)) {
+	echo "Tabla alterada correctamente.";
+} else {
+	echo "Error al alterar la tabla: " . $db->error;
 }
+
+$sql = "ALTER TABLE incidencias ADD COLUMN valoracionesNegativas INT DEFAULT 0";
+
+if ($db->query($sql)) {
+	echo "Tabla alterada correctamente.";
+} else {
+	echo "Error al alterar la tabla: " . $db->error;
+}
+
 
 desconexion($db);
 

@@ -488,13 +488,39 @@ function __formatoIncidencia($incidencia)
           <li> <div class="cabecera-texto"> {$mensajesIncidencias[$idioma]["Creador"]}: </div> {$nombre}</li>
           <li> <div class="cabecera-texto"> {$mensajesIncidencias[$idioma]["PalabrasClave"]}: </div> {$incidencia["keywords"]}</li>
           <li> <div class="cabecera-texto"> {$mensajesIncidencias[$idioma]["Estado"]}: </div> {$incidencia["estado"]}</li>
+          <li> <div class="cabecera-texto"> {$mensajesIncidencias[$idioma]["Valoraciones"]}: </div> {$incidencia["valoracionesPositivas"]} | {$incidencia["valoracionesNegativas"]}</li>
         </ul>
       </div>
       <div class="cuerpo">
         <p> {$incidencia["descripcion"]} </p>
       </div>
+      <div class="opiniones">
+        <form method="post" action="">
+          <button name="sumar">
+              <img src="vista/imagenes/verde.png">
+          </button>
+          <button name="restar">
+              <img src="vista/imagenes/verde.png">
+          </button>
+          <button name="comentar">
+              <img src="vista/imagenes/comentario.png">
+          </button>
+        </form>
+      </div>
     </div>
   HTML;
+
+  if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    // Posibilidades del formulario.
+    if (isset($_POST["sumar"])) {
+      valoracion($incidencia, "sumar");
+    } else if (isset($_POST["restar"])) {
+      valoracion($incidencia, "restar");
+    } else if (isset($_SESSION["comentar"])) {
+      header("Location: insertarCometario.php");
+    }
+  }
+
 }
 
 // Método para obtener el nombre de usuario a partir de la id de la tabla de incidencias.
@@ -517,16 +543,17 @@ function obtenerNombreUsuario($idUsuario)
   return $nombreUsuario;
 }
 
-function __htmlWidgets($opcion){
+function __htmlWidgets($opcion)
+{
   $db = conexion();
-  if($opcion == 1){
+  if ($opcion == 1) {
     $sql = "SELECT u.nombre, COUNT(i.id) AS total_incidencias
           FROM usuarios u
           INNER JOIN incidencias i ON u.id = i.idusuario
           GROUP BY u.id
           ORDER BY total_incidencias DESC
           LIMIT 3";
-  }else if($opcion == 2){
+  } else if ($opcion == 2) {
 
   }
 
@@ -541,8 +568,9 @@ function __htmlWidgets($opcion){
   __htmlWidgetsFormato($top, $opcion);
 }
 
-function __htmlWidgetsFormato($top, $opcion){
-  if($opcion == 1){
+function __htmlWidgetsFormato($top, $opcion)
+{
+  if ($opcion == 1) {
     $titulo = "Los que más añaden";
   }
   echo "<h1>{$titulo}</h1>";

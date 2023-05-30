@@ -46,4 +46,31 @@ function descargarFoto($tabla, $db) {
 }
 
 
+// Función para las valoraciones
+function valoracion($incidencia, $accion) {
+    $db = conexion();
+    $id = $incidencia["id"];
+
+    // Obtener el valor actual de valoraciones positivas y negativas
+    $sql = "SELECT valoracionesPositivas, valoracionesNegativas FROM incidencias WHERE id = $id";
+    $result = $db->query($sql);
+    $row = $result->fetch_assoc();
+    $positiva = $row["valoracionesPositivas"];
+    $negativa = $row["valoracionesNegativas"];
+
+    if ($accion == "sumar") {
+        $positiva++;
+        $sql = "UPDATE incidencias SET valoracionesPositivas = $positiva WHERE id = $id";
+        insertarLog("¡Parece que a alguien le ha gustado la incidencia con id $id!", $db);
+    } elseif ($accion == "restar") {
+        $negativa++;
+        $sql = "UPDATE incidencias SET valoracionesNegativas = $negativa WHERE id = $id";
+        insertarLog("Vaya alguien no está de acuerdo con la incidencia con id $id!", $db);
+    }
+
+    $db->query($sql);
+}
+
+
+
 ?>

@@ -11,6 +11,7 @@
         "Fecha": "Fecha",
         "Estado": "Estado",
         "Creador": "Creado por",
+        "Valoraciones": "Valoraciones",
 
         "Enviar": "Enviar datos"
     },
@@ -27,6 +28,7 @@
         "Fecha": "Date",
         "Estado": "Status",
         "Creador": "Created by",
+        "Valoraciones": "Ratings",
 
         "Enviar": "Submit data"
     },
@@ -43,6 +45,7 @@
         "Fecha": "Date",
         "Estado": "État",
         "Creador": "Créé par",
+        "Valoraciones": "Notes",
 
         "Enviar": "Soumettre des données"
     }

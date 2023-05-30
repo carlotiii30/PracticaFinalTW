@@ -408,6 +408,24 @@ aside form {
     background-color: white;
 }
 
+.incidencia .opiniones {
+    text-align: right;
+}
+
+.incidencia .opiniones button {
+    width: 30px;
+    height: 30px;
+    margin-left: 10px;
+    background: none;
+    border: none;
+    padding: 0;
+}
+
+.incidencia .opiniones button img {
+    width: 100%;
+    height: 100%;
+}
+
 
 
 /* - - MODIFICAR USUARIO - - */

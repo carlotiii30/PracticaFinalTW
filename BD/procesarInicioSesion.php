@@ -36,6 +36,7 @@ if (is_string($db = conexion())) {
         } else {
             // El inicio de sesión falló, muestra un mensaje de error
             echo "Usuario o contraseña incorrectos.";
+            insertarLog("El usuario $nombreUsuario ha intentado iniciar sesión sin éxito.", $db);
         }
 
         // Desconectar de la BBDD (se puede omitir)

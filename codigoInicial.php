@@ -7,7 +7,7 @@ $pagina_actual = basename($_SERVER['PHP_SELF']);
 $mensajes = json_decode(file_get_contents('./vista/traducciones/traducciones.json'), true);
 
 // - - - Traducciones para nueva incidencia - - -
-$mensajesIncidencias = json_decode(file_get_contents('./vista/traducciones/formularioNueva.json'), true);
+$mensajesIncidencias = json_decode(file_get_contents('./vista/traducciones/formularioIncidencia.json'), true);
 
 // - - - Traducciones para ver incidencias - - - 
 $mensajesCriterios = json_decode(file_get_contents('./vista/traducciones/formularioCriterios.json'), true);
