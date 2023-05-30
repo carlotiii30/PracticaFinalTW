@@ -33,8 +33,13 @@ if (isset($_GET) and !empty($_GET)) {
     }
 
 } else {
-    // Inicializamos la variable idioma
-    $idioma = "es";
+    // Si existe una cookie, la recuperamos
+    if (isset($_COOKIE["idioma"]) && !empty($_COOKIE["idioma"])) {
+        $idioma = $_COOKIE["idioma"];
+    } else {
+        // Si no, inicializamos la variable idioma
+        $idioma = "es";
+    }
 }
 
 // - - - Funcion que comprueba si está seleccionado para marcarlo - - - -
@@ -42,7 +47,10 @@ function seleccionado($n, $v)
 {
     if (isset($_GET[$n]) and ($_GET[$n] == $v))
         return 'selected';
-    
+
+    else if (isset($_COOKIE[$n]) && ($_COOKIE[$n] == $v)) {
+        return 'selected';
+    }
 }
 
 
