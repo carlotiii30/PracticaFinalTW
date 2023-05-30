@@ -71,6 +71,24 @@ function valoracion($incidencia, $accion) {
     $db->query($sql);
 }
 
+// Método para obtener el nombre de usuario a partir de la id de la tabla de incidencias.
+function obtenerNombreUsuario($idUsuario)
+{
+  $db = conexion();
 
+  $sql = "SELECT nombre FROM usuarios WHERE id = $idUsuario";
+  $result = $db->query($sql);
+
+  if ($result && $result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+    $nombreUsuario = $row['nombre'];
+  } else {
+    $nombreUsuario = 'Usuario no encontrado';
+  }
+
+  desconexion($db);
+
+  return $nombreUsuario;
+}
 
 ?>

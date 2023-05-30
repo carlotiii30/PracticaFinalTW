@@ -478,6 +478,19 @@ function __formatoIncidencia($incidencia)
 
   $nombre = obtenerNombreUsuario($incidencia["idusuario"]);
 
+  if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    // Posibilidades del formulario.
+    if (isset($_POST["sumar"])) {
+      valoracion($incidencia, "sumar");
+    } else if (isset($_POST["restar"])) {
+      valoracion($incidencia, "restar");
+    } else if (isset($_POST["comentar"])) {
+      $_SESSION["idIncidencia"] = $incidencia["id"];
+      header("Location: insertarComentario.php");
+      exit;
+    }
+  }
+
   echo <<<HTML
     <div class="incidencia">
       <h1>{$incidencia["titulo"]}</h1>
@@ -494,13 +507,16 @@ function __formatoIncidencia($incidencia)
       <div class="cuerpo">
         <p> {$incidencia["descripcion"]} </p>
       </div>
+      <div class="comentarios">
+        <p> Habría que mostrar los comentarios aquí.
+      </div>
       <div class="opiniones">
         <form method="post" action="">
           <button name="sumar">
               <img src="vista/imagenes/verde.png">
           </button>
           <button name="restar">
-              <img src="vista/imagenes/verde.png">
+              <img src="vista/imagenes/rojo.png">
           </button>
           <button name="comentar">
               <img src="vista/imagenes/comentario.png">
@@ -509,38 +525,6 @@ function __formatoIncidencia($incidencia)
       </div>
     </div>
   HTML;
-
-  if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    // Posibilidades del formulario.
-    if (isset($_POST["sumar"])) {
-      valoracion($incidencia, "sumar");
-    } else if (isset($_POST["restar"])) {
-      valoracion($incidencia, "restar");
-    } else if (isset($_SESSION["comentar"])) {
-      header("Location: insertarCometario.php");
-    }
-  }
-
-}
-
-// Método para obtener el nombre de usuario a partir de la id de la tabla de incidencias.
-function obtenerNombreUsuario($idUsuario)
-{
-  $db = conexion();
-
-  $sql = "SELECT nombre FROM usuarios WHERE id = $idUsuario";
-  $result = $db->query($sql);
-
-  if ($result && $result->num_rows > 0) {
-    $row = $result->fetch_assoc();
-    $nombreUsuario = $row['nombre'];
-  } else {
-    $nombreUsuario = 'Usuario no encontrado';
-  }
-
-  desconexion($db);
-
-  return $nombreUsuario;
 }
 
 function __htmlWidgets($opcion)
