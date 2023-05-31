@@ -181,6 +181,7 @@ aside form {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-bottom: 10px;
 }
 
 .logeado .imagen-usuario img{
@@ -190,12 +191,13 @@ aside form {
 }
 
 .logeado p {
-    margin: 5px;
+    margin: 0px;
 }
 
 .logeado .rol {
     font-size: 14px;
     color: gray;
+    margin-bottom: 5px;
 }
 
 .logeado form {
