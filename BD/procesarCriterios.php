@@ -6,7 +6,11 @@ $db = conexion();
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && (!isset($_POST['editar']) && !isset($_POST['logout']))) {
     // Sentencia por defecto si no se rellena el formulario, pero se envia, se muestran todas las incidencias
     $sql = "SELECT * FROM incidencias WHERE 1=1";
-
+    
+    if(isset($_POST['ordenar']) && $_POST['ordenar'] === "NoMg"){
+        $sql = "SELECT *, (valoracionesPositivas - valoracionesNegativas) AS diferencia FROM incidencias WHERE 1=1";
+    }
+    
     // FIltra según el estado de las incidencias
     if(isset($_POST['estado']) && !empty($_POST['estado'])){
         $estados = $_POST['estado'];
@@ -40,9 +44,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && (!isset($_POST['editar']) && !isset
         if ($ordenar === "Antiguedad") {
             $sql .= " fecha DESC";
         } elseif ($ordenar === "Mg") {
-            $sql .= " me_gustas";
+            $sql .= " valoracionesPositivas DESC";
         } elseif ($ordenar === "NoMg") {
-            $sql .= " no_me_gustas";
+            $sql .= " diferencia DESC";
         }
     }
 
