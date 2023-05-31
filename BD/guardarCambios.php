@@ -56,23 +56,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // Actualizar usuario
         if(!$hayImagen){
-            $query = "UPDATE usuarios SET nombre= ?, apellidos= ?, email= ?, telefono= ?, direccion=?, password=? WHERE id=?";
-            $stmt = $db->prepare($query);
-            $stmt->bind_param('ssssssi', $nombre, $apellidos, $email, $telefono, $direccion, $password1, $id);
-            //$sql = "UPDATE usuarios SET nombre='$nombre', apellidos='$apellidos', email='$email', telefono='$telefono', direccion='$direccion', password='$password1' WHERE id=$id";
+            if(!empty($password1)){
+                $query = "UPDATE usuarios SET nombre= ?, apellidos= ?, email= ?, telefono= ?, direccion=?, password=? WHERE id=?";
+                $stmt = $db->prepare($query);
+                $stmt->bind_param('ssssssi', $nombre, $apellidos, $email, $telefono, $direccion, $password1, $id);
+            }else{
+                $query = "UPDATE usuarios SET nombre= ?, apellidos= ?, email= ?, telefono= ?, direccion=? WHERE id=?";
+                $stmt = $db->prepare($query);
+                $stmt->bind_param('sssssi', $nombre, $apellidos, $email, $telefono, $direccion, $id);
+            }
         }else{
             $image = file_get_contents($_FILES['images']['tmp_name']);
-            $query = "UPDATE usuarios SET nombre= ?, apellidos= ?, email= ?, telefono= ?, direccion=?, password=?, foto = ? WHERE id=?";
-            $stmt = $db->prepare($query);
-            $stmt->bind_param('sssssssi', $nombre, $apellidos, $email, $telefono, $direccion, $password1, $image, $id);
-            //$image = file_get_contents($_FILES['images']['tmp_name']);    
-            //$sql = "UPDATE usuarios SET nombre='$nombre', apellidos='$apellidos', email='$email', telefono='$telefono', direccion='$direccion', password='$password1', foto=$image WHERE id=$id";
+            if(!empty($password1)){
+                $query = "UPDATE usuarios SET nombre= ?, apellidos= ?, email= ?, telefono= ?, direccion=?, password=?, foto = ? WHERE id=?";
+                $stmt = $db->prepare($query);
+                $stmt->bind_param('sssssssi', $nombre, $apellidos, $email, $telefono, $direccion, $password1, $image, $id);
+            }else{
+                $query = "UPDATE usuarios SET nombre= ?, apellidos= ?, email= ?, telefono= ?, direccion=?, foto = ? WHERE id=?";
+                $stmt = $db->prepare($query);
+                $stmt->bind_param('ssssssi', $nombre, $apellidos, $email, $telefono, $direccion, $image, $id);
+            }
         }
-        
 
-        //$result = $db->query($sql);
-
-        // Ejecutar la consulta $db->query($sql) == TRUE
+        // Ejecutar la consulta
         if ($stmt->execute()) {
 
             // Mensaje de correcto ??
@@ -84,7 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             header('Location: ../index.php');
             exit;
         } else {
-            $registrado = "Error al crear el usuario";
+            $registrado = "Error al actualizar el usuario";
             $stmt->close();
         }
 
