@@ -158,11 +158,11 @@ aside form {
     padding: 10px 20px;
     border: none;
     margin: 10px;
+    cursor: pointer;
 }
 
 .login .botones input:hover {
     background-color: rgb(185, 140, 185);
-    cursor: pointer;
 }
 
 /* - LOGEADO - */
@@ -184,10 +184,11 @@ aside form {
     margin-bottom: 10px;
 }
 
-.logeado .imagen-usuario img{
+.logeado .imagen-usuario img {
     max-width: 100%;
     height: auto;
-    object-fit: cover; /* Ajusta la imagen al tamaño especificado sin distorsionarla */
+    object-fit: cover;
+    /* Ajusta la imagen al tamaño especificado sin distorsionarla */
 }
 
 .logeado p {
@@ -212,11 +213,12 @@ aside form {
     padding: 10px 20px;
     border: none;
     margin: 0 5px;
+    cursor: pointer;
 }
 
 .logeado input:hover {
     background-color: rgb(185, 140, 185);
-    cursor: pointer;
+
 }
 
 /* - - TABLA LOG - - */
@@ -292,7 +294,6 @@ aside form {
     margin-bottom: 10px;
     margin-left: 10px;
     border: 1px solid rgb(172, 134, 172);
-    padding: 5px;
 }
 
 .nueva .botones input {
@@ -305,7 +306,6 @@ aside form {
 
 .nueva .botones input:hover {
     background-color: rgb(185, 140, 185);
-    cursor: pointer;
 }
 
 
@@ -371,11 +371,11 @@ aside form {
     color: white;
     padding: 10px 20px;
     border: none;
+    cursor: pointer;
 }
 
 .criterios .botones input:hover {
     background-color: rgb(185, 140, 185);
-    cursor: pointer;
 }
 
 .incidencia {
@@ -481,7 +481,6 @@ aside form {
 
 .modificar .botones input:hover {
     background-color: rgb(185, 140, 185);
-    cursor: pointer;
 }
 
 .modificar .imagen-usuario {
@@ -499,11 +498,47 @@ aside form {
     width: 50%;
 }
 
-/* - - Gestión Base de Datos - - */
+/* - - GESTION BBDD - - */
 .gestion {
     flex: 85%;
     margin: 5px 20px 5px 10px;
     padding: 0 5% 0 15px;
+    text-align: center;
+}
+
+.gestion form {
+    display: inline-block;
+}
+
+.gestion .botones input {
+    margin: 5px;
+    padding: 10px 20px;
+    background-color: rgb(172, 134, 172);
+    color:white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.gestion .botones input:hover {
+    background-color: rgb(185, 140, 185);
+}
+
+.gestion .botones input:hover:last-child {
+    background-color: rgb(46, 45, 45);
+    color: rgba(231, 17, 17, 0.868);
+}
+
+.gestion .seguridad {
+    padding: 0px 10px 10px 10px;
+    margin: 5px;
+    background-color: rgb(46, 45, 45);
+    color:white;
+    border: 1px solid rgb(172, 134, 172);
+}
+
+.gestion .seguridad input {
+    border: 1px solid rgb(172, 134, 172);
 }
 
 
