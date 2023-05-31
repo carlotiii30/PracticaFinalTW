@@ -1,7 +1,5 @@
 <?php
-include "funcion.php";
 include "codigoInicial.php";
-include "BD/baseDatos.php";
 
 session_start();
 function htmlStart($titulo, $activo = '')
@@ -401,9 +399,20 @@ function __htmlLogeado()
   global $mensajes;
   global $idioma;
 
+  // Verificar si se ha enviado el formulario.
+  if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    if (isset($_POST["logout"])) {
+      __htmlLogout();
+      exit;
+    } else if (isset($_POST["editar"])) {
+      header("Location: modificarUsuario.php");
+      exit;
+    }
+  }
+
   echo <<<HTML
     <div class="logeado">
-      <div class="imagen-usuario">
+        <div class="imagen-usuario">
     HTML;
 
   $db = conexion();
@@ -411,26 +420,17 @@ function __htmlLogeado()
   desconexion($db);
 
   echo <<<HTML
-      </div>
-      <p>{$_SESSION["nombreUsuario"]}</p>
-      <p class="rol">{$_SESSION["rol"]}</p>
+        </div>
+        <p>{$_SESSION["nombreUsuario"]}</p>
+        <p class="rol">{$_SESSION["rol"]}</p>
     <form method="post" action="">
         <input type="submit" name="editar" value="{$mensajes[$idioma]["Editar"]}">
         <input type="submit" name="logout" value="{$mensajes[$idioma]["Desconectar"]}">
-      </form>
+    </form>
     </div>
     HTML;
-
-  // Verificar si se ha enviado el formulario de logout
-  if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["logout"])) {
-    __htmlLogout();
-  }
-
-  if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["editar"])) {
-    header("Location: modificarUsuario.php");
-  }
-
 }
+
 
 function MostrarIncidencias($incidencias)
 {

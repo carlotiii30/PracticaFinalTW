@@ -1,4 +1,6 @@
 <?php
+include "BD/baseDatos.php";
+include "funcion.php";
 
 // - - - - Guardamos la URL de la página actual - - - -
 $pagina_actual = basename($_SERVER['PHP_SELF']);
