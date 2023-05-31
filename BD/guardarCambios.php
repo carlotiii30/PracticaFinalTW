@@ -15,6 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password2 = isset($_POST['password2']) ? $_POST['password2'] : '';
     $telefono = isset($_POST['telefono']) ? $_POST['telefono'] : '';
     $direccion = isset($_POST['direccion']) ? $_POST['direccion'] : '';
+    $hayImagen = !empty($_FILES['images']['name']) ? true : false;
 
     // Array para almacenar los errores que pueda haber.
     $errores = array();
@@ -44,6 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
 
+
     // Si no hay errores, procesamos los datos.
     if (count($errores) === 0) {
 
@@ -52,24 +54,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Conexión
         $db = conexion();
 
+        // Actualizar usuario
+        if(!$hayImagen){
+            $query = "UPDATE usuarios SET nombre= ?, apellidos= ?, email= ?, telefono= ?, direccion=?, password=? WHERE id=?";
+            $stmt = $db->prepare($query);
+            $stmt->bind_param('ssssssi', $nombre, $apellidos, $email, $telefono, $direccion, $password1, $id);
+            //$sql = "UPDATE usuarios SET nombre='$nombre', apellidos='$apellidos', email='$email', telefono='$telefono', direccion='$direccion', password='$password1' WHERE id=$id";
+        }else{
+            $image = file_get_contents($_FILES['images']['tmp_name']);
+            $query = "UPDATE usuarios SET nombre= ?, apellidos= ?, email= ?, telefono= ?, direccion=?, password=?, foto = ? WHERE id=?";
+            $stmt = $db->prepare($query);
+            $stmt->bind_param('sssssssi', $nombre, $apellidos, $email, $telefono, $direccion, $password1, $image, $id);
+            //$image = file_get_contents($_FILES['images']['tmp_name']);    
+            //$sql = "UPDATE usuarios SET nombre='$nombre', apellidos='$apellidos', email='$email', telefono='$telefono', direccion='$direccion', password='$password1', foto=$image WHERE id=$id";
+        }
+        
 
-        // Crear usuario
-        $sql = "UPDATE usuarios SET nombre='$nombre', apellidos='$apellidos', email='$email', telefono='$telefono', direccion='$direccion', password='$password1' WHERE id=$id";
-        $result = $db->query($sql);
+        //$result = $db->query($sql);
 
-        // Ejecutar la consulta
-        if ($db->query($sql) == TRUE) {
+        // Ejecutar la consulta $db->query($sql) == TRUE
+        if ($stmt->execute()) {
 
             // Mensaje de correcto ??
 
             // Insertar en el log
             insertarLog("El usuario $nombre ha modificado sus datos", $db);
-
+            $stmt->close();
             // Redirigimos.
             header('Location: ../index.php');
             exit;
         } else {
             $registrado = "Error al crear el usuario";
+            $stmt->close();
         }
 
         desconexion($db);

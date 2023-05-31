@@ -34,15 +34,18 @@ function descargarFoto($tabla, $db) {
     $stmt->execute();
     $stmt->bind_result($foto);
     
+    $imageData = '';
     if ($stmt->fetch()) {
         $fotoData = base64_encode($foto);
         $src = 'data:image/jpeg;base64,' . $fotoData;
-        echo "<img src='$src' alt='Foto'>";
+        $imageData =  "<img src='$src' alt='Foto'>";
     } else {
-        echo "Foto no encontrada.";
+        $imageData = "Foto no encontrada.";
     }
     
     $stmt->close();
+
+    echo $imageData;
 }
 
 

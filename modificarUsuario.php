@@ -22,13 +22,17 @@ if (is_string($db = conexion())) {
         ?>
 
         <div class="modificar">
-            <form method="POST" action="BD/guardarCambios.php">
+            <form method="POST" action="BD/guardarCambios.php"  enctype="multipart/form-data">
                 <div class="imagen-usuario">
                     <?php
-                    descargarFoto('usuarios', $db);
+                        header("Content-Type: text/html; charset=UTF-8");
+                        descargarFoto("usuarios", $db);
                     ?>
                 </div>
                 <div class="entrada">
+                    <label for="foto">
+                        <input type="file" name="images"> 
+                    </label>
                     <label for="nombre">
                         <?php echo $mensajes[$idioma]["Nombre"]; ?>:
                     </label>
