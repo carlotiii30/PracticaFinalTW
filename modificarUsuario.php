@@ -23,12 +23,6 @@ if (is_string($db = conexion())) {
 
         <div class="modificar">
             <form method="POST" action="BD/guardarCambios.php"  enctype="multipart/form-data">
-                <div class="imagen-usuario">
-                    <?php
-                        header("Content-Type: text/html; charset=UTF-8");
-                        descargarFoto("usuarios", $db);
-                    ?>
-                </div>
                 <div class="entrada">
                     <label for="foto">
                         <input type="file" name="images"> 
@@ -80,13 +74,18 @@ if (is_string($db = conexion())) {
 
                     <label for="rol">Rol:</label>
                     <input type="text" name="rol" value="<?php echo $usuario['rol']; ?>" disabled><br>
-                </div>
-
-                <div class="botones">
-                    <input type="submit" value="Guardar cambios">
+                    
+                    <div class="botones">
+                        <input type="submit" value="Guardar cambios">
+                    </div>
                 </div>
             </form>
-
+            <div class="imagen-usuario">
+                <?php
+                    header("Content-Type: text/html; charset=UTF-8");
+                    descargarFoto("usuarios", $db);
+                ?>
+            </div>
         </div>
         <?php
     } else {

@@ -486,11 +486,16 @@ aside form {
 
 
 /* - - MODIFICAR USUARIO - - */
+.modificar {
+    background-color: rgb(208, 185, 208);
+    border: 1px solid rgb(172, 134, 172);
+    display: flex;
+}
+
 .modificar form {
     margin-top: 20px;
     padding: 10px;
-    background-color: rgb(208, 185, 208);
-    border: 1px solid rgb(172, 134, 172);
+    flex: 75%;
 }
 
 .modificar form label {
@@ -523,9 +528,14 @@ aside form {
 }
 
 .modificar .imagen-usuario {
-    float: right;
-    margin-left: 20px;
-    width: 200px;
+    flex: 15%;
+    margin-top: 20px;
+    padding: 10px;
+    text-align: center;
+}
+
+.modificar .imagen-usuario{
+    max-width: 100%;
     height: auto;
 }
 
