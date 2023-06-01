@@ -119,24 +119,36 @@ ADD CONSTRAINT fk_comentarios_incidencias
 FOREIGN KEY (idIncidencia) REFERENCES incidencias(id)
 ON DELETE CASCADE";
 
+CREATE TABLE valoraciones (
+    id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    valoracion INT(10) DEFAULT NULL,
+    idIncidencia INT(10) UNSIGNED,
+    idUsuario INT(10) UNSIGNED,
+    CONSTRAINT fk_valoraciones_incidencias
+    FOREIGN KEY (idIncidencia) REFERENCES incidencias(id)
+    ON DELETE CASCADE,
+    CONSTRAINT fk_valoraciones_usuarios
+    FOREIGN KEY (idUsuario) REFERENCES usuarios(id)
+    ON DELETE CASCADE
+);
+
 // Ejecutar la consulta
 if ($db->query($sql)) {
 	echo "Relación entre tablas creada correctamente.";
 } else {
 	echo "Error al crear la relación entre tablas: " . $db->error;
 }
-
-
+/*
 // Ejecutar la consulta
 if ($db->query($sql) === TRUE) {
 	echo "Tabla creada correctamente";
 } else {
 	echo "Error al crear tabla: " . $db->error;
 	exit;
-}*/
+}
 
 // tabla incidencias
-$sql = "ALTER TABLE incidencias ADD COLUMN valoracionesPositivas INT DEFAULT 0";
+/*$sql = "ALTER TABLE incidencias ADD COLUMN valoracionesPositivas INT DEFAULT 0";
 
 if ($db->query($sql)) {
 	echo "Tabla alterada correctamente.";
@@ -151,8 +163,9 @@ if ($db->query($sql)) {
 } else {
 	echo "Error al alterar la tabla: " . $db->error;
 }
-
+*/
 
 desconexion($db);
-
+	
 ?>
+

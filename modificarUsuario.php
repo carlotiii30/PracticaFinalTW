@@ -63,13 +63,13 @@ if (is_string($db = conexion())) {
                             <label for="password1">
                                 <?php echo $mensajes[$idioma]["Contrasenia"]; ?>:
                             </label>
-                            <input type="password" name="password1"><br>
+                            <input class="password1" type="password" name="password1"><br>
                         </div>
                         <div class="campo">
                             <label for="password2">
                                 <?php echo $mensajes[$idioma]["Confirmar"]; ?>:
                             </label>
-                            <input type="password" name="password2"><br>
+                            <input class="password2" type="password" name="password2"><br>
                         </div>
                     </div>
 
