@@ -106,11 +106,26 @@ function htmlAside()
   __htmlWidgets(1);
 }
 
-function htmlPagLog($datos)
+function htmlPagLog()
+{
+  // Conexion
+  $db = conexion();
+
+  // Recuperacion de los datos
+  $sql = "SELECT * FROM logs ORDER BY fecha DESC";
+  $datos = $db->query($sql);
+
+  // Desconexion
+  desconexion($db);
+
+  // Mostrar log
+  mostrarLog($datos);
+}
+
+function mostrarLog($datos)
 {
   global $mensajes;
   global $idioma;
-
   echo <<<HTML
   <div class='log'>
   <table>
@@ -250,8 +265,20 @@ function htmlPagVerIncidencias()
   HTML;
 }
 
-function htmlPagMisIncidencias($datos)
+function htmlPagMisIncidencias()
 {
+  // Conexion
+  $db = conexion();
+
+  // Recuperacion de datos de la base de datos
+  $id = $_SESSION['idUsuario'];
+  $sql = "SELECT * FROM incidencias WHERE idusuario = $id ORDER BY fecha DESC";
+  $datos = $db->query($sql);
+
+  // Desconexión
+  desconexion($db);
+
+  // Mostrar incidencias
   mostrarIncidencias($datos);
 }
 
@@ -553,14 +580,25 @@ function mostrarComentarios($id)
   desconexion($db);
 }
 
-function htmlPagGestionUsuarios($usuarios)
+function htmlPagGestionUsuarios()
 {
   if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    // Posibilidades del formulario.
     if (isset($_POST["listado"])) {
-      foreach ($usuarios as $dato) {
+      // Conexion
+      $db = conexion();
+
+      // Recuperación de datos
+      $sql = "SELECT * FROM usuarios";
+      $datos = $db->query($sql);
+
+      // Desconexión
+      desconexion($db);
+
+      // Formato de usuarios
+      foreach ($datos as $dato) {
         __formatoUsuario($dato);
       }
+
     } else if (isset($_POST["nuevo"])) {
       header("Location: registrarUsuario.php");
       exit;
@@ -598,6 +636,50 @@ function __formatoUsuario($usuario)
   HTML;
 }
 
+function htmlPagGestionBD()
+{
+  if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $db = conexion();
+
+    // Opción 1: Descargar copia de seguridad
+    if (isset($_POST["descargar"])) {
+      backup($db);
+    }
+
+    // Opción 2: Restaurar copia de seguridad
+    else if (isset($_POST["restaurar"])) {
+      //restaurar($db, );
+    }
+
+    // Opción 3: Borrar la BBDD (se reinicia)
+    else if (isset($_POST["borrar"]) && isset($_POST["confirmar"]) && $_POST["confirmar"] === "si") {
+      borrar($db);
+    }
+    desconexion($db);
+  }
+
+  echo <<<HTML
+    <div class="gestion">
+        <form method="post" action="">
+            <div class="botones">
+                <input type="submit" name="descargar" value="Descargar copia de seguridad">
+                <input type="submit" name="restaurar" value="Restaurar copia de seguridad">
+                <input type="submit" name="borrar" value="Borrar la base de datos">
+            </div>
+    HTML;
+
+  if (isset($_POST["borrar"])) {
+    echo <<<HTML
+            <div class="seguridad">
+                <p>Esta acción borrará toda la información que hay actualmente en la base de datos. ¿Está seguro/a de que quiere realizarla?</p>
+                <label for="confirmar">Escriba "si" para confirmar el borrado:</label>
+                <input type="text" name="confirmar" id="confirmar">
+            </div>
+    HTML;
+  }
+
+  echo "</form></div>";
+}
 
 function __htmlWidgets($opcion)
 {

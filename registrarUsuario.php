@@ -1,5 +1,5 @@
 <?php
-require('./vista/html/html.php'); // Maquetado de página
+include('vista/html/html.php'); // Maquetado de página
 
 htmlStart('Página de registro');
 htmlEnd();
