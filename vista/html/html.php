@@ -517,7 +517,7 @@ function mostrarComentarios($id)
 {
   $db = conexion();
 
-  $sql = "SELECT comentario FROM comentarios WHERE idIncidencia = $id";
+  $sql = "SELECT c.comentario, c.fecha, c.idUsuario, u.nombre, u.apellidos FROM comentarios c LEFT JOIN usuarios u ON c.idUsuario = u.id WHERE c.idIncidencia = $id";
   $result = $db->query($sql);
 
   if ($result && $result->num_rows > 0) {
@@ -525,18 +525,34 @@ function mostrarComentarios($id)
 
     while ($row = $result->fetch_assoc()) {
       $comentario = $row["comentario"];
+      $fecha = $row["fecha"];
+      $idUsuario = $row["idUsuario"];
+      $nombreUsuario = $row["nombre"];
+      $apellidos = $row["apellidos"];
       $fila++;
 
       // Determinar clase CSS para la fila actual
       $fila_class = ($fila % 2 == 0) ? 'fila-par' : 'fila-impar';
 
-      // Mostrar el comentario con la clase CSS correspondiente
-      echo "<p class='$fila_class'>$comentario</p>";
+      // Mostrar el nombre de usuario, comentario y fecha con la clase CSS correspondiente
+      echo "<div class='comentarios'>
+              <div class='$fila_class'>
+                <div class='datos'>
+                  <div class='nombre'> " . ($idUsuario == 0 ? "Anónimo" : "$nombreUsuario $apellidos") . "</div>
+                  <div class='fecha'> $fecha </div>
+                </div>
+                <div class='comentario'> $comentario </div>
+              </div>
+            </div>";
     }
   }
 
   desconexion($db);
 }
+
+
+
+
 
 function __htmlWidgets($opcion)
 {

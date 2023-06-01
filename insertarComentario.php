@@ -6,11 +6,15 @@ htmlNavGeneral('');
 htmlEnd();
 
 // Conexión con la BBDD
-if (is_string($db = conexion())) {
+$db = conexion();
+if (is_string($db)) {
     $msg_err = $db;
 } else {
     // Id del usuario
-    $id = $_SESSION['idUsuario'];
+    if (isset($_SESSION['idUsuario']))
+        $id = $_SESSION['idUsuario'];
+    else 
+        $id = 0;
 
     // Nombre
     $nombre = obtenerNombreUsuario($id);
@@ -38,18 +42,27 @@ if (is_string($db = conexion())) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $comentario = isset($_POST['comentario']) ? $_POST['comentario'] : '';
 
-    $sql = "INSERT INTO comentarios (idUsuario, idIncidencia, comentario, fecha) VALUES ($id, $idIncidencia, '$comentario', NOW())";
+    // Verificar si el comentario no está vacío
+    if (!empty($comentario)) {
+        $nombreUsuario = isset($nombre) ? $nombre : 'Anónimo';
 
-    // Ejecutar la consulta
-    if ($db->query($sql) == TRUE) {
-        insertarLog("El usuario $nombre ha comentado en la incidencia con id $idIncidencia", $db);
-        // Redirigimos.
-        header('Location: index.php');
-        exit;
+        // Escapar los valores para prevenir inyección SQL
+        $id = $db->real_escape_string($id);
+        $idIncidencia = $db->real_escape_string($idIncidencia);
+        $comentario = $db->real_escape_string($comentario);
+
+        $sql = "INSERT INTO comentarios (idUsuario, idIncidencia, comentario, fecha) VALUES ($id, $idIncidencia, '$comentario', NOW())";
+
+        // Ejecutar la consulta
+        if ($db->query($sql) === TRUE) {
+            insertarLog("El usuario $nombreUsuario ha comentado en la incidencia con id $idIncidencia", $db);
+            // Redirigimos.
+            header('Location: index.php');
+            exit;
+        }
     }
 }
 
 // Desconectar de la BBDD 
 desconexion($db);
-
 ?>
