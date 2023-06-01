@@ -252,7 +252,7 @@ function htmlPagVerIncidencias()
 
 function htmlPagMisIncidencias($datos)
 {
-  MostrarIncidencias($datos);
+  mostrarIncidencias($datos);
 }
 
 
@@ -391,6 +391,9 @@ function __htmlLogout()
 {
   session_destroy();
   header("Location: index.php");
+  $db = conexion();
+  insertarLog("El usuario {$_SESSION['nombreUsuario']} ha cerrado la sesión", $db);
+  desconexion($db);
   exit;
 }
 
@@ -432,7 +435,7 @@ function __htmlLogeado()
 }
 
 
-function MostrarIncidencias($incidencias)
+function mostrarIncidencias($incidencias)
 {
   #Para cada incidencia mostrarla con el formato por lo que estara en un for y 
   #dentro del for se llama a una funcion que le da el formato a una incidencia
@@ -473,7 +476,7 @@ function __formatoIncidencia($incidencia)
         <ul>
           <li> <div class="cabecera-texto"> {$mensajesIncidencias[$idioma]["Lugar"]}: </div> {$incidencia["lugar"]}</li>
           <li> <div class="cabecera-texto"> {$mensajesIncidencias[$idioma]["Fecha"]}: </div> {$incidencia["fecha"]}</li>
-          <li> <div class="cabecera-texto"> {$mensajesIncidencias[$idioma]["Creador"]}: </div> {$nombre}</li>
+          <li> <div class="cabecera-texto"> {$mensajesIncidencias[$idioma]["Creador"]}: </div> {$nombre} </li>
           <li> <div class="cabecera-texto"> {$mensajesIncidencias[$idioma]["PalabrasClave"]}: </div> {$incidencia["keywords"]}</li>
           <li> <div class="cabecera-texto"> {$mensajesIncidencias[$idioma]["Estado"]}: </div> {$incidencia["estado"]}</li>
           <li> <div class="cabecera-texto"> {$mensajesIncidencias[$idioma]["Valoraciones"]}: </div> {$incidencia["valoracionesPositivas"]} | {$incidencia["valoracionesNegativas"]}</li>
@@ -550,8 +553,50 @@ function mostrarComentarios($id)
   desconexion($db);
 }
 
+function htmlPagGestionUsuarios($usuarios)
+{
+  if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    // Posibilidades del formulario.
+    if (isset($_POST["listado"])) {
+      foreach ($usuarios as $dato) {
+        __formatoUsuario($dato);
+      }
+    } else if (isset($_POST["nuevo"])) {
+      header("Location: registrarUsuario.php");
+      exit;
+    }
+  }
 
+  echo <<<HTML
+  <div class="gestion">
+    <form method="post" action="">
+        <div class="botones">
+            <input type="submit" name="listado" value="Listado">
+            <input type="submit" name="nuevo" value="Registrar nuevo usuario">
+        </div>
+    </form>
+  </div>
+HTML;
+}
 
+function __formatoUsuario($usuario)
+{
+  global $mensajesRegistro;
+  global $idioma;
+
+  echo <<<HTML
+      <div class="usuario">
+        <ul>
+          <li> <div class="cabecera-texto"> {$mensajesRegistro[$idioma]["Nombre"]}: </div> {$usuario["nombre"]} {$usuario["apellidos"]}</li>
+          <li> <div class="cabecera-texto"> {$mensajesRegistro[$idioma]["Email"]}: </div> {$usuario["email"]}</li>
+          <li> <div class="cabecera-texto"> {$mensajesRegistro[$idioma]["Direccion"]}: </div> {$usuario["direccion"]} </li>
+          <li> <div class="cabecera-texto"> {$mensajesRegistro[$idioma]["Telefono"]}: </div> {$usuario["telefono"]}</li>
+          <li> <div class="cabecera-texto"> Rol: </div> {$usuario["rol"]}</li>
+          <li> <div class="cabecera-texto"> {$mensajesRegistro[$idioma]["Estado"]}: </div> {$usuario["estado"]}</li>
+        </ul>
+      </div>
+  HTML;
+}
 
 
 function __htmlWidgets($opcion)

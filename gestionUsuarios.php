@@ -1,27 +1,20 @@
 <?php
-    require('vista/html/html.php');     // Maquetado de página
+require('vista/html/html.php'); // Maquetado de página
+include "BD/procesarCriterios.php"; //Procesado del formulario
 
-    // ************* Inicio de la página
-    htmlStart('Sal y quéjate'); 
-    htmlNavGeneral($mensajes[$idioma]["GestionUsuarios"]);
-    htmlPagInicio();
-    htmlAside();
-    htmlEnd();
+// ************* Inicio de la página
+htmlStart('Sal y quéjate');
+htmlNavGeneral($mensajes[$idioma]["GestionUsuarios"]);
 
-    /* Hay dos opciones:
-            - Listado (para mostrar todos los usuarios)
-                -> Usuario (Nombre y apellidos)
-                -> Email
-                -> Dirección
-                -> Teléfono
-                -> Rol
-                -> Estado
-                -> Foto
-            - Añadir nuevo
-                -> Formulario con todas las opciones
-                -> Incluye rol y estado.
+// Recuperar usuarios de la base de datos.
+$db = conexion();
 
-        Por defecto la opción seleccionada es listado. Es decir,
-        se muestra el listado a menos que le des a a añadir nuevo.
-    */
+$sql = "SELECT * FROM usuarios";
+$datos = $db->query($sql);
+
+desconexion($db);
+
+htmlPagGestionUsuarios($datos);
+htmlAside();
+htmlEnd();
 ?>

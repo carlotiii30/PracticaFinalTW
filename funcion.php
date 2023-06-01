@@ -25,7 +25,8 @@ function subirFoto($tabla, $db){
 }
 
 // Descargar foto de un usuario
-function descargarFoto($tabla, $db) {
+function descargarFoto($tabla, $db)
+{
     $foto = null;
     $id = $_SESSION['idUsuario'];
     $query = "SELECT foto FROM $tabla WHERE id = ?";
@@ -33,16 +34,16 @@ function descargarFoto($tabla, $db) {
     $stmt->bind_param('i', $id);
     $stmt->execute();
     $stmt->bind_result($foto);
-    
+
     $imageData = '';
     if ($stmt->fetch()) {
         $fotoData = base64_encode($foto);
         $src = 'data:image/jpeg;base64,' . $fotoData;
-        $imageData =  "<img src='$src' alt='Foto'>";
+        $imageData = "<img src='$src' alt='Foto'>";
     } else {
         $imageData = "Foto no encontrada.";
     }
-    
+
     $stmt->close();
 
     echo $imageData;
@@ -50,7 +51,8 @@ function descargarFoto($tabla, $db) {
 
 
 // Función para las valoraciones
-function valoracion($incidencia, $accion) {
+function valoracion($incidencia, $accion)
+{
     $db = conexion();
     $id = $incidencia;
 
@@ -75,23 +77,25 @@ function valoracion($incidencia, $accion) {
 }
 
 // Método para obtener el nombre de usuario a partir de la id de la tabla de incidencias.
+
 function obtenerNombreUsuario($idUsuario)
 {
-  $db = conexion();
+    $db = conexion();
 
-  $sql = "SELECT nombre FROM usuarios WHERE id = $idUsuario";
-  $result = $db->query($sql);
+    $sql = "SELECT nombre, apellidos FROM usuarios WHERE id = $idUsuario";
+    $result = $db->query($sql);
 
-  if ($result && $result->num_rows > 0) {
-    $row = $result->fetch_assoc();
-    $nombreUsuario = $row['nombre'];
-  } else {
-    $nombreUsuario = 'Usuario no encontrado';
-  }
+    if ($result && $result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $nombreUsuario = $row['nombre'];
+        $apellidos = $row['apellidos'];
+    } else {
+        $nombreUsuario = 'Usuario no encontrado';
+        $apellidos = '';
+    }
 
-  desconexion($db);
+    desconexion($db);
 
-  return $nombreUsuario;
+    return $nombreUsuario . ' ' . $apellidos;
 }
-
 ?>

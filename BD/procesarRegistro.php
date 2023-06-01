@@ -57,6 +57,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Guardamos el usuario
             $_SESSION['usuario'] = $email;
 
+            // Marcamos en el log
+            insertarLog("¡Tenemos un nuevo usuario en la comunidad: $email!", $db);
+
             // Redirigimos.
             header('Location: ../index.php');
             exit;

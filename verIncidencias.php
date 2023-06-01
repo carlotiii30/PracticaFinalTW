@@ -7,7 +7,7 @@ htmlStart('Sal y quéjate');
 htmlNavGeneral($mensajes[$idioma]["VerIncidencias"]);
 htmlPagVerIncidencias();
 if(isset($incidencias)){
-    MostrarIncidencias($incidencias);
+    mostrarIncidencias($incidencias);
 }else{
     echo '</div>';
 }
