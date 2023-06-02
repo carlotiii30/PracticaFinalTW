@@ -83,7 +83,7 @@ if (is_string($db = conexion())) {
             <div class="imagen-usuario">
                 <?php
                     header("Content-Type: text/html; charset=UTF-8");
-                    descargarFoto("usuarios", $db);
+                    descargarFoto("usuarios", $_SESSION["idUsuario"], $db);
                 ?>
             </div>
         </div>

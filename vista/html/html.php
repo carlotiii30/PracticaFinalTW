@@ -452,7 +452,7 @@ function __htmlLogeado()
     HTML;
 
   $db = conexion();
-  descargarFoto('usuarios', $db);
+  descargarFoto('usuarios', $_SESSION["idUsuario"], $db);
   desconexion($db);
 
   echo <<<HTML

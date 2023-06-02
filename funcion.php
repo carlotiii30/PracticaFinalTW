@@ -25,13 +25,12 @@ function subirFoto($tabla, $db){
 }
 
 // Descargar foto de un usuario
-function descargarFoto($tabla, $db)
+function descargarFoto($tabla, $idUsuario, $db)
 {
     $foto = null;
-    $id = $_SESSION['idUsuario'];
     $query = "SELECT foto FROM $tabla WHERE id = ?";
     $stmt = $db->prepare($query);
-    $stmt->bind_param('i', $id);
+    $stmt->bind_param('i', $idUsuario);
     $stmt->execute();
     $stmt->bind_result($foto);
 
