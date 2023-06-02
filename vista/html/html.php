@@ -470,10 +470,11 @@ function mostrarIncidencias($incidencias)
     // Posibilidades del formulario.
     if (isset($_POST["incidencia"])) {
       $incidencia = $_POST["incidencia"];
+      $puedeVotar = puedeValorar($incidencia);
 
-      if (isset($_POST["sumar"])) {
+      if (isset($_POST["sumar"]) && $puedeVotar) {
         valoracion($incidencia, "sumar");
-      } else if (isset($_POST["restar"])) {
+      } else if (isset($_POST["restar"]) && $puedeVotar) {
         valoracion($incidencia, "restar");
       } else if (isset($_POST["comentar"])) {
         $_SESSION["idIncidencia"] = $incidencia;
@@ -495,6 +496,7 @@ function __formatoIncidencia($incidencia)
   global $idioma;
 
   $nombre = obtenerNombreUsuario($incidencia["idusuario"]);
+  $valoraciones = obtenerValoraciones($incidencia["id"]);
 
   echo <<<HTML
     <div class="incidencia">
@@ -506,7 +508,7 @@ function __formatoIncidencia($incidencia)
           <li> <div class="cabecera-texto"> {$mensajesIncidencias[$idioma]["Creador"]}: </div> {$nombre} </li>
           <li> <div class="cabecera-texto"> {$mensajesIncidencias[$idioma]["PalabrasClave"]}: </div> {$incidencia["keywords"]}</li>
           <li> <div class="cabecera-texto"> {$mensajesIncidencias[$idioma]["Estado"]}: </div> {$incidencia["estado"]}</li>
-          <li> <div class="cabecera-texto"> {$mensajesIncidencias[$idioma]["Valoraciones"]}: </div> {$incidencia["valoracionesPositivas"]} | {$incidencia["valoracionesNegativas"]}</li>
+          <li> <div class="cabecera-texto"> {$mensajesIncidencias[$idioma]["Valoraciones"]}: </div> {$valoraciones["positivas"]} | {$valoraciones["negativas"]}</li>
         </ul>
       </div>
       <div class="cuerpo">
@@ -582,39 +584,41 @@ function mostrarComentarios($id)
 
 function htmlPagGestionUsuarios()
 {
-  if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    if (isset($_POST["listado"])) {
-      // Conexion
-      $db = conexion();
-
-      // Recuperación de datos
-      $sql = "SELECT * FROM usuarios";
-      $datos = $db->query($sql);
-
-      // Desconexión
-      desconexion($db);
-
-      // Formato de usuarios
-      foreach ($datos as $dato) {
-        __formatoUsuario($dato);
-      }
-
-    } else if (isset($_POST["nuevo"])) {
-      header("Location: registrarUsuario.php");
-      exit;
-    }
-  }
-
-  echo <<<HTML
-  <div class="gestion">
-    <form method="post" action="">
-        <div class="botones">
-            <input type="submit" name="listado" value="Listado">
-            <input type="submit" name="nuevo" value="Registrar nuevo usuario">
-        </div>
-    </form>
-  </div>
+echo <<<HTML
+  <div class="principalGestion">
+    <div class="gestionUsuarios">
+      <form method="post" action="">
+          <div class="botones">
+              <input type="submit" name="listado" value="Listado">
+              <input type="submit" name="nuevo" value="Registrar nuevo usuario">
+          </div>
+      </form>
+    </div>
 HTML;
+
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+  if (isset($_POST["listado"])) {
+    // Conexion
+    $db = conexion();
+
+    // Recuperación de datos
+    $sql = "SELECT * FROM usuarios";
+    $datos = $db->query($sql);
+
+    // Desconexión
+    desconexion($db);
+
+    // Formato de usuarios
+    foreach ($datos as $dato) {
+      __formatoUsuario($dato);
+    }
+
+  } else if (isset($_POST["nuevo"])) {
+    header("Location: registrarUsuario.php");
+    exit;
+  }
+}
+echo '</div>';
 }
 
 function __formatoUsuario($usuario)

@@ -53,27 +53,26 @@ function descargarFoto($tabla, $db)
 // Función para las valoraciones
 function valoracion($incidencia, $accion)
 {
+    //¿Cómo se supone que vota el visitante?
     $db = conexion();
-    $id = $incidencia;
-
-    // Obtener el valor actual de valoraciones positivas y negativas
-    $sql = "SELECT valoracionesPositivas, valoracionesNegativas FROM incidencias WHERE id = $id";
-    $result = $db->query($sql);
-    $row = $result->fetch_assoc();
-    $positiva = $row["valoracionesPositivas"];
-    $negativa = $row["valoracionesNegativas"];
-
-    if ($accion == "sumar") {
-        $positiva++;
-        $sql = "UPDATE incidencias SET valoracionesPositivas = $positiva WHERE id = $id";
-        insertarLog("¡Parece que a alguien le ha gustado la incidencia con id $id!", $db);
-    } elseif ($accion == "restar") {
-        $negativa++;
-        $sql = "UPDATE incidencias SET valoracionesNegativas = $negativa WHERE id = $id";
-        insertarLog("Vaya alguien no está de acuerdo con la incidencia con id $id!", $db);
+    $idIncidencia = $incidencia;
+    $valoracion = null;
+    $idUsuario = $_SESSION['idUsuario'];
+    $nombre = $_SESSION['nombreUsuario'];
+    if($accion == "sumar"){
+        $valoracion = 1;
+        $mensaje = "El usuario $nombre ha valorado positivamente la incidencia $idIncidencia.";
+    }else if ($accion == "restar"){
+        $valoracion = 0;
+        $mensaje = "El usuario $nombre ha valorado negativamente la incidencia $idIncidencia.";
     }
 
-    $db->query($sql);
+    $sql = "INSERT INTO valoraciones (valoracion, idIncidencia, idUsuario)
+    VALUES ($valoracion, $idIncidencia, $idUsuario);";
+
+    $resultado = $db->query($sql);
+    if($resultado)   
+        insertarLog($mensaje, $db);
 }
 
 // Método para obtener el nombre de usuario a partir de la id de la tabla de incidencias.
@@ -97,5 +96,57 @@ function obtenerNombreUsuario($idUsuario)
     desconexion($db);
 
     return $nombreUsuario . ' ' . $apellidos;
+}
+
+function obtenerValoraciones($idIncidencia){
+    $db = conexion();
+    $sql = "SELECT SUM(CASE WHEN valoracion = 1 THEN 1 ELSE 0 END) AS positivas,
+                    SUM(CASE WHEN valoracion = 0 THEN 1 ELSE 0 END) AS negativas
+            FROM valoraciones
+            WHERE idIncidencia = $idIncidencia
+            GROUP BY idIncidencia";
+
+    $resultado = $db->query($sql);
+
+    if ($resultado && $resultado->num_rows > 0) {
+        $valoraciones = $resultado->fetch_assoc();
+    } else {
+        $valoraciones['positivas'] = 0;
+        $valoraciones['negativas'] = 0;
+    }
+
+    desconexion($db);
+
+    return $valoraciones;
+
+}
+
+function puedeValorar($idIncidencia){
+    $puedeVotar = false;
+
+    if(isset($_SESSION["autenticado"]) && isset($_SESSION["idUsuario"])){
+        $idUsuario =  $_SESSION["idUsuario"];
+
+        $db = conexion();
+
+        $sql = "SELECT * FROM valoraciones
+        WHERE idUsuario = $idUsuario
+        AND idIncidencia = $idIncidencia";
+
+        $resultado = $db->query($sql);
+        if ($resultado->num_rows == 0) {
+            $puedeVotar = true;
+        }
+
+        desconexion($db);
+    }else{
+        $nombreCookie = "VotacionIncidencia_". $idIncidencia;
+        if(!isset($_COOKIE[$nombreCookie])){
+            setcookie($nombreCookie, "Ha votado la incidencia", 0);
+            $puedeVotar = true;
+        }
+    }
+
+    return $puedeVotar;
 }
 ?>
