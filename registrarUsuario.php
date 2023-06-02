@@ -1,11 +1,17 @@
 <?php
 include('vista/html/html.php'); // Maquetado de página
+require "BD/procesarRegistro.php";
 
 htmlStart('Página de registro');
 htmlEnd();
 
 // - - - Traducciones - - - 
 $mensajes = json_decode(file_get_contents('./vista/traducciones/formularioRegistro.json'), true);
+
+$erroresRegistro = array();
+
+registrarUsuario();
+
 ?>
 
 <head>
@@ -13,12 +19,11 @@ $mensajes = json_decode(file_get_contents('./vista/traducciones/formularioRegist
 </head>
 
 <body>
-	
 	<div class="registro">
 		<h1>
 			<?php echo $mensajes[$idioma]["DatosGeneral"]; ?>
 		</h1>
-		<form method="post" action="./BD/procesarRegistro.php">
+		<form method="post" action="">
 			<div class="subform">
 				<h1>
 					<?php echo $mensajes[$idioma]["DatosPersonales"]; ?>
@@ -29,9 +34,9 @@ $mensajes = json_decode(file_get_contents('./vista/traducciones/formularioRegist
 							<?php echo $mensajes[$idioma]["Nombre"]; ?>
 						</label>
 						<input name="nombre" value="<?php echo isset($_POST['nombre']) ? $_POST['nombre'] : ''; ?>">
-						<?php if (isset($errores['nombre'])) { ?>
+						<?php if (isset($erroresRegistro['nombre'])) { ?>
 							<p class="error">
-								<?php echo $errores['nombre']; ?>
+								<?php echo $erroresRegistro['nombre']; ?>
 							</p>
 						<?php } ?>
 					</div>
@@ -41,9 +46,9 @@ $mensajes = json_decode(file_get_contents('./vista/traducciones/formularioRegist
 						</label>
 						<input name="apellidos"
 							value="<?php echo isset($_POST['apellidos']) ? $_POST['apellidos'] : ''; ?>">
-						<?php if (isset($errores['apellidos'])) { ?>
+						<?php if (isset($erroresRegistro['apellidos'])) { ?>
 							<p class="error">
-								<?php echo $errores['apellidos']; ?>
+								<?php echo $erroresRegistro['apellidos']; ?>
 							</p>
 						<?php } ?>
 					</div>
@@ -53,9 +58,9 @@ $mensajes = json_decode(file_get_contents('./vista/traducciones/formularioRegist
 						</label>
 						<input name="telefono"
 							value="<?php echo isset($_POST['telefono']) ? $_POST['telefono'] : ''; ?>">
-						<?php if (isset($errores['telefono'])) { ?>
+						<?php if (isset($erroresRegistro['telefono'])) { ?>
 							<p class="error">
-								<?php echo $errores['telefono']; ?>
+								<?php echo $erroresRegistro['telefono']; ?>
 							</p>
 						<?php } ?>
 					</div>
@@ -65,9 +70,9 @@ $mensajes = json_decode(file_get_contents('./vista/traducciones/formularioRegist
 						</label>
 						<input name="direccion"
 							value="<?php echo isset($_POST['direccion']) ? $_POST['direccion'] : ''; ?>">
-						<?php if (isset($errores['direccion'])) { ?>
+						<?php if (isset($erroresRegistro['direccion'])) { ?>
 							<p class="error">
-								<?php echo $errores['direccion']; ?>
+								<?php echo $erroresRegistro['direccion']; ?>
 							</p>
 						<?php } ?>
 					</div>
@@ -88,9 +93,9 @@ $mensajes = json_decode(file_get_contents('./vista/traducciones/formularioRegist
 							<?php echo $mensajes[$idioma]["Email"]; ?>
 						</label>
 						<input name="email" value="<?php echo isset($_POST['email']) ? $_POST['email'] : ''; ?>">
-						<?php if (isset($errores['email'])) { ?>
+						<?php if (isset($erroresRegistro['email'])) { ?>
 							<p class="error">
-								<?php echo $errores['email']; ?>
+								<?php echo $erroresRegistro['email']; ?>
 							</p>
 						<?php } ?>
 					</div>
@@ -100,9 +105,9 @@ $mensajes = json_decode(file_get_contents('./vista/traducciones/formularioRegist
 						</label>
 						<input type="password" name="contraseña"
 							value="<?php echo isset($_POST['contraseña']) ? $_POST['contraseña'] : ''; ?>">
-						<?php if (isset($errores['contraseña'])) { ?>
+						<?php if (isset($erroresRegistro['contraseña'])) { ?>
 							<p class="error">
-								<?php echo $errores['contraseña']; ?>
+								<?php echo $erroresRegistro['contraseña']; ?>
 							</p>
 						<?php } ?>
 					</div>
@@ -114,12 +119,11 @@ $mensajes = json_decode(file_get_contents('./vista/traducciones/formularioRegist
 				</div>
 			</div>
 			<div class="botones">
-				<input type="submit" value="<?php echo $mensajes[$idioma]["Enviar"]; ?>">
+				<input type="submit" name="enviar" value="<?php echo $mensajes[$idioma]["Enviar"]; ?>">
 				<input type="reset" value="<?php echo $mensajes[$idioma]["Borrar"]; ?>">
 			</div>
 		</form>
 	</div>
-
 </body>
 
 </html>

@@ -80,7 +80,7 @@ function htmlPagInicio()
   global $mensajes;
   global $idioma;
 
-  echo  "<section class='principal'>";
+  echo "<section class='principal'>";
 
   if (isset($_SESSION['mensaje'])) {
     echo "<p> {$_SESSION['mensaje']} </p>"; // Mostrar el mensaje
@@ -187,6 +187,9 @@ function htmlPagNuevaIncidencia()
                     {$mensajesIncidencias[$idioma]["PalabrasClave"]}
                 </label>
                 <input name="keywords" value="">
+                <label for="foto">
+                        <input type="file" name="images"> 
+                </label>
             </div>
             <div class="botones">
                 <input type="submit" value="{$mensajesIncidencias[$idioma]["Enviar"]}">
@@ -295,7 +298,7 @@ function htmlPagMisIncidencias()
 
   // Mostrar incidencias
   echo "<div class='mis-incidencias'>";
-    mostrarIncidencias($datos);
+  mostrarIncidencias($datos);
   echo "</div>";
 }
 
@@ -451,9 +454,6 @@ function __htmlLogeado()
     if (isset($_POST["logout"])) {
       __htmlLogout();
       exit;
-    } else if (isset($_POST["editar"])) {
-      header("Location: modificarUsuario.php");
-      exit;
     }
   }
 
@@ -467,13 +467,13 @@ function __htmlLogeado()
   desconexion($db);
 
   echo <<<HTML
-        </div>
-        <p>{$_SESSION["nombreUsuario"]}</p>
-        <p class="rol">{$_SESSION["rol"]}</p>
-    <form method="post" action="">
-        <input type="submit" name="editar" value="{$mensajes[$idioma]["Editar"]}">
+      </div>
+      <p>{$_SESSION["nombreUsuario"]}</p>
+      <p class="rol">{$_SESSION["rol"]}</p>
+      <form method="post" action="">
+        <a href="modificarUsuario.php">{$mensajes[$idioma]["Editar"]}</a>
         <input type="submit" name="logout" value="{$mensajes[$idioma]["Desconectar"]}">
-    </form>
+      </form>
     </div>
     HTML;
 }
@@ -690,7 +690,7 @@ function htmlPagGestionBD()
     }
 
     // Opción 3: Borrar la BBDD (se reinicia)
-    else if (isset($_POST["borrar"]) && isset($_POST["confirmar"]) && $_POST["confirmar"] === "si") {
+    else if (isset($_POST["confirmar_borrar"]) && isset($_POST["confirmar"]) && $_POST["confirmar"] === "si") {
       borrar($db);
     }
     desconexion($db);
@@ -712,12 +712,14 @@ function htmlPagGestionBD()
                 <p>{$mensajesBackup[$idioma]['Seguridad']}</p>
                 <label for="confirmar">{$mensajesBackup[$idioma]['Confirmar']}:</label>
                 <input type="text" name="confirmar" id="confirmar">
+                <input type="submit" name="confirmar_borrar" value="Estoy segurísimo">
             </div>
     HTML;
   }
 
   echo "</form></div>";
 }
+
 
 function __htmlWidgets($opcion)
 {

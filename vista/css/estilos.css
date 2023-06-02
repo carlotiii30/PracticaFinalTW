@@ -74,7 +74,6 @@
     color: white;
     text-align: center;
     padding: 14px 16px;
-    text-decoration: none;
 }
 
 
@@ -187,7 +186,6 @@ aside form {
     max-width: 100%;
     height: auto;
     object-fit: cover;
-    /* Ajusta la imagen al tamaño especificado sin distorsionarla */
 }
 
 .logeado p {
@@ -206,16 +204,16 @@ aside form {
     margin-top: 10px;
 }
 
-.logeado input {
+.logeado input, .logeado a {
     background-color: rgb(172, 134, 172);
     color: white;
     padding: 10px 20px;
-    border: none;
+    border: 1px solid rgb(172, 134, 172);
     margin: 0 5px;
     cursor: pointer;
 }
 
-.logeado input:hover {
+.logeado input:hover, .logeado a:hover {
     background-color: rgb(185, 140, 185);
 
 }
@@ -517,7 +515,7 @@ aside form {
 .modificar .entrada{
     width: 70%;
 }
-.modificar .entrada input {
+.modificar .entrada input{
     width: 100%;
     padding: 5px;
     margin-bottom: 10px;
@@ -692,7 +690,16 @@ footer {
     text-align: center;
 }
 
-/* - - ERRORES - - */
+/* - - REGLAS GENERALES - - */
 .error {
     color: red;
+}
+
+a {
+    text-decoration: none;
+    cursor: pointer;
+}
+
+input {
+    font-family: 'Times New Roman', Times, serif;
 }
