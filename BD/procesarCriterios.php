@@ -8,7 +8,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && (!isset($_POST['editar']) && !isset
     $sql = "SELECT * FROM incidencias WHERE 1=1";
     
     if(isset($_POST['ordenar']) && $_POST['ordenar'] === "NoMg"){
-        $sql = "SELECT *, (valoracionesPositivas - valoracionesNegativas) AS diferencia FROM incidencias WHERE 1=1";
+        $sql = "SELECT i.*, COALESCE(SUM(v.valoracion = 1) - SUM(v.valoracion = 0), 0) AS diferencia_valoraciones
+        FROM incidencias i
+        LEFT JOIN valoraciones v ON i.id = v.idIncidencia
+        WHERE 1=1";
+    }else if(isset($_POST['ordenar']) && $_POST['ordenar'] === "Mg"){
+        $sql = "SELECT i.*, SUM(v.valoracion = 1) AS valoraciones_positivas 
+        FROM incidencias i
+        LEFT JOIN valoraciones v ON i.id = v.idIncidencia
+        WHERE 1=1";
     }
     
     // FIltra según el estado de las incidencias
@@ -40,13 +48,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && (!isset($_POST['editar']) && !isset
         $ordenar = $_POST['ordenar'];
 
         // Ordenar según lo seleccionado
-        $sql .= " ORDER BY";
         if ($ordenar === "Antiguedad") {
-            $sql .= " fecha DESC";
+            $sql .= " ORDER BY fecha DESC";
         } elseif ($ordenar === "Mg") {
-            $sql .= " valoracionesPositivas DESC";
+            $sql .= " GROUP BY i.id ORDER BY valoraciones_positivas DESC";
         } elseif ($ordenar === "NoMg") {
-            $sql .= " diferencia DESC";
+            $sql .= " GROUP BY i.id ORDER BY diferencia_valoraciones DESC;";
         }
     }
 
