@@ -61,17 +61,24 @@ function valoracion($incidencia, $accion)
     if($accion == "sumar"){
         $valoracion = 1;
         $mensaje = "El usuario $nombre ha valorado positivamente la incidencia $idIncidencia.";
+        $confirmacion = "¡Wow! Parece que está de acuerdo con una incidencia. ¡Qué de apoyo hay en la comunidad!";
     }else if ($accion == "restar"){
         $valoracion = 0;
         $mensaje = "El usuario $nombre ha valorado negativamente la incidencia $idIncidencia.";
+        $confirmacion = "Oh oh... ¿Hay algún problema con esa incidencia valorada negativamente? Deje un comentario para expresar su opinión.";
     }
 
     $sql = "INSERT INTO valoraciones (valoracion, idIncidencia, idUsuario)
     VALUES ($valoracion, $idIncidencia, $idUsuario);";
 
     $resultado = $db->query($sql);
-    if($resultado)   
+
+    if($resultado) {
+        $_SESSION['mensaje'] = $confirmacion;
         insertarLog($mensaje, $db);
+        header("Location: index.php");
+        exit;
+    }
 }
 
 // Método para obtener el nombre de usuario a partir de la id de la tabla de incidencias.

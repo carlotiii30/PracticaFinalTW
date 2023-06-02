@@ -62,6 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($db->query($sql) === TRUE) {
             insertarLog("El usuario $nombreUsuario ha comentado en la incidencia con id $idIncidencia", $db);
             // Mostrar mensaje de éxito
+            $_SESSION['mensaje'] = "¡Enhorabuena! Su comentario ha sido añadido con éxito. Esperamos que sea útil para la comunidad su aportación.";
             // Redirigimos.
             header('Location: index.php');
             exit;
