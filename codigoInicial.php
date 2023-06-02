@@ -17,6 +17,9 @@ $mensajesCriterios = json_decode(file_get_contents('./vista/traducciones/formula
 // - - - Traducciones para gestion de usuarios - - -
 $mensajesRegistro = json_decode(file_get_contents('./vista/traducciones/formularioRegistro.json'), true);
 
+// - - - Traducciones para backup - - -
+$mensajesBackup = json_decode(file_get_contents('./vista/traducciones/backup.json'), true);
+
 // - - - - URLs - - - - 
 $enlaces = array(
     "verIncidencias.php" => "VerIncidencias",

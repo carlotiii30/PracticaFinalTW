@@ -294,7 +294,9 @@ function htmlPagMisIncidencias()
   desconexion($db);
 
   // Mostrar incidencias
-  mostrarIncidencias($datos);
+  echo "<div class='mis-incidencias'>";
+    mostrarIncidencias($datos);
+  echo "</div>";
 }
 
 
@@ -671,6 +673,9 @@ function __formatoUsuario($usuario, $db)
 
 function htmlPagGestionBD()
 {
+  global $mensajesBackup;
+  global $idioma;
+
   if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $db = conexion();
 
@@ -695,17 +700,17 @@ function htmlPagGestionBD()
     <div class="gestion">
         <form method="post" action="">
             <div class="botones">
-                <input type="submit" name="descargar" value="Descargar copia de seguridad">
-                <input type="submit" name="restaurar" value="Restaurar copia de seguridad">
-                <input type="submit" name="borrar" value="Borrar la base de datos">
+                <input type="submit" name="descargar" value="{$mensajesBackup[$idioma]['Descargar']}">
+                <input type="submit" name="restaurar" value="{$mensajesBackup[$idioma]['Restaurar']}">
+                <input type="submit" name="borrar" value="{$mensajesBackup[$idioma]['Borrar']}">
             </div>
     HTML;
 
   if (isset($_POST["borrar"])) {
     echo <<<HTML
             <div class="seguridad">
-                <p>Esta acción borrará toda la información que hay actualmente en la base de datos. ¿Está seguro/a de que quiere realizarla?</p>
-                <label for="confirmar">Escriba "si" para confirmar el borrado:</label>
+                <p>{$mensajesBackup[$idioma]['Seguridad']}</p>
+                <label for="confirmar">{$mensajesBackup[$idioma]['Confirmar']}:</label>
                 <input type="text" name="confirmar" id="confirmar">
             </div>
     HTML;

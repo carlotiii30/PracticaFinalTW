@@ -1,0 +1,28 @@
+{
+    "es": {
+        "Descargar": "Descargar copia de seguridad",
+        "Restaurar": "Restaurar copia de seguridad",
+        "Borrar": "Borrar la base de datos", 
+
+        "Seguridad": "Esta acción borrará toda la información que hay actualmente en la base de datos. ¿Está seguro/a de que quiere realizarla?",
+        "Confirmar": "Escriba 'si' para confirmar el borrado"
+    },
+
+    "en": {
+        "Descargar": "Download backup",
+        "Restaurar": "Restore backup",
+        "Borrar": "Delete the database", 
+
+        "Seguridad": "This action will delete all information currently in the database. Are you sure you want to do it?",
+        "Confirmar": "Type 'si' to confirm deletion"
+    },
+
+    "fr": {
+        "Descargar": "Télécharger la sauvegarde",
+        "Restaurar": "Restaurer la sauvegarde",
+        "Borrar": "Supprimer la base de données", 
+
+        "Seguridad": "Cette action supprimera toutes les informations actuellement dans la base de données. Êtes-vous sûr de vouloir le faire?",
+        "Confirmar": "Tapez 'si' pour confirmer la suppression"
+    }
+}

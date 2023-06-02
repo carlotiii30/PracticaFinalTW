@@ -378,7 +378,7 @@ aside form {
 }
 
 .incidencia {
-    flex: 85%;
+    flex: 100%;
     margin: 5px 20px 5px 10px;
     padding: 0;
     border: 1px solid rgb(172, 134, 172);
@@ -483,6 +483,16 @@ aside form {
 .incidencia .comentarios .comentario {
     margin-left: 10px;
     width: 90%;
+}
+
+/* - - MIS INCIDENCIAS - - */
+.mis-incidencias {
+    display: block;
+    flex: 85%;
+}
+
+.mis-incidencias div {
+    display: block;
 }
 
 
