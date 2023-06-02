@@ -30,50 +30,50 @@ if (is_string($db = conexion())) {
                     <label for="nombre">
                         <?php echo $mensajes[$idioma]["Nombre"]; ?>:
                     </label>
-                    <input type="text" name="nombre" value="<?php echo $usuario['nombre']; ?>"><br>
+                    <input type="text" name="nombre" value="<?php echo $usuario['nombre']; ?>">
 
                     <label for="apellidos">
                         <?php echo $mensajes[$idioma]["Apellidos"]; ?>:
                     </label>
-                    <input type="text" name="apellidos" value="<?php echo $usuario['apellidos']; ?>"><br>
+                    <input type="text" name="apellidos" value="<?php echo $usuario['apellidos']; ?>">
 
                     <label for="email">
                         <?php echo $mensajes[$idioma]["Email"]; ?>:
                     </label>
-                    <input type="email" name="email" value="<?php echo $usuario['email']; ?>"><br>
+                    <input type="email" name="email" value="<?php echo $usuario['email']; ?>">
 
                     <label for="telefono">
                         <?php echo $mensajes[$idioma]["Telefono"]; ?>:
                     </label>
-                    <input type="text" name="telefono" value="<?php echo $usuario['telefono']; ?>"><br>
+                    <input type="text" name="telefono" value="<?php echo $usuario['telefono']; ?>">
 
                     <label for="direccion">
                         <?php echo $mensajes[$idioma]["Direccion"]; ?>:
                     </label>
-                    <input type="text" name="direccion" value="<?php echo $usuario['direccion']; ?>"><br>
+                    <input type="text" name="direccion" value="<?php echo $usuario['direccion']; ?>">
 
                     <div class="contrasenia-contenedor">
                         <div class="campo">
                             <label for="password1">
                                 <?php echo $mensajes[$idioma]["Contrasenia"]; ?>:
                             </label>
-                            <input class="password1" type="password" name="password1"><br>
+                            <input class="password1" type="password" name="password1">
                         </div>
                         <div class="campo">
                             <label for="password2">
                                 <?php echo $mensajes[$idioma]["Confirmar"]; ?>:
                             </label>
-                            <input class="password2" type="password" name="password2"><br>
+                            <input class="password2" type="password" name="password2">
                         </div>
                     </div>
 
                     <label for="estado">
                         <?php echo $mensajes[$idioma]["Estado"]; ?>:
                     </label>
-                    <input type="text" name="estado" value="<?php echo $usuario['estado']; ?>" disabled><br>
+                    <input type="text" name="estado" value="<?php echo $usuario['estado']; ?>" disabled>
 
                     <label for="rol">Rol:</label>
-                    <input type="text" name="rol" value="<?php echo $usuario['rol']; ?>" disabled><br>
+                    <input type="text" name="rol" value="<?php echo $usuario['rol']; ?>" disabled>
                     
                     <div class="botones">
                         <input type="submit" value="Guardar cambios">

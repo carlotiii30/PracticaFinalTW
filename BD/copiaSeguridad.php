@@ -76,9 +76,13 @@ function restaurar($db, $f)
 function borrar($db)
 {
     $result = mysqli_query($db, 'SHOW TABLES');
-    while ($row = mysqli_fetch_row($result))
+
+    while ($row = mysqli_fetch_row($result)) {
         mysqli_query($db, 'DELETE * FROM ' . $row[0]);
+    }
+
     mysqli_commit($db);
+
 }
 
 ?>

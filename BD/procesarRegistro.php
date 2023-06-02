@@ -1,82 +1,73 @@
 <?php
-require('baseDatos.php'); // Conexión y desconexión
+function registrarUsuario()
+{
+	global $mensajes;
+	global $idioma;
+	global $erroresRegistro;
 
+	// - - - Comprobamos los datos recibidos - - - 
+	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+		$nombre = isset($_POST['nombre']) ? $_POST['nombre'] : '';
+		$apellidos = isset($_POST['apellidos']) ? $_POST['apellidos'] : '';
+		$email = isset($_POST['email']) ? $_POST['email'] : '';
+		$contraseña = isset($_POST['contraseña']) ? $_POST['contraseña'] : '';
+		$telefono = isset($_POST['telefono']) ? $_POST['telefono'] : '';
+		$direccion = isset($_POST['direccion']) ? $_POST['direccion'] : '';
 
-// Datos del formulario
+		$rol = "colaborador";
 
-// - - - Comprobamos los datos recibidos - - - 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $nombre = isset($_POST['nombre']) ? $_POST['nombre'] : '';
-    $apellidos = isset($_POST['apellidos']) ? $_POST['apellidos'] : '';
-    $email = isset($_POST['email']) ? $_POST['email'] : '';
-    $contraseña = isset($_POST['contraseña']) ? $_POST['contraseña'] : '';
-    $telefono = isset($_POST['telefono']) ? $_POST['telefono'] : '';
-    $direccion = isset($_POST['direccion']) ? $_POST['direccion'] : '';
+		// - - - Validamos los datos - - - 
+		if (empty($nombre)) {
+			$erroresRegistro['nombre'] = "El nombre no puede estar vacío";
+		}
+		if (empty($apellidos)) {
+			$erroresRegistro['apellidos'] = "El apellido no puede estar vacío";
+		}
 
-    $rol = "colaborador";
-    // Array para almacenar los errores que pueda haber.
-    $errores = array();
+		if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+			$erroresRegistro['email'] = "El email no es correcto";
+		}
 
-    // - - - Validamos los datos - - - 
-    if (empty($nombre)) {
-        $errores['nombre'] = "El nombre no puede estar vacío";
-    }
-    if (empty($apellidos)) {
-        $errores['apellidos'] = "El apellido no puede estar vacío";
-    }
+		if (empty($contraseña)) {
+			$erroresRegistro['contraseña'] = "La contraseña no puede estar vacía";
+		}
 
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $errores['email'] = "El email no es correcto";
-    }
+		if (!preg_match("/^[0-9]{9}$/", $telefono)) {
+			$erroresRegistro['telefono'] = "El teléfono no es correcto";
+		}
 
-    if (empty($contraseña)) {
-        $errores['contraseña'] = "La contraseña no puede estar vacía";
-    }
+		if (empty($direccion)) {
+			$erroresRegistro['direccion'] = "La dirección no puede estar vacía";
+		}
 
-    if (!preg_match("/^[0-9]{9}$/", $telefono)) {
-        $errores['telefono'] = "El teléfono no es correcto";
-    }
+		// Si no hay erroresRegistro, procesamos los datos.
+		if (count($erroresRegistro) === 0) {
 
-    if (empty($direccion)) {
-        $errores['direccion'] = "La dirección no puede estar vacía";
-    }
+			// Conexión
+			$db = conexion();
 
-    // Si no hay errores, procesamos los datos.
-    if (count($errores) === 0) {
+			// Crear usuario
+			$sql = "INSERT INTO usuarios (nombre, apellidos, email, password, telefono, direccion, rol) 
+                    VALUES ('$nombre', '$apellidos', '$email', '$contraseña', '$telefono', '$direccion', '$rol')";
 
-        // Conexión
-        $db = conexion();
+			// Ejecutar la consulta
+			if ($db->query($sql) === TRUE) {
+				// Guardamos el usuario
+				$_SESSION['usuario'] = $email;
 
+				// Marcamos en el log
+				insertarLog("¡Tenemos un nuevo usuario en la comunidad: $email!", $db);
 
-        // Crear usuario
-        $sql = "INSERT INTO usuarios (nombre, apellidos, email, password, telefono, direccion, rol) 
-            VALUES ('$nombre', '$apellidos', '$email', '$contraseña', '$telefono', '$direccion', '$rol')";
+				// Redirigimos.
+				header('Location: index.php');
+				exit;
+			} else {
+				$registrado = "Error al crear el usuario";
+			}
 
-        // Ejecutar la consulta
-        if ($db->query($sql) == TRUE) {
-            // Guardamos el usuario
-            $_SESSION['usuario'] = $email;
-
-            // Marcamos en el log
-            insertarLog("¡Tenemos un nuevo usuario en la comunidad: $email!", $db);
-
-            // Redirigimos.
-            header('Location: ../index.php');
-            exit;
-        } else {
-            $registrado = "Error al crear el usuario";
-        }
-
-        desconexion($db);
-
-
-    } else {
-        include('../registrarUsuario.php');
-    }
-
-} else {
-    // Si se accede directamente a este archivo sin enviar el formulario, redirige al formulario.php
-    header("Location: ../registrarUsuario.php");
-    exit;
+			desconexion($db);
+		}
+	}
 }
+
 ?>

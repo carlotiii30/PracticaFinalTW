@@ -163,9 +163,23 @@ if ($db->query($sql)) {
 } else {
 	echo "Error al alterar la tabla: " . $db->error;
 }
+
 */
 
-desconexion($db);
-	
-?>
+// TABLA IMAGENES
+$sql = "CREATE TABLE fotos (
+    id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    idIncidencia INT(10) UNSIGNED,
+	foto LONGBLOB
+	)";
 
+if ($db->query($sql) === TRUE) {
+	echo "Tabla creada correctamente";
+} else {
+	echo "Error al crear tabla: " . $db->error;
+	exit;
+}
+
+desconexion($db);
+
+?>
