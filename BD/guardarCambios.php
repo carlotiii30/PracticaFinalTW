@@ -80,16 +80,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // Ejecutar la consulta
         if ($stmt->execute()) {
-
-            // Mensaje de correcto ??
-
             // Insertar en el log
             insertarLog("El usuario $nombre ha modificado sus datos", $db);
+            
+            // Mensaje de correcto
+            $_SESSION['mensaje'] = "¡Enhorabuena! Su información ha sido modificada con éxito.";
             $stmt->close();
             // Redirigimos.
             header('Location: ../index.php');
             exit;
         } else {
+            $_SESSION['mensaje'] = "Lo sentimos... No hemos podido modificar sus datos.";
             $registrado = "Error al actualizar el usuario";
             $stmt->close();
         }

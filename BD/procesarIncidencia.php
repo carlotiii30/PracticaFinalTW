@@ -27,12 +27,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Ejecutar la consulta
     if ($stmt->execute()) {
         insertarLog("El usuario $nombreUsuario ha insertado una nueva incidencia", $db);
+        $_SESSION['mensaje'] = "¡Enhorabuena! Ha creado una nueva incidencia con éxito."; // Guardar el mensaje en la variable de sesión
     } else {
-        echo "Ocurrió un error al insertar los datos.";
+        $_SESSION['mensaje'] = "Lo sentimos... No hemos podido añadir tu incidencia. Inténtelo de nuevo."; // Guardar el mensaje de error en la variable de sesión
     }
 
     // Cerrar la conexión con la base de datos
     $stmt->close();
     desconexion($db);
+
+    // Redirigir a la página principal
+    header('Location: ../index.php');
+    exit;
 }
 ?>

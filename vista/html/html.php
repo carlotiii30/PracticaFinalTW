@@ -80,8 +80,13 @@ function htmlPagInicio()
   global $mensajes;
   global $idioma;
 
-  echo <<<HTML
-    <section class="principal">
+  echo  "<section class='principal'>";
+
+  if (isset($_SESSION['mensaje'])) {
+    echo "<p> {$_SESSION['mensaje']} </p>"; // Mostrar el mensaje
+    unset($_SESSION['mensaje']); // Eliminar el mensaje de la variable de sesión
+  } else {
+    echo <<<HTML
         <h1>
             {$mensajes[$idioma]["Bienvenida"]}
         </h1>
@@ -91,8 +96,11 @@ function htmlPagInicio()
         <p>
             {$mensajes[$idioma]["Informacion"]}
         </p>
-    </section>
     HTML;
+  }
+
+  echo "</section>";
+
 }
 
 function htmlAside()
@@ -192,6 +200,7 @@ function htmlPagVerIncidencias()
 {
   global $mensajesCriterios;
   global $idioma;
+  global $incidencias;
 
   echo <<<HTML
   <div class="incidencias">
@@ -263,7 +272,7 @@ function htmlPagVerIncidencias()
       </form>
     </div>
   HTML;
-  global $incidencias;
+
   if (isset($incidencias)) {
     mostrarIncidencias($incidencias);
   }
@@ -637,19 +646,23 @@ function __formatoUsuario($usuario, $db)
     HTML;
 
   $id = $usuario["id"];
-  
+
   descargarFoto("usuarios", $id, $db);
 
   echo <<<HTML
         </div>
         <div class="contenido">
             <ul>
+                <div class="fila">
                 <li><div class="etiqueta">{$mensajesRegistro[$idioma]["Nombre"]}:</div> {$usuario["nombre"]} {$usuario["apellidos"]}</li>
                 <li><div class="etiqueta">{$mensajesRegistro[$idioma]["Email"]}:</div> {$usuario["email"]}</li>
                 <li><div class="etiqueta">{$mensajesRegistro[$idioma]["Direccion"]}:</div> {$usuario["direccion"]}</li>
+                </div>
+                <div class="fila">
                 <li><div class="etiqueta">{$mensajesRegistro[$idioma]["Telefono"]}:</div> {$usuario["telefono"]}</li>
                 <li><div class="etiqueta">Rol:</div> {$usuario["rol"]}</li>
                 <li><div class="etiqueta">{$mensajesRegistro[$idioma]["Estado"]}:</div> {$usuario["estado"]}</li>
+                </div>
             </ul>
         </div>
     </div>

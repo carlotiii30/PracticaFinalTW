@@ -424,13 +424,18 @@ aside form {
 
 .incidencia .opiniones {
     text-align: right;
-    background-color: rgb(172, 134, 172);
+    background-color: rgb(208, 185, 208);
+}
+
+.incidencia .opiniones form {
+    padding: 0;
+    margin: 0;
 }
 
 .incidencia .opiniones button {
     width: 30px;
     height: 30px;
-    margin-left: 10px;
+    margin: 5px;
     background: none;
     border: none;
     padding: 0;
@@ -439,10 +444,6 @@ aside form {
 .incidencia .opiniones button img {
     width: 100%;
     height: 100%;
-}
-
-.incidencia .comentarios {
-    margin-bottom: 10px;
 }
 
 .incidencia .comentarios .fila-par {
@@ -626,7 +627,7 @@ aside form {
     align-items: flex-start;
     border: 1px solid rgb(185, 140, 185);
     margin: 5px;
-    background-color: rgb(172, 134, 172);
+    background-color: rgb(243, 224, 245);
 }
 
 .usuario .foto {
@@ -639,32 +640,32 @@ aside form {
 }
 
 .usuario .foto img {
-    /*max-width: 100px;
-    height: auto;
-    object-fit: cover;*/
+    object-fit: cover;
     width: 100%;
     height: auto;
-    /*border: 2px solid rgb(185, 140, 185);*/
 }
 
 .usuario .contenido {
     width: 90%;
-    display: inline-block;
+    display: flex;
 }
 
 .usuario .contenido ul {
     list-style-type: none;
     padding: 0;
     margin: 0;
-    display: flex;
 }
 
-.usuario .etiqueta {
+.usuario .fila {
+    display: inline-block
+}
+
+.usuario .fila .etiqueta {
     font-weight: bold;
     display: inline-block;
 }
 
-.usuario li {
+.usuario .fila li {
     display: inline-block;
     margin: 5px;
 }
