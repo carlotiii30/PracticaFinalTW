@@ -554,30 +554,6 @@ aside form {
     width: 100%;    
 }  
 
-/* - - GESTIÓN USUARIOS - - */
-.principalGestion {
-    flex: 85%;
-    margin: 5px 20px 5px 10px;
-    padding: 0 5% 0 15px;
-}
-.gestionUsuarios form{
-    text-align: center;
-}
-
-.gestionUsuarios .botones input {
-    margin: 5px;
-    padding: 10px 20px;
-    background-color: rgb(172, 134, 172);
-    color: white;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-.gestionUsuarios .botones input:hover {
-    background-color: rgb(185, 140, 185);
-}
-
 /* - - GESTION BBDD - - */
 .gestion {
     flex: 85%;
@@ -621,24 +597,54 @@ aside form {
     border: 1px solid rgb(172, 134, 172);
 }
 
+/* - - GESTIÓN USUARIOS - - */
+.principalGestion {
+    flex: 85%;
+    margin: 5px 20px 5px 10px;
+    padding: 0 5% 0 15px;
+}
+.gestionUsuarios form{
+    text-align: center;
+}
+
+.gestionUsuarios .botones input {
+    margin: 5px;
+    padding: 10px 20px;
+    background-color: rgb(172, 134, 172);
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.gestionUsuarios .botones input:hover {
+    background-color: rgb(185, 140, 185);
+}
+
 .usuario {
     display: flex;
     align-items: flex-start;
-    border: 1px solid rgb(172, 134, 172);
+    border: 1px solid rgb(185, 140, 185);
     margin: 5px;
+    background-color: rgb(172, 134, 172);
 }
 
 .usuario .foto {
     display: flex;
     justify-content: center;
-    width: 10%;
-    padding: 5px;
+    text-align: center;
+    width: 100px; /* Tamaño fijo para el contenedor de la foto */
+    height: 100px; /* Tamaño fijo para el contenedor de la foto */
+    overflow: hidden;
 }
 
 .usuario .foto img {
-    max-width: 100px;
+    /*max-width: 100px;
     height: auto;
-    object-fit: cover;
+    object-fit: cover;*/
+    width: 100%;
+    height: auto;
+    /*border: 2px solid rgb(185, 140, 185);*/
 }
 
 .usuario .contenido {
@@ -658,7 +664,7 @@ aside form {
     display: inline-block;
 }
 
-.usuario .usuario li {
+.usuario li {
     display: inline-block;
     margin: 5px;
 }
