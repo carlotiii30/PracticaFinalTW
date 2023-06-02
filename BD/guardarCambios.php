@@ -81,7 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Ejecutar la consulta
         if ($stmt->execute()) {
             // Insertar en el log
-            insertarLog("El usuario $nombre ha modificado sus datos", $db);
+            insertarLog("El usuario $email ha modificado sus datos", $db);
             
             // Mensaje de correcto
             $_SESSION['mensaje'] = "¡Enhorabuena! Su información ha sido modificada con éxito.";
