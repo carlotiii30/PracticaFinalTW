@@ -195,74 +195,80 @@ function htmlPagVerIncidencias()
 
   echo <<<HTML
   <div class="incidencias">
-  <div class="criterios">
-    <h1 class="titulo">
-        {$mensajesCriterios[$idioma]["Titulo"]}
-    </h1>
-    <form method="post" action="">
-        <h2 class="subtitulo">
-            {$mensajesCriterios[$idioma]["Criterios"]}
-        </h2>
-        <div class="entrada">
-            <fieldset>
-                <legend>
-                    {$mensajesCriterios[$idioma]["Ordenar"]}
-                </legend>
-                <label><input type="radio" name="ordenar" value="Antiguedad">
-                    {$mensajesCriterios[$idioma]["Antiguedad"]}
-                </label>
-                <label><input type="radio" name="ordenar" value="Mg">
-                    {$mensajesCriterios[$idioma]["MeGustas"]}
-                </label>
-                <label><input type="radio" name="ordenar" value="NoMg">
-                    {$mensajesCriterios[$idioma]["NoMeGustas"]}
-                </label>
-            </fieldset>
-        </div>
-        <div class="texto">
-            <fieldset>
-                <legend>
-                    {$mensajesCriterios[$idioma]["Incidencias"]}
-                </legend>
-                <label for="texto">
-                    {$mensajesCriterios[$idioma]["Texto"]}
-                </label>
-                <input name="texto" value="">
+    <div class="criterios">
+      <h1 class="titulo">
+          {$mensajesCriterios[$idioma]["Titulo"]}
+      </h1>
+      <form method="post" action="">
+          <h2 class="subtitulo">
+              {$mensajesCriterios[$idioma]["Criterios"]}
+          </h2>
+          <div class="entrada">
+              <fieldset>
+                  <legend>
+                      {$mensajesCriterios[$idioma]["Ordenar"]}
+                  </legend>
+                  <label><input type="radio" name="ordenar" value="Antiguedad">
+                      {$mensajesCriterios[$idioma]["Antiguedad"]}
+                  </label>
+                  <label><input type="radio" name="ordenar" value="Mg">
+                      {$mensajesCriterios[$idioma]["MeGustas"]}
+                  </label>
+                  <label><input type="radio" name="ordenar" value="NoMg">
+                      {$mensajesCriterios[$idioma]["NoMeGustas"]}
+                  </label>
+              </fieldset>
+          </div>
+          <div class="texto">
+              <fieldset>
+                  <legend>
+                      {$mensajesCriterios[$idioma]["Incidencias"]}
+                  </legend>
+                  <label for="texto">
+                      {$mensajesCriterios[$idioma]["Texto"]}
+                  </label>
+                  <input name="texto" value="">
 
-                <label for="lugar">
-                    {$mensajesCriterios[$idioma]["Lugar"]}
-                </label>
-                <input name="lugar" value="">
-            </fieldset>
-        </div>
-        <div class="entrada">
-            <fieldset>
-                <legend>
-                    {$mensajesCriterios[$idioma]["Estado"]}
-                </legend>
-                <label> <input type="checkbox" name="estado[]" value="pendiente">
-                    {$mensajesCriterios[$idioma]["Pendiente"]}
-                </label>
-                <label> <input type="checkbox" name="estado[]" value="comprobada">
-                    {$mensajesCriterios[$idioma]["Comprobada"]}
-                </label>
-                <label> <input type="checkbox" name="estado[]" value="tramitada">
-                    {$mensajesCriterios[$idioma]["Tramitada"]}
-                </label>
-                <label> <input type="checkbox" name="estado[]" value="irresoluble">
-                    {$mensajesCriterios[$idioma]["Irresoluble"]}
-                </label>
-                <label> <input type="checkbox" name="estado[]" value="resuelta">
-                    {$mensajesCriterios[$idioma]["Resuelta"]}
-                </label>
-            </fieldset>
-        </div>
-        <div class="botones">
-            <input type="submit" value="{$mensajesCriterios[$idioma]["Aplicar"]}">
-        </div>
-    </form>
-  </div>
+                  <label for="lugar">
+                      {$mensajesCriterios[$idioma]["Lugar"]}
+                  </label>
+                  <input name="lugar" value="">
+              </fieldset>
+          </div>
+          <div class="entrada">
+              <fieldset>
+                  <legend>
+                      {$mensajesCriterios[$idioma]["Estado"]}
+                  </legend>
+                  <label> <input type="checkbox" name="estado[]" value="pendiente">
+                      {$mensajesCriterios[$idioma]["Pendiente"]}
+                  </label>
+                  <label> <input type="checkbox" name="estado[]" value="comprobada">
+                      {$mensajesCriterios[$idioma]["Comprobada"]}
+                  </label>
+                  <label> <input type="checkbox" name="estado[]" value="tramitada">
+                      {$mensajesCriterios[$idioma]["Tramitada"]}
+                  </label>
+                  <label> <input type="checkbox" name="estado[]" value="irresoluble">
+                      {$mensajesCriterios[$idioma]["Irresoluble"]}
+                  </label>
+                  <label> <input type="checkbox" name="estado[]" value="resuelta">
+                      {$mensajesCriterios[$idioma]["Resuelta"]}
+                  </label>
+              </fieldset>
+          </div>
+          <div class="botones">
+              <input type="submit" value="{$mensajesCriterios[$idioma]["Aplicar"]}">
+          </div>
+      </form>
+    </div>
   HTML;
+  global $incidencias;
+  if(isset($incidencias)){
+    mostrarIncidencias($incidencias);
+  }
+  echo '</div>';
+
 }
 
 function htmlPagMisIncidencias()
@@ -487,7 +493,6 @@ function mostrarIncidencias($incidencias)
   foreach ($incidencias as $dato) {
     __formatoIncidencia($dato);
   }
-  echo '</div>';
 }
 
 function __formatoIncidencia($incidencia)

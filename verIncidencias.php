@@ -6,11 +6,6 @@ include "BD/procesarCriterios.php"; //Procesado del formulario
 htmlStart('Sal y quéjate');
 htmlNavGeneral($mensajes[$idioma]["VerIncidencias"]);
 htmlPagVerIncidencias();
-if(isset($incidencias)){
-    mostrarIncidencias($incidencias);
-}else{
-    echo '</div>';
-}
 htmlAside();
 htmlEnd();
 ?>
