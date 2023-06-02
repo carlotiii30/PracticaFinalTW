@@ -56,8 +56,11 @@ function valoracion($incidencia, $accion)
     $db = conexion();
     $idIncidencia = $incidencia;
     $valoracion = null;
-    $idUsuario = $_SESSION['idUsuario'];
-    $nombre = $_SESSION['nombreUsuario'];
+    if(isset($_SESSION['idUsuario'])){
+        $idUsuario = $_SESSION['idUsuario'];
+        $nombre = $_SESSION['nombreUsuario'];
+    }
+
     if($accion == "sumar"){
         $valoracion = 1;
         $mensaje = "El usuario $nombre ha valorado positivamente la incidencia $idIncidencia.";
@@ -68,8 +71,13 @@ function valoracion($incidencia, $accion)
         $confirmacion = "Oh oh... ¿Hay algún problema con esa incidencia valorada negativamente? Deje un comentario para expresar su opinión.";
     }
 
-    $sql = "INSERT INTO valoraciones (valoracion, idIncidencia, idUsuario)
-    VALUES ($valoracion, $idIncidencia, $idUsuario);";
+    if(isset($_SESSION['idUsuario'])){
+        $sql = "INSERT INTO valoraciones (valoracion, idIncidencia, idUsuario)
+        VALUES ($valoracion, $idIncidencia, $idUsuario);";
+    }else{
+        $sql = "INSERT INTO valoraciones (valoracion, idIncidencia)
+        VALUES ($valoracion, $idIncidencia);";
+    }
 
     $resultado = $db->query($sql);
 

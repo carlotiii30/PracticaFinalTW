@@ -2,6 +2,7 @@
 require('baseDatos.php'); // Conexión y desconexión
 require('../funcion.php');
 
+
 session_start();
 
 // Datos del formulario
@@ -99,7 +100,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
     } else {
-        include('../modificarUsuario.php');
+        header("Location: ../modificarUsuario.php");
+        exit;
     }
 
 } else {
