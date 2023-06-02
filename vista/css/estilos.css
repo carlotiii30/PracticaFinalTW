@@ -621,6 +621,48 @@ aside form {
     border: 1px solid rgb(172, 134, 172);
 }
 
+.usuario {
+    display: flex;
+    align-items: flex-start;
+    border: 1px solid rgb(172, 134, 172);
+    margin: 5px;
+}
+
+.usuario .foto {
+    display: flex;
+    justify-content: center;
+    width: 10%;
+    padding: 5px;
+}
+
+.usuario .foto img {
+    max-width: 100px;
+    height: auto;
+    object-fit: cover;
+}
+
+.usuario .contenido {
+    width: 90%;
+    display: inline-block;
+}
+
+.usuario .contenido ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+.usuario .etiqueta {
+    font-weight: bold;
+    display: inline-block;
+}
+
+.usuario .usuario li {
+    display: inline-block;
+    margin: 5px;
+}
+
 
 /* - - PIE DE PÁGINA - - */
 footer {
@@ -631,4 +673,9 @@ footer {
     height: 40px;
     color: white;
     text-align: center;
+}
+
+/* - - ERRORES - - */
+.error {
+    color: red;
 }

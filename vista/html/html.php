@@ -264,7 +264,7 @@ function htmlPagVerIncidencias()
     </div>
   HTML;
   global $incidencias;
-  if(isset($incidencias)){
+  if (isset($incidencias)) {
     mostrarIncidencias($incidencias);
   }
   echo '</div>';
@@ -589,7 +589,7 @@ function mostrarComentarios($id)
 
 function htmlPagGestionUsuarios()
 {
-echo <<<HTML
+  echo <<<HTML
   <div class="principalGestion">
     <div class="gestionUsuarios">
       <form method="post" action="">
@@ -601,48 +601,59 @@ echo <<<HTML
     </div>
 HTML;
 
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
-  if (isset($_POST["listado"])) {
-    // Conexion
-    $db = conexion();
+  if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    if (isset($_POST["listado"])) {
+      // Conexion
+      $db = conexion();
 
-    // Recuperación de datos
-    $sql = "SELECT * FROM usuarios";
-    $datos = $db->query($sql);
+      // Recuperación de datos
+      $sql = "SELECT * FROM usuarios";
+      $datos = $db->query($sql);
 
-    // Desconexión
-    desconexion($db);
+      // Formato de usuarios
+      foreach ($datos as $dato) {
+        __formatoUsuario($dato, $db);
+      }
 
-    // Formato de usuarios
-    foreach ($datos as $dato) {
-      __formatoUsuario($dato);
+      // Desconexión
+      desconexion($db);
+
+    } else if (isset($_POST["nuevo"])) {
+      header("Location: registrarUsuario.php");
+      exit;
     }
-
-  } else if (isset($_POST["nuevo"])) {
-    header("Location: registrarUsuario.php");
-    exit;
   }
-}
-echo '</div>';
+  echo '</div>';
 }
 
-function __formatoUsuario($usuario)
+function __formatoUsuario($usuario, $db)
 {
   global $mensajesRegistro;
   global $idioma;
 
   echo <<<HTML
-      <div class="usuario">
-        <ul>
-          <li> <div class="cabecera-texto"> {$mensajesRegistro[$idioma]["Nombre"]}: </div> {$usuario["nombre"]} {$usuario["apellidos"]}</li>
-          <li> <div class="cabecera-texto"> {$mensajesRegistro[$idioma]["Email"]}: </div> {$usuario["email"]}</li>
-          <li> <div class="cabecera-texto"> {$mensajesRegistro[$idioma]["Direccion"]}: </div> {$usuario["direccion"]} </li>
-          <li> <div class="cabecera-texto"> {$mensajesRegistro[$idioma]["Telefono"]}: </div> {$usuario["telefono"]}</li>
-          <li> <div class="cabecera-texto"> Rol: </div> {$usuario["rol"]}</li>
-          <li> <div class="cabecera-texto"> {$mensajesRegistro[$idioma]["Estado"]}: </div> {$usuario["estado"]}</li>
-        </ul>
-      </div>
-  HTML;
+          <div class="usuario">
+        <div class="foto">
+    HTML;
+
+  $id = $usuario["id"];
+  
+  descargarFoto("usuarios", $id, $db);
+
+  echo <<<HTML
+        </div>
+        <div class="contenido">
+            <ul>
+                <li><div class="etiqueta">{$mensajesRegistro[$idioma]["Nombre"]}:</div> {$usuario["nombre"]} {$usuario["apellidos"]}</li>
+                <li><div class="etiqueta">{$mensajesRegistro[$idioma]["Email"]}:</div> {$usuario["email"]}</li>
+                <li><div class="etiqueta">{$mensajesRegistro[$idioma]["Direccion"]}:</div> {$usuario["direccion"]}</li>
+                <li><div class="etiqueta">{$mensajesRegistro[$idioma]["Telefono"]}:</div> {$usuario["telefono"]}</li>
+                <li><div class="etiqueta">Rol:</div> {$usuario["rol"]}</li>
+                <li><div class="etiqueta">{$mensajesRegistro[$idioma]["Estado"]}:</div> {$usuario["estado"]}</li>
+            </ul>
+        </div>
+    </div>
+    HTML;
 }
 
 function htmlPagGestionBD()

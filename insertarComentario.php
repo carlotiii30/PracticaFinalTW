@@ -13,7 +13,7 @@ if (is_string($db)) {
     // Id del usuario
     if (isset($_SESSION['idUsuario']))
         $id = $_SESSION['idUsuario'];
-    else 
+    else
         $id = 0;
 
     // Nombre
@@ -39,6 +39,11 @@ if (is_string($db)) {
     <?php
 }
 
+// Mostrar mensaje si el comentario está vacío
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && empty($_POST['comentario'])) {
+    echo "<p class='error'>No puede insertar un comentario vacío. Por favor, introduzca un comentario.</p>";
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $comentario = isset($_POST['comentario']) ? $_POST['comentario'] : '';
 
@@ -56,6 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Ejecutar la consulta
         if ($db->query($sql) === TRUE) {
             insertarLog("El usuario $nombreUsuario ha comentado en la incidencia con id $idIncidencia", $db);
+            // Mostrar mensaje de éxito
             // Redirigimos.
             header('Location: index.php');
             exit;
