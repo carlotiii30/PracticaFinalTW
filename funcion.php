@@ -197,4 +197,25 @@ function borrarUsuario($id, $db) {
     header('Location: index.php');
     exit;
 }
+
+function borrarComentario($id) {
+
+    $db = conexion();
+
+    $sql = "DELETE FROM comentarios WHERE id = $id";
+
+    if ($db->query($sql)) {
+        insertarLog("El usuario $id ha borrado un comentario.", $db);
+        $_SESSION['mensaje'] = "El comentario seleccionado ha sido eliminado. Espero que no lo haya leido nadie...";
+    }
+    else {
+        $_SESSION['mensaje'] = "El comentario con id $id seleccionado no se ha podido eliminar. Puedes volver a intentarlo.";
+    }
+
+    desconexion($db);
+
+    header('Location: index.php');
+    exit;
+}
+
 ?>

@@ -485,6 +485,31 @@ aside form {
     width: 90%;
 }
 
+.comentarios .opciones {
+    text-align: center;
+    background-color: rgb(208, 185, 208);
+    padding: 5px;
+}
+
+.comentarios .opciones form {
+    padding: 0;
+    margin: 0;
+}
+
+.comentarios .opciones button {
+    width: 30px;
+    height: 30px;
+    margin: 5px;
+    background: none;
+    border: none;
+    padding: 0;
+}
+
+.comentarios .opciones button img {
+    width: 100%;
+    height: 100%;
+}
+
 /* - - MIS INCIDENCIAS - - */
 .mis-incidencias {
     display: block;
