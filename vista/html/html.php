@@ -939,10 +939,10 @@ function modificarUsuario($idUsuario)
       echo '<label for="estado">';
       echo $mensajes[$idioma]["Estado"];
       echo '</label>';
-      echo '<input type="text" name="estado" value="' . ($usuario['estado']) . '" ' . $disabled . '>';
+      echo '<input type="text" name="estado" value="' . ($usuario['estado']) . '" disabled>';
 
       echo '<label for="rol">Rol:</label>';
-      echo '<input type="text" name="rol" value="' . ($usuario['rol']) . '" ' . $disabled . '>';
+      echo '<input type="text" name="rol" value="' . ($usuario['rol']) . '" disabled>';
 
       echo '<div class="botones">';
       if ($cambiosValidados == false) {
@@ -950,7 +950,7 @@ function modificarUsuario($idUsuario)
       } else {
         echo '<input type="submit" name="confirmar" value="Confirmar cambios">';
         if ($datos['hayimagen'] == true) {
-          echo ' <input type="hidden" name="imagen" value="' . ($datos['imagen']) . '">';
+          echo ' <input type="hidden" name="imagen" value="imagen">';
         }
       }
       echo '</div>';
