@@ -10,6 +10,8 @@ $mensajes = json_decode(file_get_contents('./vista/traducciones/formularioRegist
 
 $erroresRegistro = array();
 
+$confirmado = false;
+
 registrarUsuario();
 
 ?>
@@ -100,16 +102,27 @@ registrarUsuario();
 						<?php } ?>
 					</div>
 					<div class="entrada">
-						<label for="contraseña">
-							<?php echo $mensajes[$idioma]["Contrasenia"]; ?>
-						</label>
-						<input type="password" name="contraseña"
-							value="<?php echo isset($_POST['contraseña']) ? $_POST['contraseña'] : ''; ?>">
-						<?php if (isset($erroresRegistro['contraseña'])) { ?>
+						<div class="contrasenia-contenedor">
+							<div class="campo">
+								<label for="password1">
+									<?php echo $mensajes[$idioma]["Contrasenia"]; ?>:
+								</label>
+								<input class="password1" type="password" name="password1">
+							</div>
+							<div class="campo">
+								<label for="password2">
+									<?php echo $mensajes[$idioma]["Confirmar"]; ?>:
+								</label>
+								<input class="password2" type="password" name="password2">
+							</div>
+
+							<?php if (isset($erroresRegistro['contraseña'])) { ?>
 							<p class="error">
 								<?php echo $erroresRegistro['contraseña']; ?>
 							</p>
 						<?php } ?>
+
+                    	</div>
 					</div>
 				</div>
 				<div class="ayuda">

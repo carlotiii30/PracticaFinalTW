@@ -1,16 +1,19 @@
 <?php
+
 function registrarUsuario()
 {
 	global $mensajes;
 	global $idioma;
 	global $erroresRegistro;
+	global $confirmado;
 
 	// - - - Comprobamos los datos recibidos - - - 
 	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$nombre = isset($_POST['nombre']) ? $_POST['nombre'] : '';
 		$apellidos = isset($_POST['apellidos']) ? $_POST['apellidos'] : '';
 		$email = isset($_POST['email']) ? $_POST['email'] : '';
-		$contraseña = isset($_POST['contraseña']) ? $_POST['contraseña'] : '';
+		$password1 = isset($_POST['password1']) ? $_POST['password1'] : '';
+		$password2 = isset($_POST['password2']) ? $_POST['password2'] : '';
 		$telefono = isset($_POST['telefono']) ? $_POST['telefono'] : '';
 		$direccion = isset($_POST['direccion']) ? $_POST['direccion'] : '';
 
@@ -28,8 +31,8 @@ function registrarUsuario()
 			$erroresRegistro['email'] = "El email no es correcto";
 		}
 
-		if (empty($contraseña)) {
-			$erroresRegistro['contraseña'] = "La contraseña no puede estar vacía";
+		if ($password1 !== $password2) {
+			$erroresRegistro['contraseña'] = "Las contraseñas no coinciden";
 		}
 
 		if (!preg_match("/^[0-9]{9}$/", $telefono)) {
@@ -40,15 +43,13 @@ function registrarUsuario()
 			$erroresRegistro['direccion'] = "La dirección no puede estar vacía";
 		}
 
-		// Si no hay erroresRegistro, procesamos los datos.
-		if (count($erroresRegistro) === 0) {
-
+		if ($confirmado) {
 			// Conexión
 			$db = conexion();
 
 			// Crear usuario
 			$sql = "INSERT INTO usuarios (nombre, apellidos, email, password, telefono, direccion, rol) 
-                    VALUES ('$nombre', '$apellidos', '$email', '$contraseña', '$telefono', '$direccion', '$rol')";
+					VALUES ('$nombre', '$apellidos', '$email', '$password1', '$telefono', '$direccion', '$rol')";
 
 			// Ejecutar la consulta
 			if ($db->query($sql) === TRUE) {
@@ -67,6 +68,11 @@ function registrarUsuario()
 
 			desconexion($db);
 		}
+
+		if (count($erroresRegistro) === 0) {
+			$confirmado = true;
+		}
+
 	}
 }
 
