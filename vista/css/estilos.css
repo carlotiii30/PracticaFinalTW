@@ -719,12 +719,15 @@ aside form {
 /* - - PIE DE PÁGINA - - */
 footer {
     background-color: rgb(46, 45, 45);
-    position: fixed;
-    bottom: 0;
+    display: flex;
+    clear:both;
     width: 100%;
     height: 40px;
     color: white;
     text-align: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
 }
 
 /* - - REGLAS GENERALES - - */
