@@ -550,7 +550,7 @@ function __formatoIncidencia($incidencia)
   echo '<input type="hidden" name="incidencia" value="' . $incidencia["id"] . '">';
   
 
-  if ($_SESSION['rol'] == "admin") {
+  if ($_SESSION['idUsuario'] == $incidencia["idusuario"] || ($_SESSION['autenticado'] && $_SESSION['rol'] == "admin")) {
 
   echo <<<HTML
           <button name="editar">
