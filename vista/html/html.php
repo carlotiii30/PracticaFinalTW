@@ -620,7 +620,7 @@ function mostrarComentarios($id)
 
           echo "<div class='opciones'>
                       <form method='post' action=''>
-                        <input type='hidden' name='comentario' value='' . $idComentario . ''>
+                      <input type='hidden' name='comentario' value='$idComentario'>
                         <button name='borrarComentario'>
                           <img src='vista/imagenes/borrar.png'>
                         </button>

@@ -209,7 +209,7 @@ function borrarComentario($id) {
         $_SESSION['mensaje'] = "El comentario seleccionado ha sido eliminado. Espero que no lo haya leido nadie...";
     }
     else {
-        $_SESSION['mensaje'] = "El comentario con id $id seleccionado no se ha podido eliminar. Puedes volver a intentarlo.";
+        $_SESSION['mensaje'] = "El comentario seleccionado no se ha podido eliminar. Puedes volver a intentarlo.";
     }
 
     desconexion($db);
