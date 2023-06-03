@@ -35,7 +35,9 @@ registrarUsuario();
 						<label for="nombre">
 							<?php echo $mensajes[$idioma]["Nombre"]; ?>
 						</label>
-						<input name="nombre" value="<?php echo isset($_POST['nombre']) ? $_POST['nombre'] : ''; ?>">
+						<input name="nombre" value="<?php echo isset($_POST['nombre']) ? $_POST['nombre'] : ''; ?>"
+							<?php if ($confirmado)
+								echo "readonly"; ?>>
 						<?php if (isset($erroresRegistro['nombre'])) { ?>
 							<p class="error">
 								<?php echo $erroresRegistro['nombre']; ?>
@@ -47,7 +49,8 @@ registrarUsuario();
 							<?php echo $mensajes[$idioma]["Apellidos"]; ?>
 						</label>
 						<input name="apellidos"
-							value="<?php echo isset($_POST['apellidos']) ? $_POST['apellidos'] : ''; ?>">
+							value="<?php echo isset($_POST['apellidos']) ? $_POST['apellidos'] : ''; ?>" <?php if ($confirmado)
+									   echo "readonly"; ?>>
 						<?php if (isset($erroresRegistro['apellidos'])) { ?>
 							<p class="error">
 								<?php echo $erroresRegistro['apellidos']; ?>
@@ -59,7 +62,8 @@ registrarUsuario();
 							<?php echo $mensajes[$idioma]["Telefono"]; ?>
 						</label>
 						<input name="telefono"
-							value="<?php echo isset($_POST['telefono']) ? $_POST['telefono'] : ''; ?>">
+							value="<?php echo isset($_POST['telefono']) ? $_POST['telefono'] : ''; ?>" <?php if ($confirmado)
+									   echo "readonly"; ?>>
 						<?php if (isset($erroresRegistro['telefono'])) { ?>
 							<p class="error">
 								<?php echo $erroresRegistro['telefono']; ?>
@@ -71,7 +75,8 @@ registrarUsuario();
 							<?php echo $mensajes[$idioma]["Direccion"]; ?>
 						</label>
 						<input name="direccion"
-							value="<?php echo isset($_POST['direccion']) ? $_POST['direccion'] : ''; ?>">
+							value="<?php echo isset($_POST['direccion']) ? $_POST['direccion'] : ''; ?>" <?php if ($confirmado)
+									   echo "readonly"; ?>>
 						<?php if (isset($erroresRegistro['direccion'])) { ?>
 							<p class="error">
 								<?php echo $erroresRegistro['direccion']; ?>
@@ -94,7 +99,8 @@ registrarUsuario();
 						<label for="email">
 							<?php echo $mensajes[$idioma]["Email"]; ?>
 						</label>
-						<input name="email" value="<?php echo isset($_POST['email']) ? $_POST['email'] : ''; ?>">
+						<input name="email" value="<?php echo isset($_POST['email']) ? $_POST['email'] : ''; ?>" <?php if ($confirmado)
+								   echo "readonly" ?>>
 						<?php if (isset($erroresRegistro['email'])) { ?>
 							<p class="error">
 								<?php echo $erroresRegistro['email']; ?>
@@ -107,22 +113,24 @@ registrarUsuario();
 								<label for="password1">
 									<?php echo $mensajes[$idioma]["Contrasenia"]; ?>:
 								</label>
-								<input class="password1" type="password" name="password1">
-							</div>
-							<div class="campo">
-								<label for="password2">
+								<input class="password1" type="password" name="password1" <?php if ($confirmado)
+									echo "readonly" ?>>
+								</div>
+								<div class="campo">
+									<label for="password2">
 									<?php echo $mensajes[$idioma]["Confirmar"]; ?>:
 								</label>
-								<input class="password2" type="password" name="password2">
-							</div>
+								<input class="password2" type="password" name="password2" <?php if ($confirmado)
+									echo "readonly" ?>>
+								</div>
 
 							<?php if (isset($erroresRegistro['contraseña'])) { ?>
-							<p class="error">
-								<?php echo $erroresRegistro['contraseña']; ?>
-							</p>
-						<?php } ?>
+								<p class="error">
+									<?php echo $erroresRegistro['contraseña']; ?>
+								</p>
+							<?php } ?>
 
-                    	</div>
+						</div>
 					</div>
 				</div>
 				<div class="ayuda">
@@ -132,8 +140,12 @@ registrarUsuario();
 				</div>
 			</div>
 			<div class="botones">
-				<input type="submit" name="enviar" value="<?php echo $mensajes[$idioma]["Enviar"]; ?>">
-				<input type="reset" value="<?php echo $mensajes[$idioma]["Borrar"]; ?>">
+				<?php if (!$confirmado) { ?>
+					<input type="submit" name="enviar" value="<?php echo $mensajes[$idioma]["Enviar"]; ?>">
+					<input type="reset" value="<?php echo $mensajes[$idioma]["Borrar"]; ?>">
+				<?php } else { ?>
+					<input type="submit" name="enviar" value="<?php echo $mensajes[$idioma]["Enviar"]; ?>">
+				<?php } ?>
 			</div>
 		</form>
 	</div>
