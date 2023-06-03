@@ -187,9 +187,6 @@ function htmlPagNuevaIncidencia()
                     {$mensajesIncidencias[$idioma]["PalabrasClave"]}
                 </label>
                 <input name="keywords" value="">
-                <label for="foto">
-                        <input type="file" name="images"> 
-                </label>
             </div>
             <div class="botones">
                 <input type="submit" value="{$mensajesIncidencias[$idioma]["Enviar"]}">
@@ -691,14 +688,16 @@ function __formatoUsuario($usuario, $db)
         <div class="contenido">
             <ul>
                 <div class="fila">
-                <li><div class="etiqueta">{$mensajesRegistro[$idioma]["Nombre"]}:</div> {$usuario["nombre"]} {$usuario["apellidos"]}</li>
-                <li><div class="etiqueta">{$mensajesRegistro[$idioma]["Email"]}:</div> {$usuario["email"]}</li>
-                <li><div class="etiqueta">{$mensajesRegistro[$idioma]["Direccion"]}:</div> {$usuario["direccion"]}</li>
+                  <li><div class="etiqueta">{$mensajesRegistro[$idioma]["Nombre"]}:</div> {$usuario["nombre"]} {$usuario["apellidos"]}</li>
+                  <li><div class="etiqueta">{$mensajesRegistro[$idioma]["Email"]}:</div> {$usuario["email"]}</li>
                 </div>
                 <div class="fila">
-                <li><div class="etiqueta">{$mensajesRegistro[$idioma]["Telefono"]}:</div> {$usuario["telefono"]}</li>
-                <li><div class="etiqueta">Rol:</div> {$usuario["rol"]}</li>
-                <li><div class="etiqueta">{$mensajesRegistro[$idioma]["Estado"]}:</div> {$usuario["estado"]}</li>
+                  <li><div class="etiqueta">{$mensajesRegistro[$idioma]["Direccion"]}:</div> {$usuario["direccion"]}</li>
+                  <li><div class="etiqueta">{$mensajesRegistro[$idioma]["Telefono"]}:</div> {$usuario["telefono"]}</li>
+                </div>
+                <div class="fila">
+                  <li><div class="etiqueta">Rol:</div> {$usuario["rol"]}</li>
+                  <li><div class="etiqueta">{$mensajesRegistro[$idioma]["Estado"]}:</div> {$usuario["estado"]}</li>
                 </div>
             </ul>
         </div>

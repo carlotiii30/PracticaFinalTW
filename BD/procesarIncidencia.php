@@ -39,13 +39,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $stmt->execute();
 
-        if ($hayImagen) {
-            $image = file_get_contents($_FILES['images']['tmp_name']);
-            $sql = "INSERT INTO fotos (idIncidencia, foto) VALUES (?, ?)";
-            $stmt = $db->prepare($sql);
-            $stmt->bind_param("si", $id, $descripcion, $lugar, $keywords, $_SESSION['idUsuario'], $estado);
-        }
-
         $nombreUsuario = $_SESSION['nombreUsuario'];
 
         // Ejecutar la consulta
