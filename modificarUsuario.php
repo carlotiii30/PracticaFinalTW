@@ -136,4 +136,142 @@ if (is_string($db = conexion())) {
     // Desconectar de la BBDD (se puede omitir)
     desconexion($db);
 }
+
+
+/*function modificarUsuario($idUSuario){
+    global $mensajes, $idioma;
+    global $cambiosValidados;
+
+    $erroresCambios = array();
+
+    $datos = guardarCambios($idUSuario);
+    
+    // Conexión con la BBDD
+    if (is_string($db = conexion())) {
+        $msg_err = $db;
+    } else {
+        $id = $idUSuario;
+        // Consulta SQL para obtener los datos del usuario
+        $sql = "SELECT * FROM usuarios WHERE id = $id";
+        $result = $db->query($sql);
+
+        if ($result && $result->num_rows > 0) {
+            $usuario = $result->fetch_assoc();
+            
+            $disabled = $cambiosValidados ? "disabled" : "";
+            $readonly = $cambiosValidados ? "readonly" : "";
+
+            echo <<<HTML
+            <div class="modificar">
+                <form method="POST" action=""  enctype="multipart/form-data">
+                    <div class="entrada">
+                        <label for="foto">
+                            <input type="file" name="images" {$disabled}> 
+                        </label>
+                        <label for="nombre">
+                            {$mensajes[$idioma]["Nombre"]}
+                        </label>
+            HTML;
+                        echo '<input type="text" name="nombre" value="' . (!$cambiosValidados ? $usuario['nombre'] : $datos['nombre']) . '" ' . $readonly . '>';
+                        if (isset($erroresCambios['nombre'])) {
+                            echo '<p class="error">';
+                                echo $erroresCambios['nombre'];
+                            echo '</p>';
+                        }   
+
+                        echo '<label for="apellidos">';
+                            echo $mensajes[$idioma]["Apellidos"];
+                        echo '</label>';
+                        echo '<input type="text" name="apellidos" value="' . (!$cambiosValidados ? $usuario['apellidos'] : $datos['apellidos']) . '" ' . $readonly . '>';
+                        if (isset($erroresCambios['apellidos'])) {
+                            echo '<p class="error">';
+                                echo $erroresCambios['apellidos'];
+                            echo '</p>';
+                        }
+
+                        echo '<label for="email">';
+                            echo $mensajes[$idioma]["Email"];
+                        echo '</label>';
+                        echo '<input type="email" name="email" value="' . (!$cambiosValidados ? $usuario['email'] : $datos['email']) . '" ' . $readonly . '>';
+                        if (isset($erroresCambios['email'])) {
+                            echo '<p class="error">';
+                                echo $erroresCambios['email'];
+                            echo '</p>';
+                        }
+
+                        echo '<label for="telefono">';
+                            echo $mensajes[$idioma]["Telefono"];
+                        echo '</label>';
+                        echo '<input type="text" name="telefono" value="' . (!$cambiosValidados ? $usuario['telefono'] : $datos['telefono']) . '" ' . $readonly . '>';
+                        if (isset($erroresCambios['telefono'])) {
+                            echo '<p class="error">';
+                                echo $erroresCambios['telefono'];
+                            echo '</p>';
+                        }
+
+                        echo '<label for="direccion">';
+                            echo $mensajes[$idioma]["Direccion"];
+                        echo '</label>';
+                        echo '<input type="text" name="direccion" value="' . (!$cambiosValidados ? $usuario['direccion'] : $datos['direccion']) . '" ' . $readonly . '>';
+                        if (isset($erroresCambios['direccion'])) {
+                            echo '<p class="error">';
+                                echo $erroresCambios['direccion'];
+                            echo '</p>';
+                        }
+
+                        echo '<div class="contrasenia-contenedor">';
+                            echo '<div class="campo">';
+                                echo '<label for="password1">';
+                                    echo $mensajes[$idioma]["Contrasenia"];
+                                echo '</label>';
+                                echo '<input class="password1" type="password" name="password1" value="' . (!$cambiosValidados ? $datos['password1'] : "") . '" ' . $readonly . '>';
+                                if (isset($erroresCambios['contraseña'])) {
+                                    echo '<p class="error">';
+                                        echo $erroresCambios['contraseña'];
+                                    echo '</p>';
+                                }
+                            echo '</div>';
+                            echo '<div class="campo">';
+                                echo '<label for="password2">';
+                                    echo $mensajes[$idioma]["Confirmar"];
+                                echo '</label>';
+                                echo '<input class="password2" type="password" name="password2" value="' . (!$cambiosValidados ? $datos['password1'] : "") . '" ' . $readonly . '>';
+                            echo '</div>';
+                        echo '</div>';
+
+                        echo '<label for="estado">';
+                            echo $mensajes[$idioma]["Estado"];
+                        echo '</label>';
+                        echo '<input type="text" name="estado" value="' . ($usuario['estado']) . '" ' . $disabled . '>';
+
+                        echo '<label for="rol">Rol:</label>';
+                        echo '<input type="text" name="rol" value="' . ($usuario['rol']) . '" ' . $disabled . '>';
+                        
+                        <div class="botones">
+                        <?php if ($cambiosValidados == false) { ?>
+                            <input type="submit" name="cambiar" value="Guardar cambios">
+                        <?php }else{?>
+                            <input type="submit" name="confirmar" value="Confirmar cambios">
+                            <?php if ($datos['hayimagen'] == true) { ?> <input type="hidden" name="imagen" value="<?php $datos['imagen'];?>"> <?php } ?>
+                        <?php }?>
+                        </div>
+                    </div>
+                </form>
+                <div class="imagen-usuario">
+                    <?php
+                        descargarFoto("usuarios", $id, $db);
+                    ?>
+                </div>
+            </div>
+            HTML;
+
+        } else {
+            echo 'No se encontraron registros en la tabla usuario.';
+        }
+
+
+        // Desconectar de la BBDD (se puede omitir)
+        desconexion($db);
+    
+}*/
 ?>

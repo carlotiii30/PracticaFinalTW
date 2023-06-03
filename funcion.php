@@ -181,4 +181,20 @@ function borrarIncidencia($id) {
     header('Location: index.php');
     exit;
 }
+
+function borrarUsuario($id, $db) {
+
+    $sql = "DELETE FROM usuarios WHERE id = $id";
+
+    if ($db->query($sql)) {
+        insertarLog("El usuario $id ha sido eliminado.", $db);
+        $_SESSION['mensaje'] = "El usuario seleccionado ha sido eliminado. ¡¿Qué habrá hecho?!";
+    }
+    else {
+        $_SESSION['mensaje'] = "El usuario seleccionado no se ha podido borrar. Parece que tiene una segunda oportunidad.";
+    }
+
+    header('Location: index.php');
+    exit;
+}
 ?>

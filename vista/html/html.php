@@ -654,6 +654,22 @@ HTML;
     }
   }
   echo '</div>';
+
+  if (isset($_POST["usuario"])) {
+    $idUsuario = $_POST["usuario"];
+
+    // Conexion
+    $db = conexion();
+
+    if (isset($_POST["borrar"])) {
+      borrarUsuario($idUsuario, $db);
+    } else if (isset($_POST["editar"])) {
+
+    }
+
+    // Desconexión
+    desconexion($db);
+  }
 }
 
 function __formatoUsuario($usuario, $db)
@@ -686,8 +702,25 @@ function __formatoUsuario($usuario, $db)
                 </div>
             </ul>
         </div>
-    </div>
+    <!--</div>-->
+        <div class="opciones">
+                <form method="post" action="">
     HTML;
+
+    echo '<input type="hidden" name="usuario" value="' . $id . '">';
+
+    echo <<< HTML
+                <button name="editar">
+                      <img src="vista/imagenes/editar.png">
+                </button>
+                <button name="borrar">
+                    <img src="vista/imagenes/borrar.png">
+                </button>
+              </form>
+            </div>
+          </div>
+    HTML;
+
 }
 
 function htmlPagGestionBD()

@@ -204,7 +204,8 @@ aside form {
     margin-top: 10px;
 }
 
-.logeado input, .logeado a {
+.logeado input,
+.logeado a {
     background-color: rgb(172, 134, 172);
     color: white;
     padding: 10px 20px;
@@ -213,7 +214,8 @@ aside form {
     cursor: pointer;
 }
 
-.logeado input:hover, .logeado a:hover {
+.logeado input:hover,
+.logeado a:hover {
     background-color: rgb(185, 140, 185);
 
 }
@@ -512,10 +514,12 @@ aside form {
     margin-bottom: 5px;
     font-weight: bold;
 }
-.modificar .entrada{
+
+.modificar .entrada {
     width: 70%;
 }
-.modificar .entrada input{
+
+.modificar .entrada input {
     width: 100%;
     padding: 5px;
     margin-bottom: 10px;
@@ -543,7 +547,7 @@ aside form {
     text-align: center;
 }
 
-.modificar .imagen-usuario img{
+.modificar .imagen-usuario img {
     max-width: 100%;
     height: auto;
 }
@@ -556,12 +560,13 @@ aside form {
     width: 50%;
 }
 
-.modificar .contrasenia-contenedor .campo .password1{
+.modificar .contrasenia-contenedor .campo .password1 {
     width: 90%;
-}  
-.modificar .contrasenia-contenedor .campo .password2{
-    width: 100%;    
-}  
+}
+
+.modificar .contrasenia-contenedor .campo .password2 {
+    width: 100%;
+}
 
 /* - - GESTION BBDD - - */
 .gestion {
@@ -612,7 +617,8 @@ aside form {
     margin: 5px 20px 5px 10px;
     padding: 0 5% 0 15px;
 }
-.gestionUsuarios form{
+
+.gestionUsuarios form {
     text-align: center;
 }
 
@@ -632,7 +638,6 @@ aside form {
 
 .usuario {
     display: flex;
-    align-items: flex-start;
     border: 1px solid rgb(185, 140, 185);
     margin: 5px;
     background-color: rgb(243, 224, 245);
@@ -642,8 +647,8 @@ aside form {
     display: flex;
     justify-content: center;
     text-align: center;
-    width: 100px; /* Tamaño fijo para el contenedor de la foto */
-    height: 100px; /* Tamaño fijo para el contenedor de la foto */
+    width: 100px;
+    height: 100px;
     overflow: hidden;
 }
 
@@ -655,17 +660,24 @@ aside form {
 
 .usuario .contenido {
     width: 90%;
-    display: flex;
-}
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 10px; 
+  }
+  
+  .usuario .fila {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+    grid-gap: 10px;
+    width: 100%;
+  }
+
 
 .usuario .contenido ul {
     list-style-type: none;
     padding: 0;
     margin: 0;
-}
-
-.usuario .fila {
-    display: inline-block
+    width: 100%;
 }
 
 .usuario .fila .etiqueta {
@@ -676,6 +688,31 @@ aside form {
 .usuario .fila li {
     display: inline-block;
     margin: 5px;
+}
+
+.usuario .opciones {
+    text-align: center;
+    background-color: rgb(208, 185, 208);
+    padding: 5px;
+}
+
+.usuario .opciones form {
+    padding: 0;
+    margin: 0;
+}
+
+.usuario .opciones button {
+    width: 30px;
+    height: 30px;
+    margin: 5px;
+    background: none;
+    border: none;
+    padding: 0;
+}
+
+.usuario .opciones button img {
+    width: 100%;
+    height: 100%;
 }
 
 
@@ -702,4 +739,8 @@ a {
 
 input {
     font-family: 'Times New Roman', Times, serif;
+}
+
+button {
+    cursor: pointer;
 }
