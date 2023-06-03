@@ -489,7 +489,13 @@ function mostrarIncidencias($incidencias)
       $incidencia = $_POST["incidencia"];
       $puedeVotar = puedeValorar($incidencia);
 
-      if (isset($_POST["sumar"]) && $puedeVotar) {
+      if (isset($_POST["editar"])) {
+        
+      }
+      else if (isset($_POST["borrar"])) {
+        borrarIncidencia($incidencia);
+      }
+      else if (isset($_POST["sumar"]) && $puedeVotar) {
         valoracion($incidencia, "sumar");
       } else if (isset($_POST["restar"]) && $puedeVotar) {
         valoracion($incidencia, "restar");
@@ -542,8 +548,20 @@ function __formatoIncidencia($incidencia)
   HTML;
 
   echo '<input type="hidden" name="incidencia" value="' . $incidencia["id"] . '">';
+  
 
+  if ($_SESSION['rol'] == "admin") {
 
+  echo <<<HTML
+          <button name="editar">
+              <img src="vista/imagenes/editar.png">
+          </button>
+          <button name="borrar">
+              <img src="vista/imagenes/borrar.png">
+          </button>
+  HTML;
+
+  }
   echo <<<HTML
           <button name="sumar">
               <img src="vista/imagenes/verde.png">
@@ -554,6 +572,7 @@ function __formatoIncidencia($incidencia)
           <button name="comentar">
               <img src="vista/imagenes/comentario.png">
           </button>
+
         </form>
       </div>
     </div>

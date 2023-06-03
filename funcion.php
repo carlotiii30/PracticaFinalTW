@@ -163,4 +163,22 @@ function puedeValorar($idIncidencia){
 
     return $puedeVotar;
 }
+
+
+function borrarIncidencia($id) {
+
+    $db = conexion();
+
+    $sql = "DELETE FROM incidencias WHERE id = $id";
+
+    if ($db->query($sql)) {
+        insertarLog("La incidencia $id ha sido eliminada.", $db);
+        $_SESSION['mensaje'] = "La incidencia seleccionada ha sido eliminada satisfactoriamente. Esperemos que no haya sido un error, porque si no...";
+    }
+
+    desconexion($db);
+
+    header('Location: index.php');
+    exit;
+}
 ?>

@@ -70,10 +70,11 @@ function registrarUsuario()
 			desconexion($db);
 		}
 
-		if (count($erroresRegistro) === 0) {
+		if (count($erroresRegistro) == 0) {
 			$confirmado = true;
 		}
 	}
+
 }
 
 ?>

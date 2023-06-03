@@ -3,14 +3,13 @@ include('vista/html/html.php'); // Maquetado de página
 require "BD/procesarRegistro.php";
 
 htmlStart('Página de registro');
+htmlNavGeneral('');
 htmlEnd();
 
 // - - - Traducciones - - - 
 $mensajes = json_decode(file_get_contents('./vista/traducciones/formularioRegistro.json'), true);
 
 $erroresRegistro = array();
-
-$confirmado = false;
 
 registrarUsuario();
 
@@ -140,11 +139,9 @@ registrarUsuario();
 				</div>
 			</div>
 			<div class="botones">
+				<input type="submit" name="enviar" value="<?php echo $mensajes[$idioma]["Enviar"]; ?>">
 				<?php if (!$confirmado) { ?>
-					<input type="submit" name="enviar" value="<?php echo $mensajes[$idioma]["Enviar"]; ?>">
 					<input type="reset" value="<?php echo $mensajes[$idioma]["Borrar"]; ?>">
-				<?php } else { ?>
-					<input type="submit" name="enviar" value="<?php echo $mensajes[$idioma]["Enviar"]; ?>">
 				<?php } ?>
 			</div>
 		</form>
