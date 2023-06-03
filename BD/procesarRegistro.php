@@ -19,7 +19,7 @@ function registrarUsuario()
 
 		$rol = "colaborador";
 
-		if (!$confirmado) {
+		if (isset($_POST['enviar'])) {
 			// - - - Validamos los datos - - - 
 			if (empty($nombre)) {
 				$erroresRegistro['nombre'] = "El nombre no puede estar vacío";
@@ -44,14 +44,15 @@ function registrarUsuario()
 			if (empty($direccion)) {
 				$erroresRegistro['direccion'] = "La dirección no puede estar vacía";
 			}
-		} else {
+		} else if(isset($_POST['confirmar'])){
+			// Ciframos la contraseña
+			$hash = password_hash($password1, PASSWORD_BCRYPT);
 			// Conexión
 			$db = conexion();
 
 			// Crear usuario
 			$sql = "INSERT INTO usuarios (nombre, apellidos, email, password, telefono, direccion, rol) 
-					VALUES ('$nombre', '$apellidos', '$email', '$password1', '$telefono', '$direccion', '$rol')";
-
+					VALUES ('$nombre', '$apellidos', '$email', '$hash', '$telefono', '$direccion', '$rol')";
 			// Ejecutar la consulta
 			if ($db->query($sql) === TRUE) {
 				// Guardamos el usuario

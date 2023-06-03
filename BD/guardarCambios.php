@@ -75,6 +75,7 @@ function guardarCambios($idUsuario){
                 // Actualizar usuario
                 if(!$hayImagen){
                     if(!empty($password1)){
+                        $password1 = password_hash($password1, PASSWORD_BCRYPT);
                         $query = "UPDATE usuarios SET nombre= ?, apellidos= ?, email= ?, telefono= ?, direccion=?, password=? WHERE id=?";
                         $stmt = $db->prepare($query);
                         $stmt->bind_param('ssssssi', $nombre, $apellidos, $email, $telefono, $direccion, $password1, $id);
@@ -86,6 +87,7 @@ function guardarCambios($idUsuario){
                 }else{
                     //$image = file_get_contents($_FILES['images']['tmp_name']);
                     if(!empty($password1)){
+                        $password1 = password_hash($password1, PASSWORD_BCRYPT);
                         $query = "UPDATE usuarios SET nombre= ?, apellidos= ?, email= ?, telefono= ?, direccion=?, password=?, foto = ? WHERE id=?";
                         $stmt = $db->prepare($query);
                         $stmt->bind_param('sssssssi', $nombre, $apellidos, $email, $telefono, $direccion, $password1, $_SESSION['imagen'], $id);

@@ -17,25 +17,33 @@ if (is_string($db = conexion())) {
         $password = mysqli_real_escape_string($db, $password);
 
         // Continuamos
-        $sql = "SELECT * FROM usuarios WHERE email='$usuario' AND password='$password'";
+        //$sql = "SELECT * FROM usuarios WHERE email='$usuario' AND password='$password'";
+        //$result = $db->query($sql);
+        $sql = "SELECT * FROM usuarios WHERE email='$usuario'";
         $result = $db->query($sql);
 
         if ($result && $result->num_rows > 0) {
             $usuario = $result->fetch_assoc();
-            $idUsuario = $usuario["id"];
+            $hash = $usuario['password'];
+            if(password_verify($password, $hash)) {
+                $idUsuario = $usuario["id"];
+                session_start();
+                $_SESSION['autenticado'] = true;
+                $_SESSION['rol'] = $usuario["rol"];
+                $_SESSION['nombreUsuario'] = $nombreUsuario;
+                $_SESSION['idUsuario'] = $idUsuario;
 
-            session_start();
-            $_SESSION['autenticado'] = true;
-            $_SESSION['rol'] = $usuario["rol"];
-            $_SESSION['nombreUsuario'] = $nombreUsuario;
-            $_SESSION['idUsuario'] = $idUsuario;
+                insertarLog("El usuario $nombreUsuario ha iniciado sesión", $db);
 
-            insertarLog("El usuario $nombreUsuario ha iniciado sesión", $db);
-
-            header("Location: ../index.php");
+                header("Location: ../index.php");
+            } else {
+                // El inicio de sesión falló
+                header("Location: ../index.php");
+                insertarLog("El usuario $nombreUsuario ha intentado iniciar sesión sin éxito.", $db);
+            }
         } else {
-            // El inicio de sesión falló, muestra un mensaje de error
-            echo "Usuario o contraseña incorrectos.";
+            // El inicio de sesión falló
+            header("Location: ../index.php");
             insertarLog("El usuario $nombreUsuario ha intentado iniciar sesión sin éxito.", $db);
         }
 
