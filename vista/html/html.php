@@ -287,7 +287,7 @@ function htmlPagMisIncidencias()
 
   // Recuperacion de datos de la base de datos
   $id = $_SESSION['idUsuario'];
-  $sql = "SELECT * FROM incidencias WHERE idusuario = $id ORDER BY fecha DESC";
+  $sql = "SELECT * FROM incidencias WHERE idUsuario = $id ORDER BY fecha DESC";
   $datos = $db->query($sql);
 
   // Desconexión
@@ -520,7 +520,7 @@ function __formatoIncidencia($incidencia)
   global $mensajesIncidencias;
   global $idioma;
 
-  $nombre = obtenerNombreUsuario($incidencia["idusuario"]);
+  $nombre = obtenerNombreUsuario($incidencia["idUsuario"]);
   $valoraciones = obtenerValoraciones($incidencia["id"]);
 
   echo <<<HTML
@@ -553,7 +553,7 @@ function __formatoIncidencia($incidencia)
   echo '<input type="hidden" name="incidencia" value="' . $incidencia["id"] . '">';
 
   if (isset($_SESSION['autenticado'])) {
-    if ($_SESSION['idUsuario'] == $incidencia["idusuario"] || $_SESSION['rol'] == "admin") {
+    if ($_SESSION['idUsuario'] == $incidencia["idUsuario"] || $_SESSION['rol'] == "admin") {
 
       echo <<<HTML
           <button name="editar">
@@ -793,6 +793,72 @@ function htmlPagGestionBD()
   echo "</form></div>";
 }
 
+function htmlPagComentarios()
+{
+  // Conexión con la BBDD
+  $db = conexion();
+  if (is_string($db)) {
+    $msg_err = $db;
+  } else {
+    // Id del usuario
+    if (isset($_SESSION['idUsuario'])) {
+      $id = $_SESSION['idUsuario'];
+    } else {
+      $id = 0;
+    }
+
+    // Nombre
+    $nombre = obtenerNombreUsuario($id);
+
+    // Id de la incidencia
+    $idIncidencia = $_SESSION['idIncidencia'];
+
+    echo <<<HTML
+    <div class="comentar">
+      <form method="POST" action="">
+        <label for="comentario">
+          Comentario:
+        </label>
+        <textarea name="comentario" rows="4" cols="50"></textarea>
+        <div class="botones">
+          <input type="submit" value="Enviar comentario">
+        </div>
+      </form>
+    </div>
+    HTML;
+
+    // Mostrar mensaje si el comentario está vacío
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && empty($_POST['comentario'])) {
+      echo "<p class='error'>No puede insertar un comentario vacío. Por favor, introduzca un comentario.</p>";
+    }
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+      $comentario = isset($_POST['comentario']) ? $_POST['comentario'] : '';
+
+      // Verificar si el comentario no está vacío
+      if (!empty($comentario)) {
+        $nombreUsuario = isset($nombre) ? $nombre : 'Anónimo';
+
+        // Escapar los valores para prevenir inyección SQL
+        $id = $db->real_escape_string($id);
+        $idIncidencia = $db->real_escape_string($idIncidencia);
+        $comentario = $db->real_escape_string($comentario);
+
+        $sql = "INSERT INTO comentarios (idUsuario, idIncidencia, comentario, fecha) VALUES ($id, $idIncidencia, '$comentario', NOW())";
+
+        // Ejecutar la consulta
+        if ($db->query($sql) === TRUE) {
+          insertarLog("El usuario $nombreUsuario ha comentado en la incidencia con id $idIncidencia", $db);
+          // Mostrar mensaje de éxito
+          $_SESSION['mensaje'] = "¡Enhorabuena! Su comentario ha sido añadido con éxito. Esperamos que sea útil para la comunidad su aportación.";
+          // Redirigimos.
+          header('Location: index.php');
+          exit;
+        }
+      }
+    }
+  }
+}
 
 function __htmlWidgets($opcion)
 {
@@ -800,7 +866,7 @@ function __htmlWidgets($opcion)
   if ($opcion == 1) {
     $sql = "SELECT u.nombre, COUNT(i.id) AS total_incidencias
           FROM usuarios u
-          INNER JOIN incidencias i ON u.id = i.idusuario
+          INNER JOIN incidencias i ON u.id = i.idUsuario
           GROUP BY u.id
           ORDER BY total_incidencias DESC
           LIMIT 3";

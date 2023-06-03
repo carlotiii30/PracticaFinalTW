@@ -510,6 +510,33 @@ aside form {
     height: 100%;
 }
 
+.comentar-incidencia {
+    margin-top: 20px;
+}
+
+.comentar-incidencia label {
+    display: block;
+}
+
+.comentar-incidencia textarea {
+    width: 100%;
+    resize: vertical;
+    margin: 10px 10px;
+}
+
+.comentar-incidencia .botones input {
+    background-color: rgb(172, 134, 172);
+    color: white;
+    padding: 10px 20px;
+    margin-left: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.comentar-incidencia .botones input:hover {
+    background-color: rgb(185, 140, 185);
+}
+
 /* - - MIS INCIDENCIAS - - */
 .mis-incidencias {
     display: block;

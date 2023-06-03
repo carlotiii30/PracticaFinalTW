@@ -17,7 +17,7 @@ function registrarUsuario()
 		$telefono = isset($_POST['telefono']) ? $_POST['telefono'] : '';
 		$direccion = isset($_POST['direccion']) ? $_POST['direccion'] : '';
 
-		$rol = "colaborador";
+		$rol = isset($_POST['rol']) ? $_POST['rol'] : 'colaborador';
 
 		if (isset($_POST['enviar'])) {
 			// - - - Validamos los datos - - - 

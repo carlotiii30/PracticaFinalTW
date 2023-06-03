@@ -184,6 +184,15 @@ function borrarIncidencia($id) {
 
 function borrarUsuario($id, $db) {
 
+    // Borramos todas las incidencias relacionadas con el usuario
+    $sql = "DELETE FROM incidencias WHERE idUsuario = $id";
+    $db->query($sql);
+
+    // Borramos todos los comentarios relacionados con el usuario
+    $sql = "DELETE FROM comentarios WHERE idUsuario = $id";
+    $db->query($sql);
+
+    // Borramos al usuario
     $sql = "DELETE FROM usuarios WHERE id = $id";
 
     if ($db->query($sql)) {
