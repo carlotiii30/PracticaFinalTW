@@ -487,12 +487,10 @@ function mostrarIncidencias($incidencias)
       $puedeVotar = puedeValorar($incidencia);
 
       if (isset($_POST["editar"])) {
-        
-      }
-      else if (isset($_POST["borrar"])) {
+
+      } else if (isset($_POST["borrar"])) {
         borrarIncidencia($incidencia);
-      }
-      else if (isset($_POST["sumar"]) && $puedeVotar) {
+      } else if (isset($_POST["sumar"]) && $puedeVotar) {
         valoracion($incidencia, "sumar");
       } else if (isset($_POST["restar"]) && $puedeVotar) {
         valoracion($incidencia, "restar");
@@ -545,11 +543,11 @@ function __formatoIncidencia($incidencia)
   HTML;
 
   echo '<input type="hidden" name="incidencia" value="' . $incidencia["id"] . '">';
-  
 
-  if ($_SESSION['idUsuario'] == $incidencia["idusuario"] || ($_SESSION['autenticado'] && $_SESSION['rol'] == "admin")) {
+  if (isset($_SESSION['autenticado'])) {
+    if ($_SESSION['idUsuario'] == $incidencia["idusuario"] || $_SESSION['rol'] == "admin") {
 
-  echo <<<HTML
+      echo <<<HTML
           <button name="editar">
               <img src="vista/imagenes/editar.png">
           </button>
@@ -558,6 +556,7 @@ function __formatoIncidencia($incidencia)
           </button>
   HTML;
 
+    }
   }
   echo <<<HTML
           <button name="sumar">
@@ -706,9 +705,9 @@ function __formatoUsuario($usuario, $db)
                 <form method="post" action="">
     HTML;
 
-    echo '<input type="hidden" name="usuario" value="' . $id . '">';
+  echo '<input type="hidden" name="usuario" value="' . $id . '">';
 
-    echo <<< HTML
+  echo <<<HTML
                 <button name="editar">
                       <img src="vista/imagenes/editar.png">
                 </button>

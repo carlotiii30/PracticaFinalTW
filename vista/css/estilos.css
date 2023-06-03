@@ -206,8 +206,6 @@ aside form {
 
 .logeado input,
 .logeado a {
-.logeado input,
-.logeado a {
     background-color: rgb(172, 134, 172);
     color: white;
     padding: 10px 20px;
@@ -518,12 +516,8 @@ aside form {
 }
 
 .modificar .entrada {
-
-.modificar .entrada {
     width: 70%;
 }
-
-.modificar .entrada input {
 
 .modificar .entrada input {
     width: 100%;
@@ -554,7 +548,6 @@ aside form {
 }
 
 .modificar .imagen-usuario img {
-.modificar .imagen-usuario img {
     max-width: 100%;
     height: auto;
 }
@@ -567,12 +560,13 @@ aside form {
     width: 50%;
 }
 
-.modificar .contrasenia-contenedor .campo .password1{
+.modificar .contrasenia-contenedor .campo .password1 {
     width: 90%;
-}  
-.modificar .contrasenia-contenedor .campo .password2{
-    width: 100%;    
-}  
+}
+
+.modificar .contrasenia-contenedor .campo .password2 {
+    width: 100%;
+}
 
 /* - - GESTION BBDD - - */
 .gestion {
@@ -623,7 +617,8 @@ aside form {
     margin: 5px 20px 5px 10px;
     padding: 0 5% 0 15px;
 }
-.gestionUsuarios form{
+
+.gestionUsuarios form {
     text-align: center;
 }
 
@@ -653,9 +648,7 @@ aside form {
     justify-content: center;
     text-align: center;
     width: 100px;
-    /* Tamaño fijo para el contenedor de la foto */
     height: 100px;
-    /* Tamaño fijo para el contenedor de la foto */
     overflow: hidden;
 }
 
@@ -726,12 +719,15 @@ aside form {
 /* - - PIE DE PÁGINA - - */
 footer {
     background-color: rgb(46, 45, 45);
-    position: fixed;
-    bottom: 0;
+    display: flex;
+    clear:both;
     width: 100%;
     height: 40px;
     color: white;
     text-align: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
 }
 
 /* - - REGLAS GENERALES - - */
