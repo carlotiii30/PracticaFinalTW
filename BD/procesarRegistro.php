@@ -19,31 +19,32 @@ function registrarUsuario()
 
 		$rol = "colaborador";
 
-		// - - - Validamos los datos - - - 
-		if (empty($nombre)) {
-			$erroresRegistro['nombre'] = "El nombre no puede estar vacío";
-		}
-		if (empty($apellidos)) {
-			$erroresRegistro['apellidos'] = "El apellido no puede estar vacío";
-		}
+		if (!$confirmado) {
+			// - - - Validamos los datos - - - 
+			if (empty($nombre)) {
+				$erroresRegistro['nombre'] = "El nombre no puede estar vacío";
+			}
 
-		if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-			$erroresRegistro['email'] = "El email no es correcto";
-		}
+			if (empty($apellidos)) {
+				$erroresRegistro['apellidos'] = "El apellido no puede estar vacío";
+			}
 
-		if ($password1 !== $password2) {
-			$erroresRegistro['contraseña'] = "Las contraseñas no coinciden";
-		}
+			if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+				$erroresRegistro['email'] = "El email no es correcto";
+			}
 
-		if (!preg_match("/^[0-9]{9}$/", $telefono)) {
-			$erroresRegistro['telefono'] = "El teléfono no es correcto";
-		}
+			if ($password1 !== $password2) {
+				$erroresRegistro['contraseña'] = "Las contraseñas no coinciden";
+			}
 
-		if (empty($direccion)) {
-			$erroresRegistro['direccion'] = "La dirección no puede estar vacía";
-		}
+			if (!preg_match("/^[0-9]{9}$/", $telefono)) {
+				$erroresRegistro['telefono'] = "El teléfono no es correcto";
+			}
 
-		if ($confirmado) {
+			if (empty($direccion)) {
+				$erroresRegistro['direccion'] = "La dirección no puede estar vacía";
+			}
+		} else {
 			// Conexión
 			$db = conexion();
 
@@ -69,11 +70,11 @@ function registrarUsuario()
 			desconexion($db);
 		}
 
-		if (count($erroresRegistro) === 0) {
+		if (count($erroresRegistro) == 0) {
 			$confirmado = true;
 		}
-
 	}
+
 }
 
 ?>
