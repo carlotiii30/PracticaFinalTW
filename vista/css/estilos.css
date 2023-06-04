@@ -198,6 +198,13 @@ aside form {
     margin-bottom: 5px;
 }
 
+.logeado .botoneslogueado{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
 .logeado form {
     display: flex;
     justify-content: center;

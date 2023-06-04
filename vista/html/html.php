@@ -434,10 +434,10 @@ function __htmlLogin()
 function __htmlLogout()
 {
   session_destroy();
-  header("Location: index.php");
   $db = conexion();
   insertarLog("El usuario {$_SESSION['nombreUsuario']} ha cerrado la sesión", $db);
   desconexion($db);
+  echo "<meta http-equiv='refresh' content='0;url=./index.php'>"; //Para redirigir y no usar el header
   exit;
 }
 
@@ -467,15 +467,16 @@ function __htmlLogeado()
       </div>
       <p>{$_SESSION["nombreUsuario"]}</p>
       <p class="rol">{$_SESSION["rol"]}</p>
-      
-      <form method="post" action="./modificarUsuario.php">
-        <input type="hidden" name="usuario" value="{$_SESSION["idUsuario"]}">
-        <input type="submit" name="editar" value="{$mensajes[$idioma]["Desconectar"]}">
-      </form>
-      <form method="post" action="">
-        <!--<a href="modificarUsuario.php">{$mensajes[$idioma]["Editar"]}</a>-->
-        <input type="submit" name="logout" value="{$mensajes[$idioma]["Desconectar"]}">
-      </form>
+      <div class="botoneslogueado">
+        <form method="post" action="./modificarUsuario.php">
+          <input type="hidden" name="usuario" value="{$_SESSION["idUsuario"]}">
+          <input type="submit" name="editar" value="{$mensajes[$idioma]["Editar"]}">
+        </form>
+        <form method="post" action="">
+          <!--<a href="modificarUsuario.php">{$mensajes[$idioma]["Editar"]}</a>-->
+          <input type="submit" name="logout" value="{$mensajes[$idioma]["Desconectar"]}">
+        </form>
+      </div>
     </div>
     HTML;
 }
