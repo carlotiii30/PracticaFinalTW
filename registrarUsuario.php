@@ -47,7 +47,9 @@ registrarUsuario();
 						<label for="apellidos">
 							<?php echo $mensajes[$idioma]["Apellidos"]; ?>
 						</label>
-						<input name="apellidos" value="<?php echo isset($_POST['apellidos']) ? $_POST['apellidos'] : ''; ?>" <?php if ($confirmado) echo "readonly"; ?>>
+						<input name="apellidos"
+							value="<?php echo isset($_POST['apellidos']) ? $_POST['apellidos'] : ''; ?>" <?php if ($confirmado)
+									   echo "readonly"; ?>>
 						<?php if (isset($erroresRegistro['apellidos'])) { ?>
 							<p class="error">
 								<?php echo $erroresRegistro['apellidos']; ?>
@@ -87,6 +89,7 @@ registrarUsuario();
 					</p>
 				</div>
 			</div>
+
 			<div class="subform">
 				<h1>
 					<?php echo $mensajes[$idioma]["DatosSesion"]; ?>
@@ -110,13 +113,17 @@ registrarUsuario();
 								<label for="password1">
 									<?php echo $mensajes[$idioma]["Contrasenia"]; ?>:
 								</label>
-								<input class="password1" type="password" name="password1" value="<?php echo $confirmado ? $_POST['password1'] : ''; ?>" <?php if ($confirmado) echo "readonly" ?>>
+								<input class="password1" type="password" name="password1"
+									value="<?php echo $confirmado ? $_POST['password1'] : ''; ?>" <?php if ($confirmado)
+											   echo "readonly" ?>>
 								</div>
 								<div class="campo">
 									<label for="password2">
 									<?php echo $mensajes[$idioma]["Confirmar"]; ?>:
 								</label>
-								<input class="password2" type="password" name="password2" value="<?php echo $confirmado ? $_POST['password2'] : ''; ?>" <?php if ($confirmado) echo "readonly" ?>>
+								<input class="password2" type="password" name="password2"
+									value="<?php echo $confirmado ? $_POST['password2'] : ''; ?>" <?php if ($confirmado)
+											   echo "readonly" ?>>
 								</div>
 
 							<?php if (isset($erroresRegistro['contraseña'])) { ?>
@@ -134,13 +141,31 @@ registrarUsuario();
 					</p>
 				</div>
 			</div>
+
+			<div class="subform">
+				<h1>Rol</h1>
+				<div class="datos">
+					<div class="entrada">
+						<label for="rol">Rol que va a tener el usuario:</label>
+						<select name="rol" <?php if ($confirmado)
+							echo "readonly" ?>>
+								<option value="colaborador" <?php if (isset($_POST['rol']) && $_POST['rol'] === 'colaborador')
+							echo 'selected'; ?>>Colaborador</option>
+							<option value="admin" <?php if (isset($_POST['rol']) && $_POST['rol'] === 'admin')
+								echo 'selected'; ?>>Administrador</option>
+						</select>
+					</div>
+				</div>
+			</div>
+
+
 			<div class="botones">
 				<?php if (!$confirmado) { ?>
 					<input type="submit" name="enviar" value="<?php echo $mensajes[$idioma]["Enviar"]; ?>">
 					<input type="reset" value="<?php echo $mensajes[$idioma]["Borrar"]; ?>">
-				<?php }else{ ?>
+				<?php } else { ?>
 					<input type="submit" name="confirmar" value="<?php echo $mensajes[$idioma]["Enviar"]; ?>">
-				<?php }?>	
+				<?php } ?>
 			</div>
 		</form>
 	</div>

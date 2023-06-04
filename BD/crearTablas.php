@@ -167,11 +167,26 @@ if ($db->query($sql)) {
 */
 
 // TABLA IMAGENES
-$sql = "CREATE TABLE fotos (
+/*$sql = "CREATE TABLE fotos (
     id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     idIncidencia INT(10) UNSIGNED,
 	foto LONGBLOB
 	)";
+*/
+//$sql = "ALTER TABLE incidencias DROP COLUMN idUsuario;";
+
+/*$sql = "ALTER TABLE incidencias ADD COLUMN idUsuario INT(10) UNSIGNED DEFAULT NULL,
+ADD FOREIGN KEY (idUsuario) REFERENCES usuarios (id)";
+*/
+
+//$sql = "ALTER TABLE comentarios DROP COLUMN idUsuario;";
+
+/*$sql = "ALTER TABLE comentarios ADD COLUMN idUsuario INT(10) UNSIGNED DEFAULT NULL,
+ADD FOREIGN KEY (idUsuario) REFERENCES usuarios (id)";
+*/
+
+//$sql = "ALTER TABLE incidencias DROP COLUMN valoracionesPositivas;";
+$sql = "ALTER TABLE incidencias DROP COLUMN valoracionesNegativas;";
 
 if ($db->query($sql) === TRUE) {
 	echo "Tabla creada correctamente";
