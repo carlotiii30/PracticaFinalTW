@@ -554,6 +554,13 @@ function __formatoIncidencia($incidencia)
   echo <<<HTML
       </div>
       <div class="opiniones">
+        <form method="post" action="./editarIncidencia.php">
+          <div class="botones">
+            <input type="hidden" name="editarInc" value="{$incidencia["id"]}">
+            <button name="editar">
+              <img src="vista/imagenes/editar.png">
+            </button>
+          </div>
         <form method="post" action="">
   HTML;
 
@@ -563,9 +570,6 @@ function __formatoIncidencia($incidencia)
     if ($_SESSION['idUsuario'] == $incidencia["idUsuario"] || $_SESSION['rol'] == "admin") {
 
       echo <<<HTML
-          <button name="editar">
-              <img src="vista/imagenes/editar.png">
-          </button>
           <button name="borrar">
               <img src="vista/imagenes/borrar.png">
           </button>
@@ -583,7 +587,6 @@ function __formatoIncidencia($incidencia)
           <button name="comentar">
               <img src="vista/imagenes/comentario.png">
           </button>
-
         </form>
       </div>
     </div>
@@ -1054,5 +1057,118 @@ function modificarUsuario($idUsuario)
     desconexion($db);
   }
 
+}
+
+function htmlPagEditarIncidencia($idIncidencia){
+  __htmlEstadoIncidencia($idIncidencia);
+  __htmlIncidencia($idIncidencia);
+}
+
+function __htmlEstadoIncidencia($idIncidencia){
+  global $mensajesIncidencias;
+  global $idioma;
+
+  if (is_string($db = conexion())) {
+    $msg_err = $db;
+  } else {
+    $id = $idIncidencia;
+    // Consulta SQL para obtener los datos del usuario
+    $sql = "SELECT * FROM incidencias WHERE id = $id";
+    $result = $db->query($sql);
+
+    if ($result && $result->num_rows > 0) {
+      $incidencia = $result->fetch_assoc();
+      $estado = $incidencia['estado'];
+      echo <<<HTML
+        <div class="nueva">
+            <h1 class="titulo">
+                {$mensajesIncidencias[$idioma]["Nueva"]}
+            </h1>
+            <form method="post" action="./BD/procesarIncidencia.php">
+              <h2 class="subtitulo">
+                  {$mensajesIncidencias[$idioma]["Datos"]}
+              </h2>
+              <div class="entrada">
+      HTML;
+                echo '<label><input type="radio" name="estado" value="Pendiente"'. ($estado == 'pendiente' ? ' checked' : '') .'>';
+                    echo 'Pendiente';
+                echo '</label>';
+                echo '<label><input type="radio" name="estado" value="Comprobada"'. ($estado == 'comprobada' ? ' checked' : '') .'>';
+                    echo 'Comprobada';
+                echo '</label>';
+                echo '<label><input type="radio" name="estado" value="Tramitada"' . ($estado == 'tramitada' ? ' checked' : '') . '>';
+                    echo 'Tramitada';
+                echo '</label>';
+                echo '<label><input type="radio" name="estado" value="Irresoluble"' . ($estado == 'irresoluble' ? ' checked' : '') . '>';
+                    echo 'Irresoluble';
+                echo '</label>';
+                echo '<label><input type="radio" name="estado" value="Resuelta"' . ($estado == 'Resuelta' ? ' checked' : '') . '>';
+                    echo 'Resuelta';
+      echo <<<HTML
+                </label>
+              </div>
+            </form>
+        </div>
+      HTML;
+    }else{
+      echo 'No se encontraron registros en la tabla incidencias.';
+    } 
+    desconexion($db);
+  } 
+}
+function __htmlIncidencia($idIncidencia)
+{
+  global $mensajesIncidencias;
+  global $idioma;
+
+  if (is_string($db = conexion())) {
+    $msg_err = $db;
+  } else {
+    $id = $idIncidencia;
+    // Consulta SQL para obtener los datos del usuario
+    $sql = "SELECT * FROM incidencias WHERE id = $id";
+    $result = $db->query($sql);
+
+    if ($result && $result->num_rows > 0) {
+      $incidencia = $result->fetch_assoc();
+
+      echo <<<HTML
+        <div class="nueva">
+            <h1 class="titulo">
+                {$mensajesIncidencias[$idioma]["Nueva"]}
+            </h1>
+            <form method="post" action="./BD/procesarIncidencia.php">
+                <h2 class="subtitulo">
+                    {$mensajesIncidencias[$idioma]["Datos"]}
+                </h2>
+                <div class="entrada">
+                    <label for="titulo">
+                        {$mensajesIncidencias[$idioma]["Titulo"]}
+                    </label>
+      HTML;
+                    echo '<input name="titulo" value="' . $incidencia['titulo'] .'">';
+                    echo '<label for="descripcion">';
+                        $mensajesIncidencias[$idioma]["Descripcion"];
+                    echo '</label>';
+                    echo '<textarea name="descripcion" rows="4" cols="50">'. $incidencia['descripcion'] .'</textarea>';
+                    echo '<label for="lugar">';
+                        $mensajesIncidencias[$idioma]["Lugar"];
+                    echo '</label>';
+                    echo '<input name="lugar" value="' . $incidencia['lugar'] .'">';
+                    echo '<label for="keywords">';
+                        $mensajesIncidencias[$idioma]["PalabrasClave"];
+                    echo '</label>';
+                    echo '<input name="keywords" value="' . $incidencia['keywords'] . '">';
+                echo '</div>';
+                echo '<div class="botones">';
+                   echo '<input type="submit" value="' . $mensajesIncidencias[$idioma]["Enviar"] . '">';
+                echo '</div>';
+            echo '</form>';
+        echo '</div>';
+    } else {
+      echo 'No se encontraron registros en la tabla incidencias.';
+    }
+    desconexion($db);
+  }
 }
 ?>
