@@ -180,6 +180,8 @@ aside form {
     justify-content: center;
     align-items: center;
     margin-bottom: 10px;
+    width: 100px;
+    height: 100px;
 }
 
 .logeado .imagen-usuario img {
@@ -230,7 +232,7 @@ aside form {
 /* - - WIDGETS - - */
 .widget {
     background-color: rgb(243, 224, 245);
-    border: 1px solid rgb(46, 45, 45);
+    border: 1px solid rgb(172, 134, 172);
     margin-bottom: 10px;
 }
 
@@ -238,7 +240,8 @@ aside form {
     background-color: rgb(172, 134, 172);
     color: white;
     margin: 0;
-    padding-left: 10px;
+    padding: 5px;
+    font-size: 18px;
 }
 
 /* - - TABLA LOG - - */
@@ -489,15 +492,16 @@ aside form {
     align-items: flex-end;
     padding-right: 5px;
     border-right: 2px solid rgb(172, 134, 172);
-    width: 10%;
+    width: 15%;
 }
 
 .incidencia .comentarios .nombre {
     font-weight: bold;
+    font-size: 14px;
 }
 
 .incidencia .comentarios .fecha {
-    font-size: 14px;
+    font-size: 12px;
     color: gray;
 }
 
@@ -574,6 +578,7 @@ aside form {
     background-color: rgb(208, 185, 208);
     border: 1px solid rgb(172, 134, 172);
     display: flex;
+    width: 100%;
 }
 
 .modificar form {

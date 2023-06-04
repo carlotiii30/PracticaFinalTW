@@ -4,10 +4,11 @@ require "BD/guardarCambios.php";
 
 htmlStart('Modificar usuario');
 htmlNavGeneral('');
-htmlEnd();
 
 if(isset($_POST['editar'])){
     $_SESSION['editando'] = $_POST['usuario'];
 }
 modificarUsuario($_SESSION['editando']);
+
+htmlEnd();
 ?>

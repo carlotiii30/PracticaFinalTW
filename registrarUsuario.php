@@ -4,14 +4,22 @@ require "BD/procesarRegistro.php";
 
 htmlStart('Página de registro');
 htmlNavGeneral('');
-htmlEnd();
+
+$registrado = false;
+$confirmado = false;
 
 // - - - Traducciones - - - 
 $mensajes = json_decode(file_get_contents('./vista/traducciones/formularioRegistro.json'), true);
 
 $erroresRegistro = array();
 
-registrarUsuario();
+if (isset($_POST["enviar"]) || isset($_POST["confirmar"]))
+	registrarUsuario();
+
+if (isset($_POST["enviarFoto"])) {
+	if ($_SESSION['nuevoUsuario'] != 0)
+		agregarFoto($_SESSION['nuevoUsuario']);
+}
 
 ?>
 
@@ -24,7 +32,7 @@ registrarUsuario();
 		<h1>
 			<?php echo $mensajes[$idioma]["DatosGeneral"]; ?>
 		</h1>
-		<form method="post" action="">
+		<form method="POST" action="">
 			<div class="subform">
 				<h1>
 					<?php echo $mensajes[$idioma]["DatosPersonales"]; ?>
@@ -131,7 +139,6 @@ registrarUsuario();
 									<?php echo $erroresRegistro['contraseña']; ?>
 								</p>
 							<?php } ?>
-
 						</div>
 					</div>
 				</div>
@@ -142,32 +149,73 @@ registrarUsuario();
 				</div>
 			</div>
 
-			<div class="subform">
-				<h1>Rol</h1>
-				<div class="datos">
-					<div class="entrada">
-						<label for="rol">Rol que va a tener el usuario:</label>
-						<select name="rol" <?php if ($confirmado)
-							echo "readonly" ?>>
-								<option value="colaborador" <?php if (isset($_POST['rol']) && $_POST['rol'] === 'colaborador')
-							echo 'selected'; ?>>Colaborador</option>
-							<option value="admin" <?php if (isset($_POST['rol']) && $_POST['rol'] === 'admin')
-								echo 'selected'; ?>>Administrador</option>
-						</select>
+			<?php if (isset($_SESSION['autenticado'])) {
+				if ($_SESSION['rol'] == 'admin') { ?>
+					<div class="subform">
+						<h1>Usuario en el sistema</h1>
+						<div class="datos">
+							<div class="entrada">
+								<label for="estado">
+									<?php echo $mensajes[$idioma]["Estado"]; ?>:
+								</label>
+								<select name="estado" <?php if ($confirmado)
+									echo "readonly" ?>>
+										<option value="activo" <?php if (isset($_POST['estado']) && $_POST['estado'] === 'activo')
+									echo 'selected'; ?>>Activo</option>
+									<option value="inactivo" <?php if (isset($_POST['estado']) && $_POST['estado'] === 'inactivo')
+										echo 'selected'; ?>>Inactivo</option>
+								</select>
+							</div>
+							<div class="entrada">
+								<label for="rol">Rol:</label>
+								<select name="rol" <?php if ($confirmado)
+									echo "readonly" ?>>
+										<option value="colaborador" <?php if (isset($_POST['rol']) && $_POST['rol'] === 'colaborador')
+									echo 'selected'; ?>>Colaborador</option>
+									<option value="admin" <?php if (isset($_POST['rol']) && $_POST['rol'] === 'admin')
+										echo 'selected'; ?>>Admin</option>
+								</select>
+							</div>
+						</div>
+					</div>
+				<?php }
+			} ?>
+
+			<?php if (!$registrado) { ?>
+				<div class="botones">
+					<?php if (!$confirmado) { ?>
+						<button name="enviar">
+							<?php echo $mensajes[$idioma]["Enviar"]; ?>
+						</button>
+					<?php } else { ?>
+						<button name="confirmar">
+							<?php echo $mensajes[$idioma]["Validar"]; ?>
+						</button>
+					</div>
+				<?php }
+			} ?>
+		</form>
+
+		<?php if ($registrado) { ?>
+			<form method="POST" action="" enctype="multipart/form-data">
+				<div class="subform">
+					<h1> Foto </h1>
+					<div class="datos">
+						<div class="entrada">
+							<label for="images">
+								Foto
+							</label>
+							<input type="file" name="images">
+						</div>
 					</div>
 				</div>
-			</div>
-
-
-			<div class="botones">
-				<?php if (!$confirmado) { ?>
-					<input type="submit" name="enviar" value="<?php echo $mensajes[$idioma]["Enviar"]; ?>">
-					<input type="reset" value="<?php echo $mensajes[$idioma]["Borrar"]; ?>">
-				<?php } else { ?>
-					<input type="submit" name="confirmar" value="<?php echo $mensajes[$idioma]["Enviar"]; ?>">
-				<?php } ?>
-			</div>
-		</form>
+				<div class="botones">
+					<button name="enviarFoto">
+						<?php echo $mensajes[$idioma]["Enviar"]; ?>
+					</button>
+				</div>
+			</form>
+		<?php } ?>
 	</div>
 </body>
 

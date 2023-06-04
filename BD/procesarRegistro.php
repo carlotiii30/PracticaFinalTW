@@ -6,6 +6,9 @@ function registrarUsuario()
 	global $idioma;
 	global $erroresRegistro;
 	global $confirmado;
+	global $registrado;
+
+	$idUsuario = 0;
 
 	// - - - Comprobamos los datos recibidos - - - 
 	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -18,6 +21,7 @@ function registrarUsuario()
 		$direccion = isset($_POST['direccion']) ? $_POST['direccion'] : '';
 
 		$rol = isset($_POST['rol']) ? $_POST['rol'] : 'colaborador';
+		$estado = isset($_POST['estado']) ? $_POST['estado'] : 'activo';
 
 		if (isset($_POST['enviar'])) {
 			// - - - Validamos los datos - - - 
@@ -44,28 +48,30 @@ function registrarUsuario()
 			if (empty($direccion)) {
 				$erroresRegistro['direccion'] = "La dirección no puede estar vacía";
 			}
-		} else if(isset($_POST['confirmar'])){
+		} else if (isset($_POST['confirmar'])) {
+
 			// Ciframos la contraseña
 			$hash = password_hash($password1, PASSWORD_BCRYPT);
+
 			// Conexión
 			$db = conexion();
 
 			// Crear usuario
-			$sql = "INSERT INTO usuarios (nombre, apellidos, email, password, telefono, direccion, rol) 
-					VALUES ('$nombre', '$apellidos', '$email', '$hash', '$telefono', '$direccion', '$rol')";
+			$sql = "INSERT INTO usuarios (nombre, apellidos, email, password, telefono, direccion, rol, estado) 
+                    VALUES ('$nombre', '$apellidos', '$email', '$hash', '$telefono', '$direccion', '$rol', '$estado')";
+
 			// Ejecutar la consulta
 			if ($db->query($sql) === TRUE) {
 				// Guardamos el usuario
 				$_SESSION['usuario'] = $email;
+				$_SESSION['nuevoUsuario'] = $db->insert_id;
 
 				// Marcamos en el log
 				insertarLog("¡Tenemos un nuevo usuario en la comunidad: $email!", $db);
+				$registrado = true;
 
-				// Redirigimos.
-				header('Location: index.php');
-				exit;
 			} else {
-				$registrado = "Error al crear el usuario";
+				$registrado = false;
 			}
 
 			desconexion($db);
@@ -74,6 +80,22 @@ function registrarUsuario()
 		if (count($erroresRegistro) == 0) {
 			$confirmado = true;
 		}
+	}
+
+}
+
+function agregarFoto($idUsuario)
+{
+	// Conexión
+	$db = conexion();
+
+	$_SESSION['imagen'] = file_get_contents($_FILES['images']['tmp_name']);
+
+	if (subirFoto("usuarios", $db, $idUsuario)) {
+		desconexion($db);
+	}
+	else {
+		echo "Algo ha salido mal";
 	}
 
 }

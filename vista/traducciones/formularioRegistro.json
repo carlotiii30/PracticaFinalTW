@@ -18,7 +18,8 @@
         "Estado": "Estado",
 
         "Enviar": "Enviar formulario",
-        "Borrar": "Borrar formulario"
+        "Borrar": "Borrar formulario",
+        "Validar": "Validar formulario"
     },
 
     "en": {
@@ -40,7 +41,8 @@
         "Estado": "Status",
 
         "Enviar": "Submit form",
-        "Borrar": "Reset form"
+        "Borrar": "Reset form",
+        "Validar": "Validate form"
     },
 
     "fr": {
@@ -62,6 +64,7 @@
         "Estado": "État",
 
         "Enviar": "Soumettre le formulaire",
-        "Borrar": "Supprimer le formulaire"
+        "Borrar": "Supprimer le formulaire",
+        "Validar": "Valider le formulaire"
     }
 }

@@ -15,9 +15,8 @@ function insertarLog($accion, $db)
 // Función para subir la foto de un usuario o de una incidencia indicar a que tabla insertar si usuarios o fotos
 //La función sirve, para que funcione tiene que haber enviado un formulario donde un input sea:
 // <input type="file" name="images"> y poner <form method="POST" action="esto da igual" enctype="multipart/form-data">
-function subirFoto($tabla, $db){
-    $image = file_get_contents($_FILES['images']['tmp_name']);
-    $id = $_SESSION['idUsuario'];
+function subirFoto($tabla, $db, $id){
+    $image = $_SESSION['imagen'];
     $query = "UPDATE $tabla SET foto = ? WHERE id = ?";
     $stmt = $db->prepare($query);
     $stmt->bind_param('si', $image, $id);
