@@ -20,7 +20,11 @@ function subirFoto($tabla, $db, $id){
     $query = "UPDATE $tabla SET foto = ? WHERE id = ?";
     $stmt = $db->prepare($query);
     $stmt->bind_param('si', $image, $id);
-    $stmt->execute();
+    
+    if ($stmt->execute())
+        return true;
+    else
+        return false;
 }
 
 // Descargar foto de un usuario
