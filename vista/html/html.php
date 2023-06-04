@@ -485,8 +485,6 @@ function __htmlLogeado()
 
 function mostrarIncidencias($incidencias)
 {
-  #Para cada incidencia mostrarla con el formato por lo que estara en un for y 
-  #dentro del for se llama a una funcion que le da el formato a una incidencia
   if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // Posibilidades del formulario.
     if (isset($_POST["incidencia"])) {
@@ -501,26 +499,35 @@ function mostrarIncidencias($incidencias)
         valoracion($incidencia, "sumar");
       } else if (isset($_POST["restar"]) && $puedeVotar) {
         valoracion($incidencia, "restar");
-      } else if (isset($_POST["comentar"])) {
-        $_SESSION["idIncidencia"] = $incidencia;
-        header("Location: insertarComentario.php");
+      }
+    }
+
+    foreach ($incidencias as $dato) {
+      __formatoIncidencia($dato);
+
+      if (isset($_POST["comentar"])) {
+        if ($_POST["incidencia"] == $dato["id"]) {
+          $_SESSION["idIncidencia"] = $dato["id"];
+          htmlPagComentarios();
+        }
+      } else if (isset($_SESSION["idIncidencia"])) {
+        if ($_SESSION["idIncidencia"] == $dato["id"]) {
+          if (!isset($_SESSION["comentarioInsertado"]) || (isset($_SESSION["comentarioInsertado"]) && !$_SESSION["comentarioInsertado"])) {
+            htmlPagComentarios();
+          }
+        }
+      }
+      if (isset($_SESSION["comentarioInsertado"]) && $_SESSION["comentarioInsertado"]) {
+        unset($_SESSION["comentarioInsertado"]);
+        
+        // Redirigimos.
+        header('Location: index.php');
         exit;
       }
     }
-
-    if (isset($_POST["comentario"])) {
-      $idComentario = $_POST["comentario"];
-      if (isset($_POST["borrarComentario"])) {
-        borrarComentario($idComentario);
-      }
-    }
-
-  }
-
-  foreach ($incidencias as $dato) {
-    __formatoIncidencia($dato);
   }
 }
+
 
 function __formatoIncidencia($incidencia)
 {
@@ -552,8 +559,14 @@ function __formatoIncidencia($incidencia)
   mostrarComentarios($incidencia["id"]);
 
   echo <<<HTML
-      </div>
-      <div class="opiniones">
+  </div>
+  <div class="opiniones">
+  HTML;
+
+  if (isset($_SESSION['autenticado'])) {
+    if ($_SESSION['idUsuario'] == $incidencia["idUsuario"] || $_SESSION['rol'] == "admin") {
+
+      echo <<<HTML
         <form method="post" action="./editarIncidencia.php">
           <div class="botones">
             <input type="hidden" name="editarInc" value="{$incidencia["id"]}">
@@ -561,10 +574,12 @@ function __formatoIncidencia($incidencia)
               <img src="vista/imagenes/editar.png">
             </button>
           </div>
-        <form method="post" action="">
-  HTML;
+        </form>
+    HTML;
+    }
+  }
 
-  echo '<input type="hidden" name="incidencia" value="' . $incidencia["id"] . '">';
+  echo "<form method='post' action=''>";
 
   if (isset($_SESSION['autenticado'])) {
     if ($_SESSION['idUsuario'] == $incidencia["idUsuario"] || $_SESSION['rol'] == "admin") {
@@ -573,10 +588,13 @@ function __formatoIncidencia($incidencia)
           <button name="borrar">
               <img src="vista/imagenes/borrar.png">
           </button>
-  HTML;
+    HTML;
 
     }
   }
+
+  echo '<input type="hidden" name="incidencia" value="' . $incidencia["id"] . '">';
+
   echo <<<HTML
           <button name="sumar">
               <img src="vista/imagenes/verde.png">
@@ -591,6 +609,7 @@ function __formatoIncidencia($incidencia)
       </div>
     </div>
   HTML;
+
 }
 
 // Formato para los comentarios
@@ -809,70 +828,84 @@ function htmlPagGestionBD()
 
 function htmlPagComentarios()
 {
-  // Conexión con la BBDD
-  $db = conexion();
-  if (is_string($db)) {
-    $msg_err = $db;
-  } else {
-    // Id del usuario
-    if (isset($_SESSION['idUsuario'])) {
-      $id = $_SESSION['idUsuario'];
-    } else {
-      $id = 0;
-    }
-
-    // Nombre
-    $nombre = obtenerNombreUsuario($id);
-
-    // Id de la incidencia
-    $idIncidencia = $_SESSION['idIncidencia'];
-
-    echo <<<HTML
-    <div class="comentar">
-      <form method="POST" action="">
-        <label for="comentario">
-          Comentario:
-        </label>
-        <textarea name="comentario" rows="4" cols="50"></textarea>
-        <div class="botones">
-          <input type="submit" value="Enviar comentario">
-        </div>
-      </form>
-    </div>
+  echo <<<HTML
+      <div class="comentar-incidencia ">
+        <form method="POST" action="">
+          <label for="comentario">
+            Comentario:
+          </label>
+          <textarea name="comentario" rows="4" cols="50"></textarea>
+          <div class="botones">
+            <input type="submit" name="enviarComentario" value="Enviar comentario">
+          </div>
+        </form>
+      </div>
     HTML;
 
-    // Mostrar mensaje si el comentario está vacío
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && empty($_POST['comentario'])) {
-      echo "<p class='error'>No puede insertar un comentario vacío. Por favor, introduzca un comentario.</p>";
-    }
+  if (isset($_POST["enviarComentario"]) && empty($_POST['comentario'])) {
+    echo "<p class='error'>No puede insertar un comentario vacío. Por favor, introduzca un comentario.</p>";
+  }
 
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-      $comentario = isset($_POST['comentario']) ? $_POST['comentario'] : '';
-
-      // Verificar si el comentario no está vacío
-      if (!empty($comentario)) {
-        $nombreUsuario = isset($nombre) ? $nombre : 'Anónimo';
-
-        // Escapar los valores para prevenir inyección SQL
-        $id = $db->real_escape_string($id);
-        $idIncidencia = $db->real_escape_string($idIncidencia);
-        $comentario = $db->real_escape_string($comentario);
-
-        $sql = "INSERT INTO comentarios (idUsuario, idIncidencia, comentario, fecha) VALUES ($id, $idIncidencia, '$comentario', NOW())";
-
-        // Ejecutar la consulta
-        if ($db->query($sql) === TRUE) {
-          insertarLog("El usuario $nombreUsuario ha comentado en la incidencia con id $idIncidencia", $db);
-          // Mostrar mensaje de éxito
-          $_SESSION['mensaje'] = "¡Enhorabuena! Su comentario ha sido añadido con éxito. Esperamos que sea útil para la comunidad su aportación.";
-          // Redirigimos.
-          header('Location: index.php');
-          exit;
-        }
-      }
-    }
+  if (isset($_POST["enviarComentario"])) {
+    insertarComentario();
   }
 }
+
+
+function insertarComentario()
+{
+  // Conexión con la BBDD
+  $db = conexion();
+
+  // Verificar si se pudo establecer la conexión
+  if ($db === false) {
+    die("Error al conectar con la base de datos");
+  }
+
+  // Id del usuario
+  $id = isset($_SESSION['idUsuario']) ? $_SESSION['idUsuario'] : 0;
+
+  // Nombre
+  $nombre = obtenerNombreUsuario($id);
+
+  // Id de la incidencia
+  $idIncidencia = $_SESSION['idIncidencia'];
+
+  $comentario = isset($_POST['comentario']) ? $_POST['comentario'] : '';
+
+  // Verificar si el comentario no está vacío
+  if (!empty($comentario)) {
+    $nombreUsuario = isset($nombre) ? $nombre : 'Anónimo';
+
+    // Preparar la consulta SQL con sentencias preparadas
+    $sql = "INSERT INTO comentarios (idUsuario, idIncidencia, comentario, fecha) VALUES (?, ?, ?, NOW())";
+    $stmt = $db->prepare($sql);
+
+    if ($stmt === false) {
+      die("Error al preparar la consulta SQL");
+    }
+
+    // Vincular los parámetros a la consulta SQL
+    $stmt->bind_param("iis", $id, $idIncidencia, $comentario);
+
+    // Ejecutar la consulta
+    if ($stmt->execute()) {
+      $_SESSION["comentarioInsertado"] = true;
+
+      insertarLog("El usuario $nombreUsuario ha comentado en la incidencia con id $idIncidencia", $db);
+      // Mostrar mensaje de éxito
+      $_SESSION['mensaje'] = "¡Enhorabuena! Su comentario ha sido añadido con éxito. Esperamos que sea útil para la comunidad su aportación.";
+    } else {
+      // Manejar el error de la consulta SQL
+      echo "Error al ejecutar la consulta SQL: " . $stmt->error;
+    }
+
+    // Cerrar la declaración y la conexión
+    $stmt->close();
+    $db->close();
+  }
+}
+
 
 function __htmlWidgets($opcion)
 {
@@ -909,7 +942,7 @@ function __htmlWidgetsFormato($top, $opcion)
 {
   if ($opcion == 1) {
     $titulo = "Los que más añaden";
-  }else if($opcion == 2){
+  } else if ($opcion == 2) {
     $titulo = "Los que más comentan";
   }
   echo "<div class='widget'>";
@@ -1059,12 +1092,14 @@ function modificarUsuario($idUsuario)
 
 }
 
-function htmlPagEditarIncidencia($idIncidencia){
+function htmlPagEditarIncidencia($idIncidencia)
+{
   __htmlEstadoIncidencia($idIncidencia);
   __htmlIncidencia($idIncidencia);
 }
 
-function __htmlEstadoIncidencia($idIncidencia){
+function __htmlEstadoIncidencia($idIncidencia)
+{
   global $mensajesIncidencias;
   global $idioma;
 
@@ -1090,31 +1125,31 @@ function __htmlEstadoIncidencia($idIncidencia){
               </h2>
               <div class="entrada">
       HTML;
-                echo '<label><input type="radio" name="estado" value="Pendiente"'. ($estado == 'pendiente' ? ' checked' : '') .'>';
-                    echo 'Pendiente';
-                echo '</label>';
-                echo '<label><input type="radio" name="estado" value="Comprobada"'. ($estado == 'comprobada' ? ' checked' : '') .'>';
-                    echo 'Comprobada';
-                echo '</label>';
-                echo '<label><input type="radio" name="estado" value="Tramitada"' . ($estado == 'tramitada' ? ' checked' : '') . '>';
-                    echo 'Tramitada';
-                echo '</label>';
-                echo '<label><input type="radio" name="estado" value="Irresoluble"' . ($estado == 'irresoluble' ? ' checked' : '') . '>';
-                    echo 'Irresoluble';
-                echo '</label>';
-                echo '<label><input type="radio" name="estado" value="Resuelta"' . ($estado == 'Resuelta' ? ' checked' : '') . '>';
-                    echo 'Resuelta';
+      echo '<label><input type="radio" name="estado" value="Pendiente"' . ($estado == 'pendiente' ? ' checked' : '') . '>';
+      echo 'Pendiente';
+      echo '</label>';
+      echo '<label><input type="radio" name="estado" value="Comprobada"' . ($estado == 'comprobada' ? ' checked' : '') . '>';
+      echo 'Comprobada';
+      echo '</label>';
+      echo '<label><input type="radio" name="estado" value="Tramitada"' . ($estado == 'tramitada' ? ' checked' : '') . '>';
+      echo 'Tramitada';
+      echo '</label>';
+      echo '<label><input type="radio" name="estado" value="Irresoluble"' . ($estado == 'irresoluble' ? ' checked' : '') . '>';
+      echo 'Irresoluble';
+      echo '</label>';
+      echo '<label><input type="radio" name="estado" value="Resuelta"' . ($estado == 'Resuelta' ? ' checked' : '') . '>';
+      echo 'Resuelta';
       echo <<<HTML
                 </label>
               </div>
             </form>
         </div>
       HTML;
-    }else{
+    } else {
       echo 'No se encontraron registros en la tabla incidencias.';
-    } 
+    }
     desconexion($db);
-  } 
+  }
 }
 function __htmlIncidencia($idIncidencia)
 {
@@ -1146,25 +1181,25 @@ function __htmlIncidencia($idIncidencia)
                         {$mensajesIncidencias[$idioma]["Titulo"]}
                     </label>
       HTML;
-                    echo '<input name="titulo" value="' . $incidencia['titulo'] .'">';
-                    echo '<label for="descripcion">';
-                        $mensajesIncidencias[$idioma]["Descripcion"];
-                    echo '</label>';
-                    echo '<textarea name="descripcion" rows="4" cols="50">'. $incidencia['descripcion'] .'</textarea>';
-                    echo '<label for="lugar">';
-                        $mensajesIncidencias[$idioma]["Lugar"];
-                    echo '</label>';
-                    echo '<input name="lugar" value="' . $incidencia['lugar'] .'">';
-                    echo '<label for="keywords">';
-                        $mensajesIncidencias[$idioma]["PalabrasClave"];
-                    echo '</label>';
-                    echo '<input name="keywords" value="' . $incidencia['keywords'] . '">';
-                echo '</div>';
-                echo '<div class="botones">';
-                   echo '<input type="submit" value="' . $mensajesIncidencias[$idioma]["Enviar"] . '">';
-                echo '</div>';
-            echo '</form>';
-        echo '</div>';
+      echo '<input name="titulo" value="' . $incidencia['titulo'] . '">';
+      echo '<label for="descripcion">';
+      $mensajesIncidencias[$idioma]["Descripcion"];
+      echo '</label>';
+      echo '<textarea name="descripcion" rows="4" cols="50">' . $incidencia['descripcion'] . '</textarea>';
+      echo '<label for="lugar">';
+      $mensajesIncidencias[$idioma]["Lugar"];
+      echo '</label>';
+      echo '<input name="lugar" value="' . $incidencia['lugar'] . '">';
+      echo '<label for="keywords">';
+      $mensajesIncidencias[$idioma]["PalabrasClave"];
+      echo '</label>';
+      echo '<input name="keywords" value="' . $incidencia['keywords'] . '">';
+      echo '</div>';
+      echo '<div class="botones">';
+      echo '<input type="submit" value="' . $mensajesIncidencias[$idioma]["Enviar"] . '">';
+      echo '</div>';
+      echo '</form>';
+      echo '</div>';
     } else {
       echo 'No se encontraron registros en la tabla incidencias.';
     }

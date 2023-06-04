@@ -403,7 +403,7 @@ aside form {
 
 .incidencia {
     flex: 100%;
-    margin: 5px 20px 5px 10px;
+    margin-bottom: 10px;
     padding: 0;
     border: 1px solid rgb(172, 134, 172);
 }
@@ -447,7 +447,8 @@ aside form {
 }
 
 .incidencia .opiniones {
-    text-align: right;
+    display: flex;
+    justify-content: flex-end;
     background-color: rgb(208, 185, 208);
 }
 
@@ -536,24 +537,25 @@ aside form {
 }
 
 .comentar-incidencia {
-    margin-top: 20px;
+    border: 1px solid rgb(172, 134, 172);
+    margin-bottom: 20px;
 }
 
 .comentar-incidencia label {
     display: block;
+    padding: 10px;
 }
 
 .comentar-incidencia textarea {
-    width: 100%;
-    resize: vertical;
-    margin: 10px 10px;
+    width: 70%;
+    margin: 10px;
 }
 
 .comentar-incidencia .botones input {
     background-color: rgb(172, 134, 172);
     color: white;
     padding: 10px 20px;
-    margin-left: 10px;
+    margin: 0px 0px 10px 10px;
     border: none;
     cursor: pointer;
 }
