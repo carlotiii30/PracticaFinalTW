@@ -1,6 +1,7 @@
 <?php
 include "BD/baseDatos.php";
 include "funcion.php";
+include "BD/procesarIncidencia.php";
 
 // - - - - Guardamos la URL de la página actual - - - -
 $pagina_actual = basename($_SERVER['PHP_SELF']);
@@ -19,6 +20,8 @@ $mensajesRegistro = json_decode(file_get_contents('./vista/traducciones/formular
 
 // - - - Traducciones para backup - - -
 $mensajesBackup = json_decode(file_get_contents('./vista/traducciones/backup.json'), true);
+
+$erroresIncidencia = array();
 
 // - - - - URLs - - - - 
 $enlaces = array(

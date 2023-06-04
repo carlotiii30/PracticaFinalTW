@@ -2,13 +2,9 @@
 
 function registrarUsuario()
 {
-	global $mensajes;
-	global $idioma;
 	global $erroresRegistro;
 	global $confirmado;
 	global $registrado;
-
-	$idUsuario = 0;
 
 	// - - - Comprobamos los datos recibidos - - - 
 	if ($_SERVER['REQUEST_METHOD'] === 'POST') {

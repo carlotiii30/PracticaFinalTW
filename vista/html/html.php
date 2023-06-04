@@ -161,38 +161,135 @@ function htmlPagNuevaIncidencia()
 {
   global $mensajesIncidencias;
   global $idioma;
+  global $insertada;
+  global $confirmada;
+  global $erroresIncidencia;
+
+  if (isset($_POST["enviar"]) || isset($_POST["confirmar"]))
+    insertarIncidencia();
+
+  if (isset($_POST["enviarFoto"]))
+    agregarFotoIncidencia();
+
+  $readonly = $confirmada ? "readonly" : "";
 
   echo <<<HTML
     <div class="nueva">
         <h1 class="titulo">
             {$mensajesIncidencias[$idioma]["Nueva"]}
         </h1>
-        <form method="post" action="./BD/procesarIncidencia.php">
+        <form method="post" action="">
             <h2 class="subtitulo">
                 {$mensajesIncidencias[$idioma]["Datos"]}
             </h2>
             <div class="entrada">
-                <label for="titulo">
-                    {$mensajesIncidencias[$idioma]["Titulo"]}
-                </label>
-                <input name="titulo" value="">
-                <label for="descripcion">
-                    {$mensajesIncidencias[$idioma]["Descripcion"]}
-                </label>
-                <textarea name="descripcion" rows="4" cols="50"></textarea>
-                <label for="lugar">
-                    {$mensajesIncidencias[$idioma]["Lugar"]}
-                </label>
-                <input name="lugar" value="">
-                <label for="keywords">
-                    {$mensajesIncidencias[$idioma]["PalabrasClave"]}
-                </label>
-                <input name="keywords" value="">
-            </div>
+            <label for="titulo">
+              {$mensajesIncidencias[$idioma]["Titulo"]}
+            </label>
+    HTML;
+
+  echo '<input type="text" name="titulo" value="' . (isset($_POST['titulo']) ? $_POST['titulo'] : '') . '"' . $readonly . '>';
+  if (isset($erroresIncidencia['titulo'])) {
+    echo '<p class="error">';
+    echo $erroresIncidencia['titulo'];
+    echo '</p>';
+  }
+
+  echo <<<HTML
+    <label for="descripcion">
+      {$mensajesIncidencias[$idioma]["Descripcion"]}
+    </label>
+HTML;
+
+  echo '<textarea name="descripcion" rows="4" cols="50" value="' . (isset($_POST['descripcion']) ? $_POST['descripcion'] : '') . '"' . $readonly . '> </textarea>';
+  if (isset($erroresIncidencia['descripcion'])) {
+    echo '<p class="error">';
+    echo $erroresIncidencia['descripcion'];
+    echo '</p>';
+  }
+
+  echo <<<HTML
+<label for="lugar">
+  {$mensajesIncidencias[$idioma]["Lugar"]}
+</label>
+HTML;
+
+  echo '<input name="lugar" value="' . (isset($_POST['lugar']) ? $_POST['lugar'] : '') . '"' . $readonly . '>';
+  if (isset($erroresIncidencia['lugar'])) {
+    echo '<p class="error">';
+    echo $erroresIncidencia['lugar'];
+    echo '</p>';
+  }
+
+  echo <<<HTML
+<label for="keywords">
+  {$mensajesIncidencias[$idioma]["PalabrasClave"]}
+</label>
+HTML;
+
+  echo '<input name="keywords" value="' . (isset($_POST['keywords']) ? $_POST['keywords'] : '') . '"' . $readonly . '>';
+  if (isset($erroresIncidencia['keywords'])) {
+    echo '<p class="keywords">';
+    echo $erroresIncidencia['keywords'];
+    echo '</p>';
+  }
+
+  echo "</div";
+
+  /*<div class="entrada">
+      <label for="titulo">
+          {$mensajesIncidencias[$idioma]["Titulo"]}
+      </label>
+      <input name="titulo" value="">
+      <label for="descripcion">
+          {$mensajesIncidencias[$idioma]["Descripcion"]}
+      </label>
+      <textarea name="descripcion" rows="4" cols="50"></textarea>
+      <label for="lugar">
+          {$mensajesIncidencias[$idioma]["Lugar"]}
+      </label>
+      <input name="lugar" value="">
+      <label for="keywords">
+          {$mensajesIncidencias[$idioma]["PalabrasClave"]}
+      </label>
+      <input name="keywords" value="">
+  </div>
+HTML;*/
+
+  if (!$insertada) {
+    if (!$confirmada) {
+      echo <<<HTML
             <div class="botones">
-                <input type="submit" value="{$mensajesIncidencias[$idioma]["Enviar"]}">
+                <input type="submit" name="enviar" value="{$mensajesIncidencias[$idioma]['Enviar']}">
             </div>
-        </form>
+          </form>
+          HTML;
+    } else {
+      echo <<<HTML
+            <div class="botones">
+                <input type="submit" name="confirmar" value="Confirmar">
+            </div>
+          </form>
+          HTML;
+    }
+  } else {
+    echo <<<HTML
+            </form>
+            <form method="POST" action="" enctype="multipart/form-data">
+              <div class="entrada">
+                <label for="images">
+                  Foto
+                </label>
+                <input type="file" name="images">
+              </div>
+              <div class="botones">
+                <input type="submit" value="{$mensajesIncidencias[$idioma]['Enviar']}" name='enviarFoto'">
+              </div>
+            </form>
+          HTML;
+  }
+
+  echo <<<HTML
     </div>
     HTML;
 }
@@ -287,8 +384,8 @@ function htmlPagMisIncidencias()
   $db = conexion();
 
   // Recuperacion de datos de la base de datos
-  $id = $_SESSION['idUsuario'];
-  $sql = "SELECT * FROM incidencias WHERE idUsuario = $id ORDER BY fecha DESC";
+  $idUsuario = $_SESSION['idUsuario'];
+  $sql = "SELECT * FROM incidencias WHERE idUsuario = $idUsuario ORDER BY fecha DESC";
   $datos = $db->query($sql);
 
   // Desconexión
@@ -501,29 +598,29 @@ function mostrarIncidencias($incidencias)
         valoracion($incidencia, "restar");
       }
     }
+  }
 
-    foreach ($incidencias as $dato) {
-      __formatoIncidencia($dato);
+  foreach ($incidencias as $dato) {
+    __formatoIncidencia($dato);
 
-      if (isset($_POST["comentar"])) {
-        if ($_POST["incidencia"] == $dato["id"]) {
-          $_SESSION["idIncidencia"] = $dato["id"];
+    if (isset($_POST["comentar"])) {
+      if ($_POST["incidencia"] == $dato["id"]) {
+        $_SESSION["idIncidencia"] = $dato["id"];
+        htmlPagComentarios();
+      }
+    } else if (isset($_SESSION["idIncidencia"])) {
+      if ($_SESSION["idIncidencia"] == $dato["id"]) {
+        if (!isset($_SESSION["comentarioInsertado"]) || (isset($_SESSION["comentarioInsertado"]) && !$_SESSION["comentarioInsertado"])) {
           htmlPagComentarios();
         }
-      } else if (isset($_SESSION["idIncidencia"])) {
-        if ($_SESSION["idIncidencia"] == $dato["id"]) {
-          if (!isset($_SESSION["comentarioInsertado"]) || (isset($_SESSION["comentarioInsertado"]) && !$_SESSION["comentarioInsertado"])) {
-            htmlPagComentarios();
-          }
-        }
       }
-      if (isset($_SESSION["comentarioInsertado"]) && $_SESSION["comentarioInsertado"]) {
-        unset($_SESSION["comentarioInsertado"]);
-        
-        // Redirigimos.
-        header('Location: index.php');
-        exit;
-      }
+    }
+    if (isset($_SESSION["comentarioInsertado"]) && $_SESSION["comentarioInsertado"]) {
+      unset($_SESSION["comentarioInsertado"]);
+
+      // Redirigimos.
+      header('Location: index.php');
+      exit;
     }
   }
 }

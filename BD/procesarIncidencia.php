@@ -1,58 +1,87 @@
 <?php
-require('baseDatos.php'); // Conexión y desconexión
-require('../funcion.php');
 
-session_start();
+function insertarIncidencia()
+{
+    global $erroresIncidencia;
+    global $confirmada;
+    global $insertada;
 
-// Verificar si se ha enviado el formulario
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Obtener los datos enviados del formulario
-    $hayImagen = !empty($_FILES['images']['name']) ? true : false;
-    $titulo = isset($_POST['titulo']) ? $_POST['titulo'] : '';
-    $descripcion = isset($_POST['descripcion']) ? $_POST['descripcion'] : '';
-    $lugar = isset($_POST['lugar']) ? $_POST['lugar'] : '';
-    $keywords = isset($_POST['keywords']) ? $_POST['keywords'] : '';
-    $estado = "pendiente";
+    // Verificar si se ha enviado el formulario
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        // Obtener los datos enviados del formulario
+        $titulo = isset($_POST['titulo']) ? $_POST['titulo'] : '';
+        $descripcion = isset($_POST['descripcion']) ? $_POST['descripcion'] : '';
+        $lugar = isset($_POST['lugar']) ? $_POST['lugar'] : '';
+        $keywords = isset($_POST['keywords']) ? $_POST['keywords'] : '';
+        $estado = "pendiente";
 
-    // - - - Validamos los datos - - - 
-    if (empty($titulo)) {
-        $errores['titulo'] = "El nombre no puede estar vacío";
-    }
-    if (empty($descripcion)) {
-        $errores['descripcion'] = "La descripción no puede estar vacía";
-    }
+        if (isset($_POST['enviar'])) {
+            // - - - Validamos los datos - - - 
+            if (empty($titulo)) {
+                $erroresIncidencia['titulo'] = "El nombre no puede estar vacío";
+            }
+            if (empty($descripcion)) {
+                $erroresIncidencia['descripcion'] = "La descripción no puede estar vacía";
+            }
 
-    if (empty($lugar)) {
-        $errores['lugar'] = "El lugar no puede estar vacío";
-    }
+            if (empty($lugar)) {
+                $erroresIncidencia['lugar'] = "El lugar no puede estar vacío";
+            }
 
-    // Si no hay errores, procesamos los datos.
-    if (count($errores) === 0) {
+            // Si no hay errores, procesamos los datos.
+        } else if (isset($_POST['confirmar'])) {
+            // Conectar a la base de datos
+            $db = conexion();
 
-        // Conectar a la base de datos
-        $db = conexion();
+            // Insercion en la tabla incidencias.
+            $sql = "INSERT INTO incidencias (titulo, descripcion, lugar, keywords, fecha, idusuario, estado) VALUES (?, ?, ?, ?, NOW(), ?, ?)";
+            $stmt = $db->prepare($sql);
+            $stmt->bind_param("ssssss", $titulo, $descripcion, $lugar, $keywords, $_SESSION['idUsuario'], $estado);
 
-        // Insercion en la tabla incidencias.
-        $sql = "INSERT INTO incidencias (titulo, descripcion, lugar, keywords, fecha, idusuario, estado) VALUES (?, ?, ?, ?, NOW(), ?, ?)";
-        $stmt = $db->prepare($sql);
-        $stmt->bind_param("ssssss", $titulo, $descripcion, $lugar, $keywords, $_SESSION['idUsuario'], $estado);
+            $nombreUsuario = $_SESSION['nombreUsuario'];
 
-        $nombreUsuario = $_SESSION['nombreUsuario'];
+            // Ejecutar la consulta
+            if ($stmt->execute()) {
+                $_SESSION['nuevaIncidencia'] = $db->insert_id;
 
-        // Ejecutar la consulta
-        if ($stmt->execute()) {
-            insertarLog("El usuario $nombreUsuario ha insertado una nueva incidencia", $db);
-            $_SESSION['mensaje'] = "¡Enhorabuena! Ha creado una nueva incidencia con éxito."; // Guardar el mensaje en la variable de sesión
-        } else {
-            $_SESSION['mensaje'] = "Lo sentimos... No hemos podido añadir tu incidencia. Inténtelo de nuevo."; // Guardar el mensaje de error en la variable de sesión
+                insertarLog("El usuario $nombreUsuario ha insertado una nueva incidencia", $db);
+                $insertada = true;
+            } else {
+                $insertada = false;
+            }
+
+            // Cerrar la conexión con la base de datos
+            $stmt->close();
+            desconexion($db);
         }
 
-        // Cerrar la conexión con la base de datos
-        $stmt->close();
-        desconexion($db);
+        if (count($erroresIncidencia) == 0) {
+            $confirmada = true;
+        }
 
-        // Redirigir a la página principal
-        header('Location: ../index.php');
+    }
+}
+
+
+function agregarFotoIncidencia()
+{
+    // Enviar foto
+    if (isset($_POST["enviarFoto"])) {
+        $db = conexion();
+
+        $_SESSION['imagen'] = file_get_contents($_FILES['images']['tmp_name']);
+
+        $idIncidencia = $_SESSION["nuevaIncidencia"];
+
+        if (subirFoto("fotos", $db, $idIncidencia)) {
+            $_SESSION['mensaje'] = "Nueva incidencia registrada, anda, si tiene fotos y todo.";
+            desconexion($db);
+        } else {
+            $_SESSION['mensaje'] = "Hemos registrado una nueva incidencia, pero... ¿No hay pruebas del delito?";
+        }
+
+        // Redirigimos.
+        header('Location: index.php');
         exit;
     }
 }
