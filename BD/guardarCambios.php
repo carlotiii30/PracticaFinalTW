@@ -9,7 +9,7 @@ function guardarCambios($idUsuario){
         $cambiosValidados = false;
     }
 
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['editar'])) {
         
         $nombre = isset($_POST['nombre']) ? $_POST['nombre'] : '';
         $apellidos = isset($_POST['apellidos']) ? $_POST['apellidos'] : '';
@@ -106,6 +106,7 @@ function guardarCambios($idUsuario){
                     // Mensaje de correcto
                     $_SESSION['mensaje'] = "¡Enhorabuena! Su información ha sido modificada con éxito.";
                     $stmt->close();
+
                     // Redirigimos.
                     header('Location: index.php');
                     exit;

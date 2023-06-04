@@ -467,8 +467,13 @@ function __htmlLogeado()
       </div>
       <p>{$_SESSION["nombreUsuario"]}</p>
       <p class="rol">{$_SESSION["rol"]}</p>
+      
+      <form method="post" action="./modificarUsuario.php">
+        <input type="hidden" name="usuario" value="{$_SESSION["idUsuario"]}">
+        <input type="submit" name="editar" value="{$mensajes[$idioma]["Desconectar"]}">
+      </form>
       <form method="post" action="">
-        <a href="modificarUsuario.php">{$mensajes[$idioma]["Editar"]}</a>
+        <!--<a href="modificarUsuario.php">{$mensajes[$idioma]["Editar"]}</a>-->
         <input type="submit" name="logout" value="{$mensajes[$idioma]["Desconectar"]}">
       </form>
     </div>
@@ -512,7 +517,7 @@ function __formatoIncidencia($incidencia)
   global $mensajesIncidencias;
   global $idioma;
 
-  $nombre = obtenerNombreUsuario($incidencia["idusuario"]);
+  $nombre = obtenerNombreUsuario($incidencia["idUsuario"]);
   $valoraciones = obtenerValoraciones($incidencia["id"]);
 
   echo <<<HTML
@@ -545,7 +550,7 @@ function __formatoIncidencia($incidencia)
   echo '<input type="hidden" name="incidencia" value="' . $incidencia["id"] . '">';
 
   if (isset($_SESSION['autenticado'])) {
-    if ($_SESSION['idUsuario'] == $incidencia["idusuario"] || $_SESSION['rol'] == "admin") {
+    if ($_SESSION['idUsuario'] == $incidencia["idUsuario"] || $_SESSION['rol'] == "admin") {
 
       echo <<<HTML
           <button name="editar">
@@ -660,7 +665,7 @@ HTML;
     if (isset($_POST["borrar"])) {
       borrarUsuario($idUsuario, $db);
     } else if (isset($_POST["editar"])) {
-
+      
     }
 
     // Desconexión
@@ -708,11 +713,17 @@ function __formatoUsuario($usuario, $db)
   echo '<input type="hidden" name="usuario" value="' . $id . '">';
 
   echo <<<HTML
-                <button name="editar">
-                      <img src="vista/imagenes/editar.png">
-                </button>
+                
                 <button name="borrar">
                     <img src="vista/imagenes/borrar.png">
+                </button>
+              </form>
+              <form method="post" action="./modificarUsuario.php">
+  HTML;
+  echo '<input type="hidden" name="usuario" value="' . $id . '">';
+  echo <<<HTML
+                <button name="editar">
+                      <img src="vista/imagenes/editar.png">
                 </button>
               </form>
             </div>
