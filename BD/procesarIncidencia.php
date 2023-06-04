@@ -37,8 +37,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt = $db->prepare($sql);
         $stmt->bind_param("ssssss", $titulo, $descripcion, $lugar, $keywords, $_SESSION['idUsuario'], $estado);
 
-        $stmt->execute();
-
         $nombreUsuario = $_SESSION['nombreUsuario'];
 
         // Ejecutar la consulta
