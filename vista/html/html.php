@@ -112,6 +112,7 @@ function htmlAside()
     __htmlLogeado();
   }
   __htmlWidgets(1);
+  __htmlWidgets(2);
 }
 
 function htmlPagLog()
@@ -881,7 +882,13 @@ function __htmlWidgets($opcion)
           ORDER BY total_incidencias DESC
           LIMIT 3";
   } else if ($opcion == 2) {
-
+    //Le pongo a la variable como nombre total_incidencias para que pueda usar la misma funcion para dar formato
+    $sql = "SELECT u.nombre, COUNT(c.id) AS total_incidencias
+        FROM usuarios u
+        INNER JOIN comentarios c ON u.id = c.idUsuario
+        GROUP BY u.id
+        ORDER BY total_incidencias DESC
+        LIMIT 3";
   }
 
   $result = $db->query($sql);
@@ -899,13 +906,17 @@ function __htmlWidgetsFormato($top, $opcion)
 {
   if ($opcion == 1) {
     $titulo = "Los que más añaden";
+  }else if($opcion == 2){
+    $titulo = "Los que más comentan";
   }
+  echo "<div class='widget'>";
   echo "<h1>{$titulo}</h1>";
   echo "<ol>";
   foreach ($top as $elem) {
     echo "<li>({$elem['total_incidencias']}) {$elem['nombre']}</li>";
   }
   echo "</ol>";
+  echo "</div>";
 }
 
 function modificarUsuario($idUsuario)

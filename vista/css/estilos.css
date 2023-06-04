@@ -227,6 +227,20 @@ aside form {
 
 }
 
+/* - - WIDGETS - - */
+.widget {
+    background-color: rgb(243, 224, 245);
+    border: 1px solid rgb(46, 45, 45);
+    margin-bottom: 10px;
+}
+
+.widget h1{
+    background-color: rgb(172, 134, 172);
+    color: white;
+    margin: 0;
+    padding-left: 10px;
+}
+
 /* - - TABLA LOG - - */
 .log {
     flex: 85%;
