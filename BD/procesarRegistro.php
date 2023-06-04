@@ -92,11 +92,16 @@ function agregarFoto($idUsuario)
 	$_SESSION['imagen'] = file_get_contents($_FILES['images']['tmp_name']);
 
 	if (subirFoto("usuarios", $db, $idUsuario)) {
+		$_SESSION['mensaje'] = "¡Registrado y con foto!";
 		desconexion($db);
 	}
 	else {
-		echo "Algo ha salido mal";
+		$_SESSION['mensaje'] = "Registrado, pero sin foto... Puede añadirla editando su perfil.";
 	}
+	
+    // Redirigimos.
+    header('Location: index.php');
+	exit;
 
 }
 
