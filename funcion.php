@@ -27,8 +27,7 @@ function subirFoto($tabla, $db, $id){
         return false;
 }
 
-function subirFotoIncidencia($tabla, $db, $id){
-    $image = $_SESSION['imagen'];
+function subirFotoIncidencia($tabla, $db, $id, $image){
     $query = "INSERT INTO $tabla (foto, IdIncidencia) VALUES (?, ?)";
     $stmt = $db->prepare($query);
     $stmt->bind_param('si', $image, $id);
@@ -231,7 +230,7 @@ function borrarComentario($id) {
     $sql = "DELETE FROM comentarios WHERE id = $id";
 
     if ($db->query($sql)) {
-        insertarLog("El usuario $id ha borrado un comentario.", $db);
+        insertarLog("El comentario $id ha sido eliminado.", $db);
         $_SESSION['mensaje'] = "El comentario seleccionado ha sido eliminado. Espero que no lo haya leido nadie...";
     }
     else {

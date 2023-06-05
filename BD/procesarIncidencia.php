@@ -65,24 +65,26 @@ function insertarIncidencia()
 
 function agregarFotoIncidencia()
 {
-    // Enviar foto
-    if (isset($_POST["enviarFoto"])) {
+    // Verificar si se ha enviado una foto
+    if (isset($_FILES['images']) && $_FILES['images']['error'] === UPLOAD_ERR_OK) {
         $db = conexion();
 
-        $_SESSION['imagen'] = file_get_contents($_FILES['images']['tmp_name']);
-        
+        $image = file_get_contents($_FILES['images']['tmp_name']);
         $idIncidencia = $_SESSION["nuevaIncidencia"];
 
-        if (subirFotoIncidencia("fotos", $db, $idIncidencia)) {
-            $_SESSION['mensaje'] = "Nueva incidencia registrada, anda, si tiene fotos y todo.";
-            desconexion($db);
+        if (subirFotoIncidencia("fotos", $db, $idIncidencia, $image)) {
+            $_SESSION['mensaje'] = "Nueva incidencia registrada con foto.";
         } else {
-            $_SESSION['mensaje'] = "Hemos registrado una nueva incidencia, pero... ¿No hay pruebas del delito?";
+            $_SESSION['mensaje'] = "Hemos registrado una nueva incidencia, pero ha ocurrido un error al guardar la foto.";
         }
 
-        // Redirigimos.
-        header('Location: index.php');
-        exit;
+        desconexion($db);
     }
+
+    // Redirigir al index
+    header('Location: index.php');
+    exit;
 }
+
+
 ?>

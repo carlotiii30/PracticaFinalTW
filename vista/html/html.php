@@ -236,26 +236,6 @@ HTML;
 
   echo "</div";
 
-  /*<div class="entrada">
-      <label for="titulo">
-          {$mensajesIncidencias[$idioma]["Titulo"]}
-      </label>
-      <input name="titulo" value="">
-      <label for="descripcion">
-          {$mensajesIncidencias[$idioma]["Descripcion"]}
-      </label>
-      <textarea name="descripcion" rows="4" cols="50"></textarea>
-      <label for="lugar">
-          {$mensajesIncidencias[$idioma]["Lugar"]}
-      </label>
-      <input name="lugar" value="">
-      <label for="keywords">
-          {$mensajesIncidencias[$idioma]["PalabrasClave"]}
-      </label>
-      <input name="keywords" value="">
-  </div>
-HTML;*/
-
   if (!$insertada) {
     if (!$confirmada) {
       echo <<<HTML
@@ -597,6 +577,13 @@ function mostrarIncidencias($incidencias)
       } else if (isset($_POST["restar"]) && $puedeVotar) {
         valoracion($incidencia, "restar");
       }
+    }
+
+    if (isset($_POST["comentario"])) {
+      $comentario = $_POST["comentario"];
+
+      if (isset($_POST["borrarComentario"]))
+        borrarComentario($comentario);
     }
   }
 
