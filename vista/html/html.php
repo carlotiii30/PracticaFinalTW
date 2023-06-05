@@ -1192,6 +1192,10 @@ function __htmlEstadoIncidencia($idIncidencia)
     $msg_err = $db;
   } else {
     $id = $idIncidencia;
+
+    // Comprobamos si es administrador.
+    $admin = ($_SESSION['rol'] !== 'admin');
+
     // Consulta SQL para obtener los datos del usuario
     $sql = "SELECT * FROM incidencias WHERE id = $id";
     $result = $db->query($sql);
@@ -1200,30 +1204,34 @@ function __htmlEstadoIncidencia($idIncidencia)
       $incidencia = $result->fetch_assoc();
       $estado = $incidencia['estado'];
       echo <<<HTML
-        <div class="nueva">
-            <h1 class="titulo">
-                {$mensajesIncidencias[$idioma]["Nueva"]}
-            </h1>
+      <div class="editarIncidencia">
+        <div class="estado">
             <form method="post" action="./BD/procesarIncidencia.php">
               <h2 class="subtitulo">
-                  {$mensajesIncidencias[$idioma]["Datos"]}
-              </h2>
+                {$mensajesIncidencias[$idioma]["Datos"]}
+               </h2>
               <div class="entrada">
       HTML;
-      echo '<label><input type="radio" name="estado" value="Pendiente"' . ($estado == 'pendiente' ? ' checked' : '') . '>';
+
+      echo '<label><input type="radio" name="estado" value="Pendiente"' . ($estado == 'pendiente' ? ' checked' : '') . ($admin ? ' disabled' : '') . '>';
       echo 'Pendiente';
       echo '</label>';
-      echo '<label><input type="radio" name="estado" value="Comprobada"' . ($estado == 'comprobada' ? ' checked' : '') . '>';
+      
+      echo '<label><input type="radio" name="estado" value="Comprobada"' . ($estado == 'comprobada' ? ' checked' : '') . ($admin ? ' disabled' : '') . '>';
       echo 'Comprobada';
       echo '</label>';
-      echo '<label><input type="radio" name="estado" value="Tramitada"' . ($estado == 'tramitada' ? ' checked' : '') . '>';
+      
+      echo '<label><input type="radio" name="estado" value="Tramitada"' . ($estado == 'tramitada' ? ' checked' : '') . ($admin ? ' disabled' : '') . '>';
       echo 'Tramitada';
       echo '</label>';
-      echo '<label><input type="radio" name="estado" value="Irresoluble"' . ($estado == 'irresoluble' ? ' checked' : '') . '>';
+      
+      echo '<label><input type="radio" name="estado" value="Irresoluble"' . ($estado == 'irresoluble' ? ' checked' : '') . ($admin ? ' disabled' : '') . '>';
       echo 'Irresoluble';
       echo '</label>';
-      echo '<label><input type="radio" name="estado" value="Resuelta"' . ($estado == 'Resuelta' ? ' checked' : '') . '>';
+      
+      echo '<label><input type="radio" name="estado" value="Resuelta"' . ($estado == 'Resuelta' ? ' checked' : '') . ($admin ? ' disabled' : '') . '>';
       echo 'Resuelta';
+      
       echo <<<HTML
                 </label>
               </div>
@@ -1245,7 +1253,7 @@ function __htmlIncidencia($idIncidencia)
     $msg_err = $db;
   } else {
     $id = $idIncidencia;
-    // Consulta SQL para obtener los datos del usuario
+    // Consulta SQL para obtener los datos de la incidencia
     $sql = "SELECT * FROM incidencias WHERE id = $id";
     $result = $db->query($sql);
 
@@ -1253,42 +1261,39 @@ function __htmlIncidencia($idIncidencia)
       $incidencia = $result->fetch_assoc();
 
       echo <<<HTML
-        <div class="nueva">
-            <h1 class="titulo">
-                {$mensajesIncidencias[$idioma]["Nueva"]}
-            </h1>
-            <form method="post" action="./BD/procesarIncidencia.php">
-                <h2 class="subtitulo">
-                    {$mensajesIncidencias[$idioma]["Datos"]}
-                </h2>
-                <div class="entrada">
-                    <label for="titulo">
-                        {$mensajesIncidencias[$idioma]["Titulo"]}
-                    </label>
+      <form method="post" action="./BD/procesarIncidencia.php">
+        <div class="entrada">
+          <h2 class="subtitulo">
+            {$mensajesIncidencias[$idioma]["Datos"]}
+          </h2>
+          <label for="titulo">
+            {$mensajesIncidencias[$idioma]["Titulo"]}
+          </label>
+          <input name="titulo" value="{$incidencia['titulo']}">
+          <label for="descripcion">
+            {$mensajesIncidencias[$idioma]["Descripcion"]}
+          </label>
+          <textarea name="descripcion" rows="4" cols="50">{$incidencia['descripcion']}</textarea>
+          <label for="lugar">
+            {$mensajesIncidencias[$idioma]["Lugar"]}
+          </label>
+          <input name="lugar" value="{$incidencia['lugar']}">
+          <label for="keywords">
+            {$mensajesIncidencias[$idioma]["PalabrasClave"]}
+          </label>
+          <input name="keywords" value="{$incidencia['keywords']}">
+        </div>
+        <div class="botones">
+          <input type="submit" value="{$mensajesIncidencias[$idioma]["Enviar"]}">
+        </div>
+      </div>
+      </form>
       HTML;
-      echo '<input name="titulo" value="' . $incidencia['titulo'] . '">';
-      echo '<label for="descripcion">';
-      $mensajesIncidencias[$idioma]["Descripcion"];
-      echo '</label>';
-      echo '<textarea name="descripcion" rows="4" cols="50">' . $incidencia['descripcion'] . '</textarea>';
-      echo '<label for="lugar">';
-      $mensajesIncidencias[$idioma]["Lugar"];
-      echo '</label>';
-      echo '<input name="lugar" value="' . $incidencia['lugar'] . '">';
-      echo '<label for="keywords">';
-      $mensajesIncidencias[$idioma]["PalabrasClave"];
-      echo '</label>';
-      echo '<input name="keywords" value="' . $incidencia['keywords'] . '">';
-      echo '</div>';
-      echo '<div class="botones">';
-      echo '<input type="submit" value="' . $mensajesIncidencias[$idioma]["Enviar"] . '">';
-      echo '</div>';
-      echo '</form>';
-      echo '</div>';
     } else {
       echo 'No se encontraron registros en la tabla incidencias.';
     }
     desconexion($db);
   }
 }
+
 ?>

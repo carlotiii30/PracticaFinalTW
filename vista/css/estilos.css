@@ -200,7 +200,7 @@ aside form {
     margin-bottom: 5px;
 }
 
-.logeado .botoneslogueado{
+.logeado .botoneslogueado {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -236,7 +236,7 @@ aside form {
     margin-bottom: 10px;
 }
 
-.widget h1{
+.widget h1 {
     background-color: rgb(172, 134, 172);
     color: white;
     margin: 0;
@@ -331,6 +331,77 @@ aside form {
     background-color: rgb(185, 140, 185);
 }
 
+/* - - EDITAR INCIDENCIA - - */
+.editarIncidencia {
+    flex: 85%;
+    margin: 5px 20px 5px 10px;
+    padding: 0 5% 0 15px;
+}
+
+.editarIncidencia .titulo {
+    background-color: rgb(172, 134, 172);
+    color: whitesmoke;
+    padding: 10px;
+    font-size: 24px;
+    margin: 0;
+}
+
+.editarIncidencia .subtitulo {
+    color: rgb(46, 45, 45);
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.editarIncidencia form {
+    margin: 0;
+    padding: 5px;
+    background-color: rgb(208, 185, 208);
+    border: 1px solid rgb(172, 134, 172);
+}
+
+.editarIncidencia .entrada label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.editarIncidencia .entrada input,
+.editarIncidencia .entrada textarea {
+    width: 70%;
+    padding: 5px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    border: 1px solid rgb(172, 134, 172);
+}
+
+.editarIncidencia .botones input {
+    background-color: rgb(172, 134, 172);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+}
+
+.editarIncidencia .botones input:hover {
+    background-color: rgb(185, 140, 185);
+}
+
+.editarIncidencia .estado form {
+    margin: 0;
+    padding: 5px;
+    background-color: rgb(208, 185, 208);
+    border: 1px solid rgb(172, 134, 172);
+}
+
+.editarIncidencia .estado .entrada {
+    display: flex;
+}
+
+.editarIncidencia .estado .subtitulo {
+    color: rgb(46, 45, 45);
+    font-size: 20px;
+    margin-bottom: 10px;
+}
 
 /* - - VER INCIDENCIAS - - */
 .incidencias {
@@ -742,15 +813,15 @@ aside form {
     width: 90%;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    grid-gap: 10px; 
-  }
-  
-  .usuario .fila {
+    grid-gap: 10px;
+}
+
+.usuario .fila {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
     grid-gap: 10px;
     width: 100%;
-  }
+}
 
 
 .usuario .contenido ul {
@@ -800,7 +871,7 @@ aside form {
 footer {
     background-color: rgb(46, 45, 45);
     display: flex;
-    clear:both;
+    clear: both;
     width: 100%;
     height: 40px;
     color: white;
