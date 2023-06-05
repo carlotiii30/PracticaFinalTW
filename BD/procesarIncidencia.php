@@ -66,7 +66,7 @@ function insertarIncidencia()
 function agregarFotoIncidencia()
 {
     // Verificar si se ha enviado una foto
-    if (isset($_FILES['images']) && $_FILES['images']['error'] === UPLOAD_ERR_OK) {
+    if (!empty($_FILES['images']['name'])) {
         $db = conexion();
 
         $image = file_get_contents($_FILES['images']['tmp_name']);
@@ -79,11 +79,52 @@ function agregarFotoIncidencia()
         }
 
         desconexion($db);
+    }else{
+        $_SESSION['mensaje'] = "Se lo salta todo";
     }
-
+    
     // Redirigir al index
     header('Location: index.php');
     exit;
+}
+
+function borrarFoto($idFoto)
+{
+    $db = conexion();
+
+    $sql = "DELETE FROM fotos WHERE id = ?";
+    $stmt = $db->prepare($sql);
+    $stmt->bind_param("i", $idFoto);
+
+    if ($stmt->execute()) {
+        $_SESSION['mensaje'] = "Foto borrada con éxito.";
+    } else {
+        $_SESSION['mensaje'] = "Ha ocurrido un error al borrar la foto.";
+    }
+
+    $stmt->close();
+    desconexion($db);
+}
+
+function procesamientoEditar(){
+    //Aquí debería ir el resto de código de editarIncidencia.php
+    
+    if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['borrarFoto'])){
+        $id = $_POST['idFoto'];
+        borrarFoto($id);
+    }
+
+    if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['subir']) && isset($_FILES['images'])){
+        $db = conexion();
+        $idIncidencia = $_POST['idIncidencia'];
+        $image = file_get_contents($_FILES['images']['tmp_name']);
+        $query = "INSERT INTO fotos (foto, idIncidencia) VALUES(?, ?)";
+        $stmt = $db->prepare($query);
+        $stmt->bind_param('ss', $image, $idIncidencia);
+        $stmt->execute();
+        //subirFotoIncidencia("fotos", $db, $idIncidencia, $image);
+        desconexion($db);
+    }
 }
 
 

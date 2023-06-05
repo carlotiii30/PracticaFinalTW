@@ -1179,8 +1179,10 @@ function modificarUsuario($idUsuario)
 
 function htmlPagEditarIncidencia($idIncidencia)
 {
+    procesamientoEditar();
   __htmlEstadoIncidencia($idIncidencia);
   __htmlIncidencia($idIncidencia);
+  __htmlFotosIncidencia($idIncidencia);
 }
 
 function __htmlEstadoIncidencia($idIncidencia)
@@ -1294,6 +1296,53 @@ function __htmlIncidencia($idIncidencia)
     }
     desconexion($db);
   }
+}
+
+function __htmlFotosIncidencia($idIncidencia){
+  global $mensajesIncidencias;
+  global $idioma;
+
+  if (is_string($db = conexion())) {
+    $msg_err = $db;
+  } else {
+    $id = $idIncidencia;
+    // Consulta SQL para obtener los datos de la incidencia
+    $sql = "SELECT * FROM fotos WHERE idIncidencia = $id";
+    $result = $db->query($sql);
+    echo <<<HTML
+      <div class="adjuntas">
+        <div class="entrada">
+          <h2 class="subtitulo">
+            Fotografías adjuntas
+          </h2>
+    HTML;
+
+    if ($result && $result->num_rows > 0) {
+      while ($row = $result->fetch_assoc()) {
+        $foto = base64_encode($row['foto']);
+        $src = 'data:image/jpeg;base64,' . $foto;
+        $imageData = "<img src='$src' alt='Foto'>";
+        echo $imageData;
+        echo '<form method="post" action="">';
+          echo '<input type="submit" name="borrarFoto" value="Borrar foto">';
+          echo '<input type="hidden" name="idFoto" value="' . $row['id'] . '">';
+        echo '</form>';
+      }
+
+    }
+
+    echo <<<HTML
+          <form method="post" action="" enctype="multipart/form-data">
+            <label for="foto">
+              <input type="file" name="images"> 
+            </label>
+            <input type="submit" name="subir" value="Añadir fotografía">
+            <input type="hidden" name="idIncidencia" value="$id">
+          </form>
+        </div>
+      </div>
+    HTML;
+}
 }
 
 ?>
