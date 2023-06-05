@@ -27,6 +27,20 @@ function subirFoto($tabla, $db, $id){
         return false;
 }
 
+function subirFotoIncidencia($tabla, $db, $id){
+    $image = $_SESSION['imagen'];
+    $query = "INSERT INTO $tabla (foto, IdIncidencia) VALUES (?, ?)";
+    $stmt = $db->prepare($query);
+    $stmt->bind_param('si', $image, $id);
+    
+    if ($stmt->execute())
+        return true;
+    else
+        return false;
+}
+
+
+
 // Descargar foto de un usuario
 function descargarFoto($tabla, $idUsuario, $db)
 {

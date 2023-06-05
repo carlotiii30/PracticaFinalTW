@@ -7,7 +7,7 @@ htmlStart('Sal y quéjate');
 htmlNavGeneral($mensajes[$idioma]["VerIncidencias"]);
 
 if(isset($_POST['editarInc'])){
-    $_SESSION['editandoInc'] = $_POST['incidencia'];
+    $_SESSION['editandoInc'] = $_POST['editarInc'];
 }
 htmlPagEditarIncidencia($_SESSION['editandoInc']);
 htmlAside();

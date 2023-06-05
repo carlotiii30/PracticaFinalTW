@@ -70,10 +70,10 @@ function agregarFotoIncidencia()
         $db = conexion();
 
         $_SESSION['imagen'] = file_get_contents($_FILES['images']['tmp_name']);
-
+        
         $idIncidencia = $_SESSION["nuevaIncidencia"];
 
-        if (subirFoto("fotos", $db, $idIncidencia)) {
+        if (subirFotoIncidencia("fotos", $db, $idIncidencia)) {
             $_SESSION['mensaje'] = "Nueva incidencia registrada, anda, si tiene fotos y todo.";
             desconexion($db);
         } else {

@@ -201,7 +201,7 @@ function htmlPagNuevaIncidencia()
     </label>
 HTML;
 
-  echo '<textarea name="descripcion" rows="4" cols="50" value="' . (isset($_POST['descripcion']) ? $_POST['descripcion'] : '') . '"' . $readonly . '> </textarea>';
+  echo '<textarea name="descripcion" rows="4" cols="50"' . $readonly . '>' . (isset($_POST['descripcion']) ? $_POST['descripcion'] : '') . '</textarea>';
   if (isset($erroresIncidencia['descripcion'])) {
     echo '<p class="error">';
     echo $erroresIncidencia['descripcion'];
@@ -617,9 +617,10 @@ function mostrarIncidencias($incidencias)
     }
     if (isset($_SESSION["comentarioInsertado"]) && $_SESSION["comentarioInsertado"]) {
       unset($_SESSION["comentarioInsertado"]);
+      unset($_SESSION["idIncidencia"]);
 
       // Redirigimos.
-      header('Location: index.php');
+      echo "<meta http-equiv='refresh' content='0;url=./index.php'>"; //Para redirigir y no usar el header
       exit;
     }
   }
