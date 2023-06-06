@@ -637,6 +637,14 @@ function __formatoIncidencia($incidencia)
       </div>
       <div class="cuerpo">
         <p> {$incidencia["descripcion"]} </p>
+        <div class="fotos">
+  HTML;
+
+  // Fotos.
+  mostrarFotos($incidencia['id']);
+
+  echo <<<HTML
+      </div>
       </div>
       <div class="comentarios">
   HTML;
@@ -696,6 +704,30 @@ function __formatoIncidencia($incidencia)
   HTML;
 
 }
+
+// Para visualizar las fotos.
+function mostrarFotos($id)
+{
+  $db = conexion();
+
+  $sql = "SELECT foto FROM fotos WHERE idIncidencia = $id";
+  $result = $db->query($sql);
+
+  if ($result && $result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+      $foto = $row['foto'];
+
+      $fotoData = base64_encode($foto);
+      $src = 'data:image/jpeg;base64,' . $fotoData;
+      $imageData = "<img src='$src' alt='Foto'>";
+
+      echo $imageData;
+    }
+  }
+
+  desconexion($db);
+}
+
 
 // Formato para los comentarios
 function mostrarComentarios($id)
@@ -1179,7 +1211,7 @@ function modificarUsuario($idUsuario)
 
 function htmlPagEditarIncidencia($idIncidencia)
 {
-    procesamientoEditar();
+  procesamientoEditar();
   __htmlEstadoIncidencia($idIncidencia);
   __htmlIncidencia($idIncidencia);
   __htmlFotosIncidencia($idIncidencia);
@@ -1218,22 +1250,22 @@ function __htmlEstadoIncidencia($idIncidencia)
       echo '<label><input type="radio" name="estado" value="Pendiente"' . ($estado == 'pendiente' ? ' checked' : '') . ($admin ? ' disabled' : '') . '>';
       echo 'Pendiente';
       echo '</label>';
-      
+
       echo '<label><input type="radio" name="estado" value="Comprobada"' . ($estado == 'comprobada' ? ' checked' : '') . ($admin ? ' disabled' : '') . '>';
       echo 'Comprobada';
       echo '</label>';
-      
+
       echo '<label><input type="radio" name="estado" value="Tramitada"' . ($estado == 'tramitada' ? ' checked' : '') . ($admin ? ' disabled' : '') . '>';
       echo 'Tramitada';
       echo '</label>';
-      
+
       echo '<label><input type="radio" name="estado" value="Irresoluble"' . ($estado == 'irresoluble' ? ' checked' : '') . ($admin ? ' disabled' : '') . '>';
       echo 'Irresoluble';
       echo '</label>';
-      
+
       echo '<label><input type="radio" name="estado" value="Resuelta"' . ($estado == 'Resuelta' ? ' checked' : '') . ($admin ? ' disabled' : '') . '>';
       echo 'Resuelta';
-      
+
       echo <<<HTML
                 </label>
               </div>
@@ -1298,7 +1330,8 @@ function __htmlIncidencia($idIncidencia)
   }
 }
 
-function __htmlFotosIncidencia($idIncidencia){
+function __htmlFotosIncidencia($idIncidencia)
+{
   global $mensajesIncidencias;
   global $idioma;
 
@@ -1324,8 +1357,8 @@ function __htmlFotosIncidencia($idIncidencia){
         $imageData = "<img src='$src' alt='Foto'>";
         echo $imageData;
         echo '<form method="post" action="">';
-          echo '<input type="submit" name="borrarFoto" value="Borrar foto">';
-          echo '<input type="hidden" name="idFoto" value="' . $row['id'] . '">';
+        echo '<input type="submit" name="borrarFoto" value="Borrar foto">';
+        echo '<input type="hidden" name="idFoto" value="' . $row['id'] . '">';
         echo '</form>';
       }
 
@@ -1342,7 +1375,7 @@ function __htmlFotosIncidencia($idIncidencia){
         </div>
       </div>
     HTML;
-}
+  }
 }
 
 ?>

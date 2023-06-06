@@ -517,6 +517,22 @@ aside form {
     background-color: white;
 }
 
+.incidencia .cuerpo .fotos {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    padding: 10px;
+}
+
+.incidencia .cuerpo .fotos img {
+    height: 200px;
+    width: auto;
+    overflow: hidden;
+    border: 1px solid rgb(172, 134, 172);
+    margin: 5px;
+}
+
+
 .incidencia .opiniones {
     display: flex;
     justify-content: flex-end;

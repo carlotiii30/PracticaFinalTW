@@ -64,7 +64,6 @@ function descargarFoto($tabla, $idUsuario, $db)
     echo $imageData;
 }
 
-
 // Función para las valoraciones
 function valoracion($incidencia, $accion)
 {
