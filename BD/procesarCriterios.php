@@ -40,8 +40,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && (!isset($_POST['editar']) && !isset
     // Filtra si el texto esta contenido en la descripción
     if(isset($_POST['texto']) && !empty($_POST['texto'])){
         $texto = mysqli_real_escape_string($db, $_POST['texto']);
-
-        $sql .= " AND descripcion LIKE '%$texto%'";
+        
+        $sql .= " AND (descripcion LIKE '%$texto%' OR titulo LIKE '%$texto%' OR keywords LIKE '%$texto%')";
     }
 
     if(isset($_POST['ordenar'])){
@@ -67,8 +67,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && (!isset($_POST['editar']) && !isset
                 $incidencias[] = $row;
             }
         }
-        // Liberar el resultado
-        $result->free();
     }
 
     // cerrar la conexión con la base de datos
