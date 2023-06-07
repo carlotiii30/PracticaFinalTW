@@ -637,14 +637,12 @@ function __formatoIncidencia($incidencia)
       </div>
       <div class="cuerpo">
         <p> {$incidencia["descripcion"]} </p>
-        <div class="fotos">
   HTML;
 
   // Fotos.
   mostrarFotos($incidencia['id']);
 
   echo <<<HTML
-      </div>
       </div>
       <div class="comentarios">
   HTML;

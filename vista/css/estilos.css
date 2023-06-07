@@ -517,6 +517,14 @@ aside form {
     background-color: white;
 }
 
+.incidencia .cuerpo img {
+    margin: 5px;
+    border: 1px solid rgb(172, 134, 172);
+    height: 200px;
+    width: auto;
+    overflow: hidden;
+}
+
 .incidencia .cuerpo .fotos {
     display: flex;
     justify-content: center;
