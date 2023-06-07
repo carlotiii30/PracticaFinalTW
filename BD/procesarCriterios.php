@@ -5,6 +5,7 @@ $db = conexion();
 // Procesar los datos del formulario
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && (!isset($_POST['editar']) && !isset($_POST['logout']))) {
     // Sentencia por defecto si no se rellena el formulario, pero se envia, se muestran todas las incidencias
+    
     $sql = "SELECT * FROM incidencias WHERE 1=1";
     
     if(isset($_POST['ordenar']) && $_POST['ordenar'] === "NoMg"){
@@ -17,6 +18,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && (!isset($_POST['editar']) && !isset
         FROM incidencias i
         LEFT JOIN valoraciones v ON i.id = v.idIncidencia
         WHERE 1=1";
+    }
+
+    if(isset($_POST['pagina']) && $_POST['pagina'] == "misIncidencias"){
+        $idUsuario = $_SESSION['idUsuario'];
+        if(isset($_POST['ordenar']) && ($_POST['ordenar'] === "Mg" || $_POST['ordenar'] === "NoMg"))
+            $sql .= " AND i.idUsuario = '$idUsuario'";
+        else
+            $sql .= " AND idUsuario = '$idUsuario'";
     }
     
     // FIltra según el estado de las incidencias

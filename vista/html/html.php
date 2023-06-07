@@ -274,7 +274,7 @@ HTML;
     HTML;
 }
 
-function htmlPagVerIncidencias()
+function htmlPagVerIncidencias($pagina)
 {
   global $mensajesCriterios;
   global $idioma;
@@ -346,6 +346,7 @@ function htmlPagVerIncidencias()
           </div>
           <div class="botones">
               <input type="submit" value="{$mensajesCriterios[$idioma]["Aplicar"]}">
+              <input type="hidden" name="pagina" value="$pagina">
           </div>
       </form>
     </div>
