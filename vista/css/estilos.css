@@ -403,6 +403,13 @@ aside form {
     margin-bottom: 10px;
 }
 
+.adjuntas .entrada img {
+    width: 250px;
+    height: auto;
+    overflow: hidden;
+    margin: 5px;
+}
+
 /* - - VER INCIDENCIAS - - */
 .incidencias {
     flex: 85%;
