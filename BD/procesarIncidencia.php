@@ -107,8 +107,69 @@ function borrarFoto($idFoto)
 }
 
 function procesamientoEditar(){
+    global $erroresIncidencia;
+    global $confirmada;
+
+    if(isset($_POST['editarInc'])){
+        $confirmada = false;
+    }
     //Aquí debería ir el resto de código de editarIncidencia.php
     
+
+
+    //Código para procesar el formulario de editar incidencia
+    if($_SERVER['REQUEST_METHOD'] === 'POST' && (isset($_POST['editar']) || isset($_POST['confirmar'])) && !isset($_POST['editarInc'])){
+        $titulo = isset($_POST['titulo']) ? $_POST['titulo'] : '';
+        $descripcion = isset($_POST['descripcion']) ? $_POST['descripcion'] : '';
+        $lugar = isset($_POST['lugar']) ? $_POST['lugar'] : '';
+        $keywords = isset($_POST['keywords']) ? $_POST['keywords'] : '';
+
+        
+            // - - - Validamos los datos - - - 
+        if (empty($titulo)) {
+            $erroresIncidencia['titulo'] = "El nombre no puede estar vacío";
+        }
+        if (empty($descripcion)) {
+            $erroresIncidencia['descripcion'] = "La descripción no puede estar vacía";
+        }
+
+        if (empty($lugar)) {
+            $erroresIncidencia['lugar'] = "El lugar no puede estar vacío";
+        }
+
+            // Si no hay errores, procesamos los datos.
+        if (count($erroresIncidencia) == 0) {
+            $confirmada = true;
+            if(isset($_POST['confirmar'])){
+                $db = conexion();
+                $id = $_POST['idIncidencia'];
+                $sql = "UPDATE incidencias SET titulo = ?, descripcion = ?, lugar = ?, keywords = ? WHERE id = ?";
+                $stmt = $db->prepare($sql);
+                $stmt->bind_param("ssssi", $titulo, $descripcion, $lugar, $keywords, $id);
+
+                // Ejecutar la consulta
+                if ($stmt->execute()) {
+                    // Insertar en el log
+                    insertarLog("Se ha modificado la incidencia correctamente", $db);
+                    
+                    // Mensaje de correcto
+                    $_SESSION['mensaje'] = "¡Enhorabuena! La información ha sido modificada con éxito.";
+                    $stmt->close();
+
+                    // Redirigimos.
+                    header('Location: index.php');
+                    exit;
+                } else {
+                    $_SESSION['mensaje'] = "Lo sentimos... No hemos podido modificar los datos de la incidencia.";
+                    $stmt->close();
+                }
+                desconexion($db);
+            }
+        }
+    }
+
+
+    // Código para procesar el formulario para subir fotos y borrar fotos
     if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['borrarFoto'])){
         $id = $_POST['idFoto'];
         borrarFoto($id);

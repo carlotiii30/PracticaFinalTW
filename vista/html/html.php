@@ -1244,7 +1244,7 @@ function __htmlEstadoIncidencia($idIncidencia)
       echo <<<HTML
       <div class="editarIncidencia">
         <div class="estado">
-            <form method="post" action="./BD/procesarIncidencia.php">
+            <form method="post" action="">
               <h2 class="subtitulo">
                 {$mensajesIncidencias[$idioma]["Datos"]}
                </h2>
@@ -1273,6 +1273,10 @@ function __htmlEstadoIncidencia($idIncidencia)
       echo <<<HTML
                 </label>
               </div>
+              <div class="botones">
+                <input type="submit" name= "estado" value="{$mensajesIncidencias[$idioma]["Enviar"]}">
+                <input type="hidden" name="idIncidencia" value="$id">
+              </div>
             </form>
         </div>
       HTML;
@@ -1286,6 +1290,8 @@ function __htmlIncidencia($idIncidencia)
 {
   global $mensajesIncidencias;
   global $idioma;
+  global $confirmada;
+  global $erroresIncidencia;
 
   if (is_string($db = conexion())) {
     $msg_err = $db;
@@ -1297,9 +1303,10 @@ function __htmlIncidencia($idIncidencia)
 
     if ($result && $result->num_rows > 0) {
       $incidencia = $result->fetch_assoc();
+      $readonly = $confirmada ? "readonly" : "";
 
       echo <<<HTML
-      <form method="post" action="./BD/procesarIncidencia.php">
+      <form method="post" action="">
         <div class="entrada">
           <h2 class="subtitulo">
             {$mensajesIncidencias[$idioma]["Datos"]}
@@ -1307,22 +1314,57 @@ function __htmlIncidencia($idIncidencia)
           <label for="titulo">
             {$mensajesIncidencias[$idioma]["Titulo"]}
           </label>
-          <input name="titulo" value="{$incidencia['titulo']}">
+      HTML;
+          echo '<input type="text" name="titulo" value="' . ($confirmada ? $_POST['titulo'] : $incidencia['titulo']) . '"' . $readonly . '>';
+          if (isset($erroresIncidencia['titulo'])) {
+            echo '<p class="error">';
+            echo $erroresIncidencia['titulo'];
+            echo '</p>';
+          }
+      echo <<<HTML
           <label for="descripcion">
             {$mensajesIncidencias[$idioma]["Descripcion"]}
           </label>
-          <textarea name="descripcion" rows="4" cols="50">{$incidencia['descripcion']}</textarea>
+      HTML;
+          echo '<textarea name="descripcion" rows="4" cols="50"' . $readonly . '>' . ($confirmada ? $_POST['descripcion'] : $incidencia['descripcion']) . '</textarea>';
+          if (isset($erroresIncidencia['descripcion'])) {
+            echo '<p class="error">';
+            echo $erroresIncidencia['descripcion'];
+            echo '</p>';
+          }
+      echo <<<HTML
           <label for="lugar">
             {$mensajesIncidencias[$idioma]["Lugar"]}
           </label>
-          <input name="lugar" value="{$incidencia['lugar']}">
+      HTML;
+          echo '<input name="lugar" value="' . ($confirmada ? $_POST['lugar'] : $incidencia['lugar']) . '"' . $readonly . '>';
+          if (isset($erroresIncidencia['lugar'])) {
+            echo '<p class="error">';
+            echo $erroresIncidencia['lugar'];
+            echo '</p>';
+          }
+      echo <<<HTML
           <label for="keywords">
             {$mensajesIncidencias[$idioma]["PalabrasClave"]}
           </label>
-          <input name="keywords" value="{$incidencia['keywords']}">
+      HTML;
+          echo '<input name="keywords" value="' . ($confirmada ? $_POST['keywords'] : $incidencia['keywords']) . '"' . $readonly . '>';
+          if (isset($erroresIncidencia['keywords'])) {
+            echo '<p class="keywords">';
+            echo $erroresIncidencia['keywords'];
+            echo '</p>';
+          }
+      echo <<<HTML
         </div>
         <div class="botones">
-          <input type="submit" value="{$mensajesIncidencias[$idioma]["Enviar"]}">
+      HTML;
+          if(!$confirmada){
+            echo '<input type="submit" name="editar" value="' . $mensajesIncidencias[$idioma]["Enviar"] . '">';
+          }else{
+            echo '<input type="submit" name="confirmar" value="' . $mensajesIncidencias[$idioma]["Confirmar"] . '">';
+            echo '<input type="hidden" name="idIncidencia" value="' . $id . '">';
+          }
+      echo <<<HTML
         </div>
       </div>
       </form>
