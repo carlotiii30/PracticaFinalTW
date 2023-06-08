@@ -150,19 +150,6 @@ aside form {
     width: 100%;
 }
 
-.login .botones input {
-    background-color: rgb(172, 134, 172);
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    margin: 10px;
-    cursor: pointer;
-}
-
-.login .botones input:hover {
-    background-color: rgb(185, 140, 185);
-}
-
 /* - LOGEADO - */
 .logeado {
     display: flex;
@@ -319,18 +306,6 @@ aside form {
     border: 1px solid rgb(172, 134, 172);
 }
 
-.nueva .botones input {
-    background-color: rgb(172, 134, 172);
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    cursor: pointer;
-}
-
-.nueva .botones input:hover {
-    background-color: rgb(185, 140, 185);
-}
-
 /* - - EDITAR INCIDENCIA - - */
 .editarIncidencia {
     flex: 85%;
@@ -372,18 +347,6 @@ aside form {
     margin-bottom: 10px;
     margin-left: 10px;
     border: 1px solid rgb(172, 134, 172);
-}
-
-.editarIncidencia .botones input {
-    background-color: rgb(172, 134, 172);
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    cursor: pointer;
-}
-
-.editarIncidencia .botones input:hover {
-    background-color: rgb(185, 140, 185);
 }
 
 .editarIncidencia .estado form {
@@ -465,18 +428,6 @@ aside form {
     margin-bottom: 10px;
     margin-left: 10px;
     border: 1px solid rgb(172, 134, 172);
-}
-
-.criterios .botones input {
-    background-color: rgb(172, 134, 172);
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    cursor: pointer;
-}
-
-.criterios .botones input:hover {
-    background-color: rgb(185, 140, 185);
 }
 
 .incidencia {
@@ -637,19 +588,6 @@ aside form {
     margin: 10px;
 }
 
-.comentar-incidencia .botones input {
-    background-color: rgb(172, 134, 172);
-    color: white;
-    padding: 10px 20px;
-    margin: 0px 0px 10px 10px;
-    border: none;
-    cursor: pointer;
-}
-
-.comentar-incidencia .botones input:hover {
-    background-color: rgb(185, 140, 185);
-}
-
 /* - - MIS INCIDENCIAS - - */
 .mis-incidencias {
     display: block;
@@ -693,19 +631,6 @@ aside form {
     border: 1px solid rgb(172, 134, 172);
 }
 
-.modificar .botones input {
-    background-color: rgb(172, 134, 172);
-    color: white;
-    padding: 10px 20px;
-    margin-left: 10px;
-    border: none;
-    cursor: pointer;
-}
-
-.modificar .botones input:hover {
-    background-color: rgb(185, 140, 185);
-}
-
 .modificar .imagen-usuario {
     flex: 15%;
     margin-top: 20px;
@@ -746,20 +671,6 @@ aside form {
     display: inline-block;
 }
 
-.gestion .botones input {
-    margin: 5px;
-    padding: 10px 20px;
-    background-color: rgb(172, 134, 172);
-    color: white;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-.gestion .botones input:hover {
-    background-color: rgb(185, 140, 185);
-}
-
 .gestion .botones input:hover:last-child {
     background-color: rgb(46, 45, 45);
     color: rgba(231, 17, 17, 0.868);
@@ -786,20 +697,6 @@ aside form {
 
 .gestionUsuarios form {
     text-align: center;
-}
-
-.gestionUsuarios .botones input {
-    margin: 5px;
-    padding: 10px 20px;
-    background-color: rgb(172, 134, 172);
-    color: white;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-.gestionUsuarios .botones input:hover {
-    background-color: rgb(185, 140, 185);
 }
 
 .usuario {
@@ -912,4 +809,16 @@ input {
 
 button {
     cursor: pointer;
+}
+
+.botones input {
+    background-color: rgb(172, 134, 172);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+}
+
+.botones input:hover {
+    background-color: rgb(185, 140, 185);
 }
