@@ -78,11 +78,47 @@ function borrar($db)
     $result = mysqli_query($db, 'SHOW TABLES');
 
     while ($row = mysqli_fetch_row($result)) {
-        mysqli_query($db, 'DELETE * FROM ' . $row[0]);
+        mysqli_query($db, 'DELETE FROM ' . $row[0]);
     }
 
-    mysqli_commit($db);
+    if (mysqli_commit($db)) {
+        reiniciarNumeracionTablas($db);
 
+        insertarLog("La base de datos se ha borrado", $db);
+        
+        // Crear usuario administrador
+        $hash = password_hash('admin', PASSWORD_BCRYPT);
+
+        $sql = "INSERT INTO usuarios (nombre, apellidos, email, password, telefono, direccion, rol, estado) 
+                    VALUES ('admin', '', 'admin', '$hash', '', '', 'admin', 'activo')";
+
+        if ($db->query($sql)) {
+            insertarLog("Se ha creado el usuario admin", $db);
+        }
+
+    } else {
+        insertarLog("Intento fallido de borrar la base de datos.", $db);
+    }
+
+    header("Location: index.php");
+    __htmlLogout();
 }
+
+// Reiniciar numeracion
+function reiniciarNumeracionTablas($db)
+{
+    $tables = array();
+    $result = mysqli_query($db, 'SHOW TABLES');
+
+    while ($row = mysqli_fetch_row($result)) {
+        $tables[] = $row[0];
+    }
+
+    foreach ($tables as $table) {
+        mysqli_query($db, "ALTER TABLE $table AUTO_INCREMENT = 1");
+    }
+}
+
+
 
 ?>

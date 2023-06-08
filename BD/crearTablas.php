@@ -186,7 +186,13 @@ ADD FOREIGN KEY (idUsuario) REFERENCES usuarios (id)";
 */
 
 //$sql = "ALTER TABLE incidencias DROP COLUMN valoracionesPositivas;";
-$sql = "ALTER TABLE incidencias DROP COLUMN valoracionesNegativas;";
+//$sql = "ALTER TABLE incidencias DROP COLUMN valoracionesNegativas;";
+ // Crear usuario administrador
+ 
+ $hash = password_hash('admin', PASSWORD_BCRYPT);
+
+ $sql = "INSERT INTO usuarios (nombre, apellidos, email, password, telefono, direccion, rol, estado) 
+			 VALUES ('admin', '', 'admin@admin.com', '$hash', '', '', 'admin', 'activo')";
 
 if ($db->query($sql) === TRUE) {
 	echo "Tabla creada correctamente";

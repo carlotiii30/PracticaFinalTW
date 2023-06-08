@@ -811,14 +811,21 @@ button {
     cursor: pointer;
 }
 
-.botones input {
+.botones input,
+.botones button {
     background-color: rgb(172, 134, 172);
     color: white;
     padding: 10px 20px;
+    margin: 10px;
     border: none;
     cursor: pointer;
+    transition: transform 0.3s;
+    /* Agregamos una transición para suavizar el efecto */
 }
 
-.botones input:hover {
+.botones input:hover,
+.botones button:hover {
     background-color: rgb(185, 140, 185);
+    transform: scale(1.1);
+    /* Aplicamos una escala del 110% al botón cuando está en hover */
 }

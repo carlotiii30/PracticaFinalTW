@@ -672,14 +672,15 @@ function __formatoIncidencia($incidencia)
   }
 
   echo "<form method='post' action=''>";
+  echo "<div class='botones'>";
 
   if (isset($_SESSION['autenticado'])) {
     if ($_SESSION['idUsuario'] == $incidencia["idUsuario"] || $_SESSION['rol'] == "admin") {
 
       echo <<<HTML
-          <button name="borrar">
-              <img src="vista/imagenes/borrar.png">
-          </button>
+            <button name="borrar">
+                <img src="vista/imagenes/borrar.png">
+            </button>
     HTML;
 
     }
@@ -688,15 +689,16 @@ function __formatoIncidencia($incidencia)
   echo '<input type="hidden" name="incidencia" value="' . $incidencia["id"] . '">';
 
   echo <<<HTML
-          <button name="sumar">
-              <img src="vista/imagenes/verde.png">
-          </button>
-          <button name="restar">
-              <img src="vista/imagenes/rojo.png">
-          </button>
-          <button name="comentar">
-              <img src="vista/imagenes/comentario.png">
-          </button>
+            <button name="sumar">
+                <img src="vista/imagenes/verde.png">
+            </button>
+            <button name="restar">
+                <img src="vista/imagenes/rojo.png">
+            </button>
+            <button name="comentar">
+                <img src="vista/imagenes/comentario.png">
+            </button>
+          </div>
         </form>
       </div>
     </div>
@@ -930,13 +932,13 @@ function htmlPagGestionBD()
 
   if (isset($_POST["borrar"])) {
     echo <<<HTML
-            <div class="seguridad">
-                <p>{$mensajesBackup[$idioma]['Seguridad']}</p>
-                <label for="confirmar">{$mensajesBackup[$idioma]['Confirmar']}:</label>
-                <input type="text" name="confirmar" id="confirmar">
-                <input type="submit" name="confirmar_borrar" value="Estoy segurísimo">
-            </div>
-    HTML;
+          <div class="seguridad">
+              <p>{$mensajesBackup[$idioma]['Seguridad']}</p>
+              <label for="confirmar">{$mensajesBackup[$idioma]['Confirmar']}:</label>
+              <input type="text" name="confirmar" id="confirmar">
+              <input type="submit" name="confirmar_borrar" value="Estoy segurísimo">
+          </div>
+  HTML;
   }
 
   echo "</form></div>";
@@ -1026,6 +1028,7 @@ function insertarComentario()
 function __htmlWidgets($opcion)
 {
   $db = conexion();
+
   if ($opcion == 1) {
     $sql = "SELECT u.nombre, COUNT(i.id) AS total_incidencias
           FROM usuarios u
@@ -1051,7 +1054,9 @@ function __htmlWidgets($opcion)
     }
   }
   desconexion($db);
-  __htmlWidgetsFormato($top, $opcion);
+
+  if (isset($top))
+    __htmlWidgetsFormato($top, $opcion);
 }
 
 function __htmlWidgetsFormato($top, $opcion)
