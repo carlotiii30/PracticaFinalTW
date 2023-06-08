@@ -107,17 +107,44 @@ function borrarFoto($idFoto)
 }
 
 function procesamientoEditar(){
+    //Código para procesar el formulario de estado de la incidencia
+    if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['modificarEstado'])){
+        if($_SESSION['rol'] == "admin"){
+            $db = conexion();
+            $id = $_POST['idIncidencia'];
+            $estado = $_POST['estado'];
+            $sql = "UPDATE incidencias SET estado = ? WHERE id = ?";
+            $stmt = $db->prepare($sql);
+            $stmt->bind_param("si", $estado, $id);
+
+            // Ejecutar la consulta
+            if ($stmt->execute()) {
+                // Insertar en el log
+                insertarLog("Se ha modificado el estado de la incidencia correctamente", $db);
+                
+                // Mensaje de correcto
+                $_SESSION['mensaje'] = "¡Enhorabuena! La información ha sido modificada con éxito.";
+                $stmt->close();
+
+                // Redirigimos.
+                header('Location: index.php');
+                exit;
+            } else {
+                $_SESSION['mensaje'] = "Lo sentimos... No hemos podido modificar los datos de la incidencia.";
+                $stmt->close();
+            }
+            desconexion($db);
+        }
+    }
+    
+    //Código para procesar el formulario de editar incidencia
     global $erroresIncidencia;
     global $confirmada;
 
     if(isset($_POST['editarInc'])){
         $confirmada = false;
     }
-    //Aquí debería ir el resto de código de editarIncidencia.php
     
-
-
-    //Código para procesar el formulario de editar incidencia
     if($_SERVER['REQUEST_METHOD'] === 'POST' && (isset($_POST['editar']) || isset($_POST['confirmar'])) && !isset($_POST['editarInc'])){
         $titulo = isset($_POST['titulo']) ? $_POST['titulo'] : '';
         $descripcion = isset($_POST['descripcion']) ? $_POST['descripcion'] : '';

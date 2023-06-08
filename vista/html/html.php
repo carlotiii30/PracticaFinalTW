@@ -1251,19 +1251,19 @@ function __htmlEstadoIncidencia($idIncidencia)
               <div class="entrada">
       HTML;
 
-      echo '<label><input type="radio" name="estado" value="Pendiente"' . ($estado == 'pendiente' ? ' checked' : '') . ($admin ? ' disabled' : '') . '>';
+      echo '<label><input type="radio" name="estado" value="Pendiente"' . ($estado == 'Pendiente' ? ' checked' : '') . ($admin ? ' disabled' : '') . '>';
       echo 'Pendiente';
       echo '</label>';
 
-      echo '<label><input type="radio" name="estado" value="Comprobada"' . ($estado == 'comprobada' ? ' checked' : '') . ($admin ? ' disabled' : '') . '>';
+      echo '<label><input type="radio" name="estado" value="Comprobada"' . ($estado == 'Comprobada' ? ' checked' : '') . ($admin ? ' disabled' : '') . '>';
       echo 'Comprobada';
       echo '</label>';
 
-      echo '<label><input type="radio" name="estado" value="Tramitada"' . ($estado == 'tramitada' ? ' checked' : '') . ($admin ? ' disabled' : '') . '>';
+      echo '<label><input type="radio" name="estado" value="Tramitada"' . ($estado == 'Tramitada' ? ' checked' : '') . ($admin ? ' disabled' : '') . '>';
       echo 'Tramitada';
       echo '</label>';
 
-      echo '<label><input type="radio" name="estado" value="Irresoluble"' . ($estado == 'irresoluble' ? ' checked' : '') . ($admin ? ' disabled' : '') . '>';
+      echo '<label><input type="radio" name="estado" value="Irresoluble"' . ($estado == 'Irresoluble' ? ' checked' : '') . ($admin ? ' disabled' : '') . '>';
       echo 'Irresoluble';
       echo '</label>';
 
@@ -1274,7 +1274,7 @@ function __htmlEstadoIncidencia($idIncidencia)
                 </label>
               </div>
               <div class="botones">
-                <input type="submit" name= "estado" value="{$mensajesIncidencias[$idioma]["Enviar"]}">
+                <input type="submit" name= "modificarEstado" value="{$mensajesIncidencias[$idioma]["Enviar"]}">
                 <input type="hidden" name="idIncidencia" value="$id">
               </div>
             </form>
