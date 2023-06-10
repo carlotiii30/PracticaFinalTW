@@ -366,12 +366,25 @@ aside form {
     margin-bottom: 10px;
 }
 
-.adjuntas .entrada img {
+.editarIncidencia .adjuntas {
+    margin: 0;
+    padding: 5px;
+    background-color: rgb(208, 185, 208);
+    border: 1px solid rgb(172, 134, 172);
+}
+
+.editarIncidencia .adjuntas .foto{
+    border: 1px solid rgb(172, 134, 172);
+}
+
+.editarIncidencia .adjuntas .entrada img {
     width: 250px;
     height: auto;
     overflow: hidden;
     margin: 5px;
 }
+
+
 
 /* - - VER INCIDENCIAS - - */
 .incidencias {

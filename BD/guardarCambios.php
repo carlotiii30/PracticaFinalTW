@@ -103,6 +103,9 @@ function guardarCambios($idUsuario){
                     // Insertar en el log
                     insertarLog("El usuario $email ha modificado sus datos", $db);
                     
+                    //Actualizamos la variable de sesión con los nuevos datos
+                    $_SESSION['nombreUsuario'] = $email;
+
                     // Mensaje de correcto
                     $_SESSION['mensaje'] = "¡Enhorabuena! Su información ha sido modificada con éxito.";
                     $stmt->close();

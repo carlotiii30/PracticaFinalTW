@@ -1366,7 +1366,6 @@ function __htmlIncidencia($idIncidencia)
           }
       echo <<<HTML
         </div>
-      </div>
       </form>
       HTML;
     } else {
@@ -1401,11 +1400,15 @@ function __htmlFotosIncidencia($idIncidencia)
         $foto = base64_encode($row['foto']);
         $src = 'data:image/jpeg;base64,' . $foto;
         $imageData = "<img src='$src' alt='Foto'>";
+        echo '<div class="foto">';
         echo $imageData;
         echo '<form method="post" action="">';
+        echo '<div class="botones">';
         echo '<input type="submit" name="borrarFoto" value="Borrar foto">';
         echo '<input type="hidden" name="idFoto" value="' . $row['id'] . '">';
+        echo '</div>';
         echo '</form>';
+        echo '</div>';
       }
 
     }
@@ -1420,6 +1423,7 @@ function __htmlFotosIncidencia($idIncidencia)
           </form>
         </div>
       </div>
+    </div>
     HTML;
   }
 }
