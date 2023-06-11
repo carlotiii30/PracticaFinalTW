@@ -34,6 +34,8 @@
 
 .elegirIdioma .botones input {
     border: 1px solid rgb(46, 45, 45);
+    color: whitesmoke;
+    background-color: rgb(185, 140, 185);
 }
 
 /* - - CABECERA - - */

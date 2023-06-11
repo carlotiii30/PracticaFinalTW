@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 function registrarUsuario()
 {
@@ -52,15 +52,17 @@ function registrarUsuario()
 			// Conexión
 			$db = conexion();
 
-			// Crear usuario
+			// Utilizamos una sentencia preparada para insertar el usuario
 			$sql = "INSERT INTO usuarios (nombre, apellidos, email, password, telefono, direccion, rol, estado) 
-                    VALUES ('$nombre', '$apellidos', '$email', '$hash', '$telefono', '$direccion', '$rol', '$estado')";
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+			$stmt = $db->prepare($sql);
+			$stmt->bind_param("ssssssss", $nombre, $apellidos, $email, $hash, $telefono, $direccion, $rol, $estado);
 
 			// Ejecutar la consulta
-			if ($db->query($sql) === TRUE) {
+			if ($stmt->execute()) {
 				// Guardamos el usuario
 				$_SESSION['usuario'] = $email;
-				$_SESSION['nuevoUsuario'] = $db->insert_id;
+				$_SESSION['nuevoUsuario'] = $stmt->insert_id;
 
 				// Marcamos en el log
 				insertarLog("¡Tenemos un nuevo usuario en la comunidad: $email!", $db);
@@ -70,6 +72,8 @@ function registrarUsuario()
 				$registrado = false;
 			}
 
+			// Cerramos la declaración y la conexión con la base de datos
+			$stmt->close();
 			desconexion($db);
 		}
 
@@ -77,7 +81,6 @@ function registrarUsuario()
 			$confirmado = true;
 		}
 	}
-
 }
 
 function agregarFoto($idUsuario)
@@ -85,7 +88,8 @@ function agregarFoto($idUsuario)
 	// Conexión
 	$db = conexion();
 
-	$_SESSION['imagen'] = file_get_contents($_FILES['images']['tmp_name']);
+	$imagen = file_get_contents($_FILES['images']['tmp_name']);
+	$_SESSION['imagen'] = $imagen;
 
 	if (subirFoto("usuarios", $db, $idUsuario)) {
 		$_SESSION['mensaje'] = "¡Registrado y con foto!";
@@ -98,7 +102,6 @@ function agregarFoto($idUsuario)
     // Redirigimos.
     header('Location: index.php');
 	exit;
-
 }
 
 ?>

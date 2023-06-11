@@ -122,7 +122,9 @@ function htmlPagLog()
 
   // Recuperacion de los datos
   $sql = "SELECT * FROM logs ORDER BY fecha DESC";
-  $datos = $db->query($sql);
+  $stmt = $db->prepare($sql);
+  $stmt->execute();
+  $datos = $stmt->get_result();
 
   // Desconexion
   desconexion($db);
@@ -366,8 +368,12 @@ function htmlPagMisIncidencias()
 
   // Recuperacion de datos de la base de datos
   $idUsuario = $_SESSION['idUsuario'];
-  $sql = "SELECT * FROM incidencias WHERE idUsuario = $idUsuario ORDER BY fecha DESC";
-  $datos = $db->query($sql);
+  $sql = "SELECT * FROM incidencias WHERE idUsuario = ? ORDER BY fecha DESC";
+  $stmt = $db->prepare($sql);
+  $stmt->bind_param("i", $idUsuario);
+  $stmt->execute();
+  $datos = $stmt->get_result();
+
 
   // Desconexión
   desconexion($db);
@@ -711,8 +717,12 @@ function mostrarFotos($id)
 {
   $db = conexion();
 
-  $sql = "SELECT foto FROM fotos WHERE idIncidencia = $id";
-  $result = $db->query($sql);
+  $sql = "SELECT foto FROM fotos WHERE idIncidencia = ?";
+  $stmt = $db->prepare($sql);
+  $stmt->bind_param("i", $id);
+  $stmt->execute();
+  $result = $stmt->get_result();
+
 
   if ($result && $result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
@@ -735,8 +745,12 @@ function mostrarComentarios($id)
 {
   $db = conexion();
 
-  $sql = "SELECT c.id, c.comentario, c.fecha, c.idUsuario, u.nombre, u.apellidos FROM comentarios c LEFT JOIN usuarios u ON c.idUsuario = u.id WHERE c.idIncidencia = $id";
-  $result = $db->query($sql);
+  $sql = "SELECT c.id, c.comentario, c.fecha, c.idUsuario, u.nombre, u.apellidos FROM comentarios c LEFT JOIN usuarios u ON c.idUsuario = u.id WHERE c.idIncidencia = ?";
+  $stmt = $db->prepare($sql);
+  $stmt->bind_param("i", $id);
+  $stmt->execute();
+  $result = $stmt->get_result();
+
 
   if ($result && $result->num_rows > 0) {
     $fila = 0; // Variable de contador para filas
@@ -804,7 +818,10 @@ HTML;
 
       // Recuperación de datos
       $sql = "SELECT * FROM usuarios";
-      $datos = $db->query($sql);
+      $stmt = $db->prepare($sql);
+      $stmt->execute();
+      $datos = $stmt->get_result();
+
 
       // Formato de usuarios
       foreach ($datos as $dato) {
@@ -1037,7 +1054,6 @@ function __htmlWidgets($opcion)
           ORDER BY total_incidencias DESC
           LIMIT 3";
   } else if ($opcion == 2) {
-    //Le pongo a la variable como nombre total_incidencias para que pueda usar la misma funcion para dar formato
     $sql = "SELECT u.nombre, COUNT(c.id) AS total_incidencias
         FROM usuarios u
         INNER JOIN comentarios c ON u.id = c.idUsuario
@@ -1046,7 +1062,10 @@ function __htmlWidgets($opcion)
         LIMIT 3";
   }
 
-  $result = $db->query($sql);
+  $stmt = $db->prepare($sql);
+  $stmt->execute();
+  $result = $stmt->get_result();
+
   if ($result && $result->num_rows > 0) {
     $top = array();
     while ($row = $result->fetch_assoc()) {
@@ -1093,8 +1112,11 @@ function modificarUsuario($idUsuario)
   } else {
     $id = $idUsuario;
     // Consulta SQL para obtener los datos del usuario
-    $sql = "SELECT * FROM usuarios WHERE id = $id";
-    $result = $db->query($sql);
+    $sql = "SELECT * FROM usuarios WHERE id = ?";
+    $stmt = $db->prepare($sql);
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
     if ($result && $result->num_rows > 0) {
       $usuario = $result->fetch_assoc();
@@ -1234,9 +1256,13 @@ function __htmlEstadoIncidencia($idIncidencia)
     // Comprobamos si es administrador.
     $admin = ($_SESSION['rol'] !== 'admin');
 
-    // Consulta SQL para obtener los datos del usuario
-    $sql = "SELECT * FROM incidencias WHERE id = $id";
-    $result = $db->query($sql);
+    // Consulta preparada SQL para obtener los datos del usuario
+    $sql = "SELECT * FROM incidencias WHERE id = ?";
+    $stmt = $db->prepare($sql);
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
 
     if ($result && $result->num_rows > 0) {
       $incidencia = $result->fetch_assoc();
@@ -1298,8 +1324,12 @@ function __htmlIncidencia($idIncidencia)
   } else {
     $id = $idIncidencia;
     // Consulta SQL para obtener los datos de la incidencia
-    $sql = "SELECT * FROM incidencias WHERE id = $id";
-    $result = $db->query($sql);
+    $sql = "SELECT * FROM usuarios WHERE id = ?";
+    $stmt = $db->prepare($sql);
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
 
     if ($result && $result->num_rows > 0) {
       $incidencia = $result->fetch_assoc();
@@ -1315,55 +1345,55 @@ function __htmlIncidencia($idIncidencia)
             {$mensajesIncidencias[$idioma]["Titulo"]}
           </label>
       HTML;
-          echo '<input type="text" name="titulo" value="' . ($confirmada ? $_POST['titulo'] : $incidencia['titulo']) . '"' . $readonly . '>';
-          if (isset($erroresIncidencia['titulo'])) {
-            echo '<p class="error">';
-            echo $erroresIncidencia['titulo'];
-            echo '</p>';
-          }
+      echo '<input type="text" name="titulo" value="' . ($confirmada ? $_POST['titulo'] : $incidencia['titulo']) . '"' . $readonly . '>';
+      if (isset($erroresIncidencia['titulo'])) {
+        echo '<p class="error">';
+        echo $erroresIncidencia['titulo'];
+        echo '</p>';
+      }
       echo <<<HTML
           <label for="descripcion">
             {$mensajesIncidencias[$idioma]["Descripcion"]}
           </label>
       HTML;
-          echo '<textarea name="descripcion" rows="4" cols="50"' . $readonly . '>' . ($confirmada ? $_POST['descripcion'] : $incidencia['descripcion']) . '</textarea>';
-          if (isset($erroresIncidencia['descripcion'])) {
-            echo '<p class="error">';
-            echo $erroresIncidencia['descripcion'];
-            echo '</p>';
-          }
+      echo '<textarea name="descripcion" rows="4" cols="50"' . $readonly . '>' . ($confirmada ? $_POST['descripcion'] : $incidencia['descripcion']) . '</textarea>';
+      if (isset($erroresIncidencia['descripcion'])) {
+        echo '<p class="error">';
+        echo $erroresIncidencia['descripcion'];
+        echo '</p>';
+      }
       echo <<<HTML
           <label for="lugar">
             {$mensajesIncidencias[$idioma]["Lugar"]}
           </label>
       HTML;
-          echo '<input name="lugar" value="' . ($confirmada ? $_POST['lugar'] : $incidencia['lugar']) . '"' . $readonly . '>';
-          if (isset($erroresIncidencia['lugar'])) {
-            echo '<p class="error">';
-            echo $erroresIncidencia['lugar'];
-            echo '</p>';
-          }
+      echo '<input name="lugar" value="' . ($confirmada ? $_POST['lugar'] : $incidencia['lugar']) . '"' . $readonly . '>';
+      if (isset($erroresIncidencia['lugar'])) {
+        echo '<p class="error">';
+        echo $erroresIncidencia['lugar'];
+        echo '</p>';
+      }
       echo <<<HTML
           <label for="keywords">
             {$mensajesIncidencias[$idioma]["PalabrasClave"]}
           </label>
       HTML;
-          echo '<input name="keywords" value="' . ($confirmada ? $_POST['keywords'] : $incidencia['keywords']) . '"' . $readonly . '>';
-          if (isset($erroresIncidencia['keywords'])) {
-            echo '<p class="keywords">';
-            echo $erroresIncidencia['keywords'];
-            echo '</p>';
-          }
+      echo '<input name="keywords" value="' . ($confirmada ? $_POST['keywords'] : $incidencia['keywords']) . '"' . $readonly . '>';
+      if (isset($erroresIncidencia['keywords'])) {
+        echo '<p class="keywords">';
+        echo $erroresIncidencia['keywords'];
+        echo '</p>';
+      }
       echo <<<HTML
         </div>
         <div class="botones">
       HTML;
-          if(!$confirmada){
-            echo '<input type="submit" name="editar" value="' . $mensajesIncidencias[$idioma]["Enviar"] . '">';
-          }else{
-            echo '<input type="submit" name="confirmar" value="' . $mensajesIncidencias[$idioma]["Confirmar"] . '">';
-            echo '<input type="hidden" name="idIncidencia" value="' . $id . '">';
-          }
+      if (!$confirmada) {
+        echo '<input type="submit" name="editar" value="' . $mensajesIncidencias[$idioma]["Enviar"] . '">';
+      } else {
+        echo '<input type="submit" name="confirmar" value="' . $mensajesIncidencias[$idioma]["Confirmar"] . '">';
+        echo '<input type="hidden" name="idIncidencia" value="' . $id . '">';
+      }
       echo <<<HTML
         </div>
       </form>
@@ -1385,8 +1415,12 @@ function __htmlFotosIncidencia($idIncidencia)
   } else {
     $id = $idIncidencia;
     // Consulta SQL para obtener los datos de la incidencia
-    $sql = "SELECT * FROM fotos WHERE idIncidencia = $id";
-    $result = $db->query($sql);
+    $sql = "SELECT * FROM fotos WHERE idIncidencia = ?";
+    $stmt = $db->prepare($sql);
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
     echo <<<HTML
       <div class="adjuntas">
         <div class="entrada">

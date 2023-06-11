@@ -17,8 +17,6 @@ if (is_string($db = conexion())) {
         $password = mysqli_real_escape_string($db, $password);
 
         // Continuamos
-        //$sql = "SELECT * FROM usuarios WHERE email='$usuario' AND password='$password'";
-        //$result = $db->query($sql);
         $sql = "SELECT * FROM usuarios WHERE email='$usuario'";
         $result = $db->query($sql);
 
