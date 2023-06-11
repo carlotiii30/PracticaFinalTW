@@ -19,7 +19,8 @@
 
         "Enviar": "Enviar formulario",
         "Borrar": "Borrar formulario",
-        "Validar": "Validar formulario"
+        "Validar": "Validar formulario",
+        "Cambios": "Guardar cambios"
     },
 
     "en": {
@@ -42,7 +43,8 @@
 
         "Enviar": "Submit form",
         "Borrar": "Reset form",
-        "Validar": "Validate form"
+        "Validar": "Validate form",
+        "Cambios": "Save changes"
     },
 
     "fr": {
@@ -65,6 +67,7 @@
 
         "Enviar": "Soumettre le formulaire",
         "Borrar": "Supprimer le formulaire",
-        "Validar": "Valider le formulaire"
+        "Validar": "Valider le formulaire",
+        "Cambios": "Enregistrer les modifications"
     }
 }

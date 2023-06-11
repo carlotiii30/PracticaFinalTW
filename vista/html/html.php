@@ -799,13 +799,16 @@ function mostrarComentarios($id)
 
 function htmlPagGestionUsuarios()
 {
+  global $idioma;
+  global $mensajes;
+
   echo <<<HTML
   <div class="principalGestion">
     <div class="gestionUsuarios">
       <form method="post" action="">
           <div class="botones">
-              <input type="submit" name="listado" value="Listado">
-              <input type="submit" name="nuevo" value="Registrar nuevo usuario">
+              <input type="submit" name="listado" value="{$mensajes[$idioma]['Listado']}">
+              <input type="submit" name="nuevo" value="{$mensajes[$idioma]['Registrar']}">
           </div>
       </form>
     </div>
@@ -1080,10 +1083,13 @@ function __htmlWidgets($opcion)
 
 function __htmlWidgetsFormato($top, $opcion)
 {
+  global $mensajes;
+  global $idioma;
+
   if ($opcion == 1) {
-    $titulo = "Los que más añaden";
+    $titulo = $mensajes[$idioma]["Añaden"];
   } else if ($opcion == 2) {
-    $titulo = "Los que más comentan";
+    $titulo = $mensajes[$idioma]["Comentan"];
   }
   echo "<div class='widget'>";
   echo "<h1>{$titulo}</h1>";
@@ -1097,12 +1103,11 @@ function __htmlWidgetsFormato($top, $opcion)
 
 function modificarUsuario($idUsuario)
 {
-  global $mensajes, $idioma;
+  global $mensajesRegistro, $idioma;
   global $cambiosValidados;
   global $erroresCambios;
 
   $erroresCambios = array();
-  $mensajes = json_decode(file_get_contents('./vista/traducciones/formularioRegistro.json'), true);
 
   $datos = guardarCambios($idUsuario);
 
@@ -1132,7 +1137,7 @@ function modificarUsuario($idUsuario)
                           <input type="file" name="images" {$disabled}> 
                       </label>
                       <label for="nombre">
-                          {$mensajes[$idioma]["Nombre"]}
+                          {$mensajesRegistro[$idioma]["Nombre"]}
                       </label>
           HTML;
       echo '<input type="text" name="nombre" value="' . (!$cambiosValidados ? $usuario['nombre'] : $datos['nombre']) . '" ' . $readonly . '>';
@@ -1143,7 +1148,7 @@ function modificarUsuario($idUsuario)
       }
 
       echo '<label for="apellidos">';
-      echo $mensajes[$idioma]["Apellidos"];
+      echo $mensajesRegistro[$idioma]["Apellidos"];
       echo '</label>';
       echo '<input type="text" name="apellidos" value="' . (!$cambiosValidados ? $usuario['apellidos'] : $datos['apellidos']) . '" ' . $readonly . '>';
       if (isset($erroresCambios['apellidos'])) {
@@ -1153,7 +1158,7 @@ function modificarUsuario($idUsuario)
       }
 
       echo '<label for="email">';
-      echo $mensajes[$idioma]["Email"];
+      echo $mensajesRegistro[$idioma]["Email"];
       echo '</label>';
       echo '<input type="email" name="email" value="' . (!$cambiosValidados ? $usuario['email'] : $datos['email']) . '" ' . $readonly . '>';
       if (isset($erroresCambios['email'])) {
@@ -1163,7 +1168,7 @@ function modificarUsuario($idUsuario)
       }
 
       echo '<label for="telefono">';
-      echo $mensajes[$idioma]["Telefono"];
+      echo $mensajesRegistro[$idioma]["Telefono"];
       echo '</label>';
       echo '<input type="text" name="telefono" value="' . (!$cambiosValidados ? $usuario['telefono'] : $datos['telefono']) . '" ' . $readonly . '>';
       if (isset($erroresCambios['telefono'])) {
@@ -1173,7 +1178,7 @@ function modificarUsuario($idUsuario)
       }
 
       echo '<label for="direccion">';
-      echo $mensajes[$idioma]["Direccion"];
+      echo $mensajesRegistro[$idioma]["Direccion"];
       echo '</label>';
       echo '<input type="text" name="direccion" value="' . (!$cambiosValidados ? $usuario['direccion'] : $datos['direccion']) . '" ' . $readonly . '>';
       if (isset($erroresCambios['direccion'])) {
@@ -1185,7 +1190,7 @@ function modificarUsuario($idUsuario)
       echo '<div class="contrasenia-contenedor">';
       echo '<div class="campo">';
       echo '<label for="password1">';
-      echo $mensajes[$idioma]["Contrasenia"];
+      echo $mensajesRegistro[$idioma]["Contrasenia"];
       echo '</label>';
       echo '<input class="password1" type="password" name="password1" value="' . ($cambiosValidados ? $datos['password1'] : "") . '" ' . $readonly . '>';
       if (isset($erroresCambios['contraseña'])) {
@@ -1196,14 +1201,14 @@ function modificarUsuario($idUsuario)
       echo '</div>';
       echo '<div class="campo">';
       echo '<label for="password2">';
-      echo $mensajes[$idioma]["Confirmar"];
+      echo $mensajesRegistro[$idioma]["Confirmar"];
       echo '</label>';
       echo '<input class="password2" type="password" name="password2" value="' . ($cambiosValidados ? $datos['password1'] : "") . '" ' . $readonly . '>';
       echo '</div>';
       echo '</div>';
 
       echo '<label for="estado">';
-      echo $mensajes[$idioma]["Estado"];
+      echo $mensajesRegistro[$idioma]["Estado"];
       echo '</label>';
       echo '<input type="text" name="estado" value="' . ($usuario['estado']) . '" disabled>';
 
@@ -1212,7 +1217,7 @@ function modificarUsuario($idUsuario)
 
       echo '<div class="botones">';
       if ($cambiosValidados == false) {
-        echo '<input type="submit" name="cambiar" value="Guardar cambios">';
+        echo '<input type="submit" name="cambiar" value="' . $mensajesRegistro[$idioma]["Cambios"] . '">';
       } else {
         echo '<input type="submit" name="confirmar" value="Confirmar cambios">';
         if ($datos['hayimagen'] == true) {

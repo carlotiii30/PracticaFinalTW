@@ -27,7 +27,13 @@
         "GestionBBDD": "Gestión de Base de Datos",
 
         "Fecha": "Fecha",
-        "Accion": "Acción"
+        "Accion": "Acción",
+
+        "Listado": "Listado",
+        "Registrar": "Registrar nuevo usuario",
+
+        "Añaden": "Los que más añaden",
+        "Comentan": "Los que más comentan"
     },
 
     "en": {
@@ -58,7 +64,13 @@
         "GestionBBDD": "Data Base Management",
 
         "Fecha": "Date",
-        "Accion": "Action"
+        "Accion": "Action",
+
+        "Listado": "List",
+        "Registrar": "Register new user",
+
+        "Añaden": "Those who add the most",
+        "Comentan": "Those who comnent the most"
     },
 
     "fr": {
@@ -89,6 +101,12 @@
         "GestionBBDD": "Gestion Base de Données",
 
         "Fecha": "Date",
-        "Accion": "Action"
+        "Accion": "Action",
+
+        "Listado": "Liste",
+        "Registrar": "Enregistrer un nouvel utilisateur",
+
+        "Añaden": "Ceux qui ajoutent le plus",
+        "Comentan": "Ceux qui commentent le plus"
     }
 }
