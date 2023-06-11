@@ -32,6 +32,10 @@
     cursor: pointer;
 }
 
+.elegirIdioma .botones input {
+    border: 1px solid rgb(46, 45, 45);
+}
+
 /* - - CABECERA - - */
 .cabecera {
     background-color: rgb(185, 140, 185);
