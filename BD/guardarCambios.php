@@ -19,6 +19,8 @@ function guardarCambios($idUsuario){
         $telefono = isset($_POST['telefono']) ? $_POST['telefono'] : '';
         $direccion = isset($_POST['direccion']) ? $_POST['direccion'] : '';
         $hayImagen = !empty($_FILES['images']['name']) ? true : false;
+        $rol = isset($_POST['rol']) ? $_POST['rol'] : '';
+        $estado = isset($_POST['estado']) ? $_POST['estado'] : '';
     
         // - - - Validamos los datos - - - 
         if (empty($nombre)) {
@@ -58,6 +60,8 @@ function guardarCambios($idUsuario){
             $datos['direccion'] = $direccion;
             $datos['password1'] = $password1;
             $datos['hayimagen'] = $hayImagen;
+            $datos['rol'] = $rol;
+            $datos['estado'] = $estado;
             if($hayImagen){
                 $datos['imagen'] = file_get_contents($_FILES['images']['tmp_name']);
                 $_SESSION['imagen'] = file_get_contents($_FILES['images']['tmp_name']);
@@ -76,25 +80,25 @@ function guardarCambios($idUsuario){
                 if(!$hayImagen){
                     if(!empty($password1)){
                         $password1 = password_hash($password1, PASSWORD_BCRYPT);
-                        $query = "UPDATE usuarios SET nombre= ?, apellidos= ?, email= ?, telefono= ?, direccion=?, password=? WHERE id=?";
+                        $query = "UPDATE usuarios SET nombre= ?, apellidos= ?, email= ?, telefono= ?, direccion=?, password=?, estado=?, rol=? WHERE id=?";
                         $stmt = $db->prepare($query);
-                        $stmt->bind_param('ssssssi', $nombre, $apellidos, $email, $telefono, $direccion, $password1, $id);
+                        $stmt->bind_param('ssssssssi', $nombre, $apellidos, $email, $telefono, $direccion, $password1, $estado, $rol, $id);
                     }else{
-                        $query = "UPDATE usuarios SET nombre= ?, apellidos= ?, email= ?, telefono= ?, direccion=? WHERE id=?";
+                        $query = "UPDATE usuarios SET nombre= ?, apellidos= ?, email= ?, telefono= ?, direccion=?, estado=?, rol=? WHERE id=?";
                         $stmt = $db->prepare($query);
-                        $stmt->bind_param('sssssi', $nombre, $apellidos, $email, $telefono, $direccion, $id);
+                        $stmt->bind_param('sssssssi', $nombre, $apellidos, $email, $telefono, $direccion, $estado, $rol, $id);
                     }
                 }else{
                     //$image = file_get_contents($_FILES['images']['tmp_name']);
                     if(!empty($password1)){
                         $password1 = password_hash($password1, PASSWORD_BCRYPT);
-                        $query = "UPDATE usuarios SET nombre= ?, apellidos= ?, email= ?, telefono= ?, direccion=?, password=?, foto = ? WHERE id=?";
+                        $query = "UPDATE usuarios SET nombre= ?, apellidos= ?, email= ?, telefono= ?, direccion=?, password=?,  estado=?, rol=?, foto = ? WHERE id=?";
                         $stmt = $db->prepare($query);
-                        $stmt->bind_param('sssssssi', $nombre, $apellidos, $email, $telefono, $direccion, $password1, $_SESSION['imagen'], $id);
+                        $stmt->bind_param('sssssssssi', $nombre, $apellidos, $email, $telefono, $direccion, $password1, $estado, $rol, $_SESSION['imagen'], $id);
                     }else{
-                        $query = "UPDATE usuarios SET nombre= ?, apellidos= ?, email= ?, telefono= ?, direccion=?, foto = ? WHERE id=?";
+                        $query = "UPDATE usuarios SET nombre= ?, apellidos= ?, email= ?, telefono= ?, direccion=?,  estado=?, rol=?, foto = ? WHERE id=?";
                         $stmt = $db->prepare($query);
-                        $stmt->bind_param('ssssssi', $nombre, $apellidos, $email, $telefono, $direccion, $_SESSION['imagen'], $id);
+                        $stmt->bind_param('ssssssssi', $nombre, $apellidos, $email, $telefono, $direccion, $estado, $rol, $_SESSION['imagen'], $id);
                     }
                 }
         

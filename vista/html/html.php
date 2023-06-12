@@ -1128,6 +1128,7 @@ function modificarUsuario($idUsuario)
 
       $disabled = $cambiosValidados ? "disabled" : "";
       $readonly = $cambiosValidados ? "readonly" : "";
+      $esAdmin = $_SESSION['rol'] == "admin" ? "" : "disabled";
 
       echo <<<HTML
           <div class="modificar">
@@ -1210,10 +1211,26 @@ function modificarUsuario($idUsuario)
       echo '<label for="estado">';
       echo $mensajesRegistro[$idioma]["Estado"];
       echo '</label>';
-      echo '<input type="text" name="estado" value="' . ($usuario['estado']) . '" disabled>';
+      echo '<select name="estado" ' . $esAdmin . $disabled . '>';
+      echo '<option value="activo"' . (!$cambiosValidados ? ($usuario['estado'] == 'activo' ? ' selected' : '') : ($datos['estado'] == 'activo' ? ' selected' : '')) . '>Activo</option>';
+      echo '<option value="inactivo"' . (!$cambiosValidados ? ($usuario['estado'] == 'inactivo' ? ' selected' : '') : ($datos['estado'] == 'inactivo' ? ' selected' : '')) . '>Inactivo</option>';
+      echo '</select>';
+      if($disabled == "disabled"){
+        echo $datos['estado'];
+        echo '<input type="hidden" name="estado" value="' . $datos['estado'] . '">';
+      }
+      //echo '<input type="text" name="estado" value="' . ($usuario['estado']) . '"' . $esAdmin . $disabled . '>';
 
       echo '<label for="rol">Rol:</label>';
-      echo '<input type="text" name="rol" value="' . ($usuario['rol']) . '" disabled>';
+      echo '<select name="rol" ' . $esAdmin . $disabled . '>';
+      echo '<option value="admin"' . (!$cambiosValidados ? ($usuario['rol'] == 'admin' ? ' selected' : '') : ($datos['rol'] == 'admin' ? ' selected' : '')) . '>Admin</option>';
+      echo '<option value="colaborador"' . (!$cambiosValidados ? ($usuario['rol'] == 'colaborador' ? ' selected' : '') : ($datos['rol'] == 'colaborador' ? ' selected' : '')) . '>Colaborador</option>';
+      echo '</select>';
+      if($disabled == "disabled"){
+        echo $datos['rol'];
+        echo '<input type="hidden" name="rol" value="' . $datos['rol'] . '">';
+      }
+     // echo '<input type="text" name="rol" value="' . ($usuario['rol']) . '"' . $esAdmin . $disabled .'>';
 
       echo '<div class="botones">';
       if ($cambiosValidados == false) {
@@ -1329,7 +1346,7 @@ function __htmlIncidencia($idIncidencia)
   } else {
     $id = $idIncidencia;
     // Consulta SQL para obtener los datos de la incidencia
-    $sql = "SELECT * FROM usuarios WHERE id = ?";
+    $sql = "SELECT * FROM incidencias WHERE id = ?";
     $stmt = $db->prepare($sql);
     $stmt->bind_param("i", $id);
     $stmt->execute();
