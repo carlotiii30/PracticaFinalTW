@@ -39,19 +39,7 @@ function backup($db)
         }
         $salida .= "\n\n\n";
     }
-    //return $salida;
-
-    // Guardamos la copia en un archivo y ofrecemos la descarga.
-    $f = fopen('db-backup-' . time() . '-' . (md5(implode(',', $tablas))) . '.sql', 'w+');
-    fwrite($f, $salida);
-    fclose($f);
-
-    $archivo = 'db-backup-' . time() . '-' . (md5(implode(',', $tablas))) . '.sql';
-    header('Content-Type: application/octet-stream');
-    header('Content-Disposition: attachment; filename="' . $archivo . '"');
-    readfile($archivo);
-    exit;
-
+    return $salida;
 }
 
 // Restaurar base de datos
