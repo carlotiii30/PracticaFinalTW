@@ -928,9 +928,9 @@ function htmlPagGestionBD()
                 <input type="submit" name="restaurar" value="{$mensajesBackup[$idioma]['Restaurar']}">
                 <input type="submit" name="borrar" value="{$mensajesBackup[$idioma]['Borrar']}">
             </div>
-    HTML;
+  HTML;
 
-  if (isset($_POST["borrar"])) {
+  if (isset($_SESSION["confirmar_borrar"]) && $_SESSION["confirmar_borrar"]) {
     echo <<<HTML
           <div class="seguridad">
               <p>{$mensajesBackup[$idioma]['Seguridad']}</p>
@@ -943,6 +943,7 @@ function htmlPagGestionBD()
 
   echo "</form></div>";
 }
+
 
 function htmlPagComentarios()
 {
