@@ -920,6 +920,8 @@ function htmlPagGestionBD()
   global $mensajesBackup;
   global $idioma;
 
+
+
   echo <<<HTML
     <div class="gestion">
         <form method="post" action="./BD/procesarCopia.php">
@@ -939,6 +941,8 @@ function htmlPagGestionBD()
               <input type="submit" name="confirmar_borrar" value="Estoy segurísimo">
           </div>
   HTML;
+
+    $_SESSION["confirmar_borrar"] = false;
   }
 
   echo "</form></div>";
