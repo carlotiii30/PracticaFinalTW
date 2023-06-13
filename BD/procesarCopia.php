@@ -16,9 +16,23 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     // Opción 2: Restaurar copia de seguridad
     else if (isset($_POST["restaurar"])) {
-        if (isset($_FILES["archivo"])) {
-            // Restaurar la copia de seguridad usando $_FILES["archivo"]
+        $_SESSION["restaurar"] = true;
+        echo "<meta http-equiv='refresh' content='0;url=../gestionBD.php'>";
+    } else if (isset($_POST["subir"])) {
+        if ((sizeof($_FILES) == 0) || !array_key_exists("fichero", $_FILES)) {
+            $_SESSION["mensaje"] = "No se ha podido subir el fichero";
+            echo "<meta http-equiv='refresh' content='0;url=../index.php'>";
         }
+        else if (!is_uploaded_file($_FILES['fichero']['tmp_name'])) {
+            $_SESSION["mensaje"] = "Fichero no subido. Código de error: " . $_FILES['fichero']['error'];
+            echo "<meta http-equiv='refresh' content='0;url=../index.php'>";
+        }
+        else {
+            $_SESSION["mensaje"] = restaurar($db, $_FILES['fichero']['tmp_name']);
+            echo "<meta http-equiv='refresh' content='0;url=../index.php'>";
+        }
+
+        $_SESSION["restaurar"] = false;
     }
 
     // Opción 3: Borrar la BBDD (se reinicia)

@@ -17,7 +17,7 @@ function registrarUsuario()
 		$direccion = isset($_POST['direccion']) ? $_POST['direccion'] : '';
 
 		$rol = isset($_POST['rol']) ? $_POST['rol'] : 'colaborador';
-		$estado = isset($_POST['estado']) ? $_POST['estado'] : 'activo';
+		$estado = isset($_POST['estado']) ? $_POST['estado'] : 'inactivo';
 
 		if (isset($_POST['enviar'])) {
 			// - - - Validamos los datos - - - 

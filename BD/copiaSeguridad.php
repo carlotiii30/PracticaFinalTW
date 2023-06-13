@@ -1,5 +1,18 @@
 <?php
 
+if (!function_exists('insertarLog')) {
+    function insertarLog($accion, $db)
+    {
+        $accion = "INFO: " . $accion; // Concatenar "INFO: " al inicio de $accion
+        $sql = "INSERT INTO logs (fecha, accion)
+                    VALUES (NOW(), ?)";
+        $stmt = $db->prepare($sql);
+        $stmt->bind_param("s", $accion); // Pasar el valor de $accion concatenado
+        $stmt->execute();
+        $stmt->close();
+    }
+}
+
 // Copia de seguridad de la base de datos
 function backup($db)
 {
@@ -53,11 +66,14 @@ function restaurar($db, $f)
     foreach ($queries as $q) {
         $q = trim($q);
         if ($q != '' and !mysqli_query($db, $q))
-            $error .= mysqli_error($db);
+            $error[] = mysqli_error($db);
     }
     mysqli_commit($db);
     mysqli_query($db, 'SET FOREIGN_KEY_CHECKS=1');
-    return $error;
+
+    insertarLog("La base de datos se ha restaurado desde un fichero", $db);
+
+    return implode("\n", $error);
 }
 
 // Borrar tablas
@@ -89,8 +105,10 @@ function borrar($db)
         insertarLog("Intento fallido de borrar la base de datos.", $db);
     }
 
-    header("Location: index.php");
-    __htmlLogout();
+    /*if (!isset($_SESSION["restaurar"]) || (isset($_SESSION["restaurar"]) && !$_SESSION["restaurar"])) {
+        header("Location: ../index.php");
+        __htmlLogout();
+    }*/
 }
 
 

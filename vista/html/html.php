@@ -920,11 +920,18 @@ function htmlPagGestionBD()
   global $mensajesBackup;
   global $idioma;
 
+  if (!isset($_SESSION["confirmar_borrar"])) {
+    $_SESSION["confirmar_borrar"] = false;
+  }
+
+  if (!isset($_SESSION["restaurar"])) {
+    $_SESSION["restaurar"] = false;
+  }
 
 
   echo <<<HTML
     <div class="gestion">
-        <form method="post" action="./BD/procesarCopia.php">
+        <form method="post" action="./BD/procesarCopia.php" enctype="multipart/form-data">
             <div class="botones">
                 <input type="submit" name="descargar" value="{$mensajesBackup[$idioma]['Descargar']}">
                 <input type="submit" name="restaurar" value="{$mensajesBackup[$idioma]['Restaurar']}">
@@ -938,11 +945,19 @@ function htmlPagGestionBD()
               <p>{$mensajesBackup[$idioma]['Seguridad']}</p>
               <label for="confirmar">{$mensajesBackup[$idioma]['Confirmar']}:</label>
               <input type="text" name="confirmar" id="confirmar">
-              <input type="submit" name="confirmar_borrar" value="Estoy segurísimo">
+              <input type="submit" name="confirmar_borrar" value="{$mensajesBackup[$idioma]['Borrar']}">
           </div>
-  HTML;
+    HTML;
+  }
 
-    $_SESSION["confirmar_borrar"] = false;
+  if (isset($_SESSION["restaurar"]) && $_SESSION["restaurar"]) {
+    echo <<<HTML
+          <div class="restaurar">
+              <label for="fichero">{$mensajesBackup[$idioma]['Fichero']}:</label>
+              <input type='file' name='fichero'/>
+              <input type="submit" name="subir" value="{$mensajesBackup[$idioma]['Subir']}">
+          </div>
+    HTML;
   }
 
   echo "</form></div>";
@@ -1200,8 +1215,8 @@ function modificarUsuario($idUsuario)
       echo '<option value="activo"' . (!$cambiosValidados ? ($usuario['estado'] == 'activo' ? ' selected' : '') : ($datos['estado'] == 'activo' ? ' selected' : '')) . '>Activo</option>';
       echo '<option value="inactivo"' . (!$cambiosValidados ? ($usuario['estado'] == 'inactivo' ? ' selected' : '') : ($datos['estado'] == 'inactivo' ? ' selected' : '')) . '>Inactivo</option>';
       echo '</select>';
-      if($disabled == "disabled"){
-        if($_SESSION['rol'] != "admin")
+      if ($disabled == "disabled") {
+        if ($_SESSION['rol'] != "admin")
           $datos['estado'] = $usuario['estado'];
         echo '<input type="hidden" name="estado" value="' . $datos['estado'] . '">';
       }
@@ -1212,12 +1227,12 @@ function modificarUsuario($idUsuario)
       echo '<option value="colaborador"' . (!$cambiosValidados ? ($usuario['rol'] == 'colaborador' ? ' selected' : '') : ($datos['rol'] == 'colaborador' ? ' selected' : '')) . '>Colaborador</option>';
       echo '<option value="admin"' . (!$cambiosValidados ? ($usuario['rol'] == 'admin' ? ' selected' : '') : ($datos['rol'] == 'admin' ? ' selected' : '')) . '>Admin</option>';
       echo '</select>';
-      if($disabled == "disabled"){
-        if($_SESSION['rol'] != "admin")
+      if ($disabled == "disabled") {
+        if ($_SESSION['rol'] != "admin")
           $datos['rol'] = $usuario['rol'];
         echo '<input type="hidden" name="rol" value="' . $datos['rol'] . '">';
       }
-     // echo '<input type="text" name="rol" value="' . ($usuario['rol']) . '"' . $esAdmin . $disabled .'>';
+      // echo '<input type="text" name="rol" value="' . ($usuario['rol']) . '"' . $esAdmin . $disabled .'>';
 
       echo '<div class="botones">';
       if ($cambiosValidados == false) {

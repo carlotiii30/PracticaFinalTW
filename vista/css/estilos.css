@@ -707,6 +707,12 @@ aside form {
     border: 1px solid rgb(172, 134, 172);
 }
 
+.gestion .restaurar {
+    margin: 15px;
+    padding: 10px;
+    border: 1px solid rgb(172, 134, 172);
+}
+
 /* - - GESTIÓN USUARIOS - - */
 .principalGestion {
     flex: 85%;

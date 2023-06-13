@@ -5,7 +5,10 @@
         "Borrar": "Borrar la base de datos", 
 
         "Seguridad": "Esta acción borrará toda la información que hay actualmente en la base de datos. ¿Está seguro/a de que quiere realizarla?",
-        "Confirmar": "Escriba 'si' para confirmar el borrado"
+        "Confirmar": "Escriba 'si' para confirmar el borrado",
+
+        "Fichero": "Fichero",
+        "Subir": "Subir"
     },
 
     "en": {
@@ -14,7 +17,10 @@
         "Borrar": "Delete the database", 
 
         "Seguridad": "This action will delete all information currently in the database. Are you sure you want to do it?",
-        "Confirmar": "Type 'si' to confirm deletion"
+        "Confirmar": "Type 'si' to confirm deletion",
+
+        "Fichero": "File",
+        "Subir": "Upload"
     },
 
     "fr": {
@@ -23,6 +29,9 @@
         "Borrar": "Supprimer la base de données", 
 
         "Seguridad": "Cette action supprimera toutes les informations actuellement dans la base de données. Êtes-vous sûr de vouloir le faire?",
-        "Confirmar": "Tapez 'si' pour confirmer la suppression"
+        "Confirmar": "Tapez 'si' pour confirmer la suppression",
+
+        "Fichero": "Fichier",
+        "Subir": "Téléverser"
     }
 }
