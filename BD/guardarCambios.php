@@ -108,7 +108,10 @@ function guardarCambios($idUsuario){
                     insertarLog("El usuario $email ha modificado sus datos", $db);
                     
                     //Actualizamos la variable de sesión con los nuevos datos
-                    $_SESSION['nombreUsuario'] = $email;
+                    if($_SESSION['idUsuario'] == $id){
+                        $_SESSION['nombreUsuario'] = $email;
+                        $_SESSION['rol'] = $rol;
+                    }
 
                     // Mensaje de correcto
                     $_SESSION['mensaje'] = "¡Enhorabuena! Su información ha sido modificada con éxito.";

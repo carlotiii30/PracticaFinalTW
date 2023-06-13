@@ -1211,23 +1211,25 @@ function modificarUsuario($idUsuario)
       echo '<label for="estado">';
       echo $mensajesRegistro[$idioma]["Estado"];
       echo '</label>';
-      echo '<select name="estado" ' . $esAdmin . $disabled . '>';
+      echo '<select name="estado" ' . $esAdmin . ' ' . $disabled . '>';
       echo '<option value="activo"' . (!$cambiosValidados ? ($usuario['estado'] == 'activo' ? ' selected' : '') : ($datos['estado'] == 'activo' ? ' selected' : '')) . '>Activo</option>';
       echo '<option value="inactivo"' . (!$cambiosValidados ? ($usuario['estado'] == 'inactivo' ? ' selected' : '') : ($datos['estado'] == 'inactivo' ? ' selected' : '')) . '>Inactivo</option>';
       echo '</select>';
       if($disabled == "disabled"){
-        echo $datos['estado'];
+        if($_SESSION['rol'] != "admin")
+          $datos['estado'] = $usuario['estado'];
         echo '<input type="hidden" name="estado" value="' . $datos['estado'] . '">';
       }
       //echo '<input type="text" name="estado" value="' . ($usuario['estado']) . '"' . $esAdmin . $disabled . '>';
 
       echo '<label for="rol">Rol:</label>';
-      echo '<select name="rol" ' . $esAdmin . $disabled . '>';
-      echo '<option value="admin"' . (!$cambiosValidados ? ($usuario['rol'] == 'admin' ? ' selected' : '') : ($datos['rol'] == 'admin' ? ' selected' : '')) . '>Admin</option>';
+      echo '<select name="rol" ' . $esAdmin . ' ' . $disabled . '>';
       echo '<option value="colaborador"' . (!$cambiosValidados ? ($usuario['rol'] == 'colaborador' ? ' selected' : '') : ($datos['rol'] == 'colaborador' ? ' selected' : '')) . '>Colaborador</option>';
+      echo '<option value="admin"' . (!$cambiosValidados ? ($usuario['rol'] == 'admin' ? ' selected' : '') : ($datos['rol'] == 'admin' ? ' selected' : '')) . '>Admin</option>';
       echo '</select>';
       if($disabled == "disabled"){
-        echo $datos['rol'];
+        if($_SESSION['rol'] != "admin")
+          $datos['rol'] = $usuario['rol'];
         echo '<input type="hidden" name="rol" value="' . $datos['rol'] . '">';
       }
      // echo '<input type="text" name="rol" value="' . ($usuario['rol']) . '"' . $esAdmin . $disabled .'>';

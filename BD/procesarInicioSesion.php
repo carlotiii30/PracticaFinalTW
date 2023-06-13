@@ -23,7 +23,7 @@ if (is_string($db = conexion())) {
         if ($result && $result->num_rows > 0) {
             $usuario = $result->fetch_assoc();
             $hash = $usuario['password'];
-            if(password_verify($password, $hash)) {
+            if(password_verify($password, $hash) && $usuario['estado'] == "activo") {
                 $idUsuario = $usuario["id"];
                 session_start();
                 $_SESSION['autenticado'] = true;
