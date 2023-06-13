@@ -189,10 +189,12 @@ ADD FOREIGN KEY (idUsuario) REFERENCES usuarios (id)";
 //$sql = "ALTER TABLE incidencias DROP COLUMN valoracionesNegativas;";
  // Crear usuario administrador
  
- $hash = password_hash('admin', PASSWORD_BCRYPT);
+/* $hash = password_hash('admin', PASSWORD_BCRYPT);
 
  $sql = "INSERT INTO usuarios (nombre, apellidos, email, password, telefono, direccion, rol, estado) 
-			 VALUES ('admin', '', 'admin@admin.com', '$hash', '', '', 'admin', 'activo')";
+			 VALUES ('admin', '', 'admin@admin.com', '$hash', '', '', 'admin', 'activo')";*/
+
+$sql = " ALTER TABLE usuarios ADD CONSTRAINT uc_email UNIQUE (email)";
 
 if ($db->query($sql) === TRUE) {
 	echo "Tabla creada correctamente";

@@ -920,37 +920,19 @@ function htmlPagGestionBD()
   global $mensajesBackup;
   global $idioma;
 
-  if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $db = conexion();
 
-    // Opción 1: Descargar copia de seguridad
-    if (isset($_POST["descargar"])) {
-      backup($db);
-    }
-
-    // Opción 2: Restaurar copia de seguridad
-    else if (isset($_POST["restaurar"])) {
-      //restaurar($db, );
-    }
-
-    // Opción 3: Borrar la BBDD (se reinicia)
-    else if (isset($_POST["confirmar_borrar"]) && isset($_POST["confirmar"]) && $_POST["confirmar"] === "si") {
-      borrar($db);
-    }
-    desconexion($db);
-  }
 
   echo <<<HTML
     <div class="gestion">
-        <form method="post" action="">
+        <form method="post" action="./BD/procesarCopia.php">
             <div class="botones">
                 <input type="submit" name="descargar" value="{$mensajesBackup[$idioma]['Descargar']}">
                 <input type="submit" name="restaurar" value="{$mensajesBackup[$idioma]['Restaurar']}">
                 <input type="submit" name="borrar" value="{$mensajesBackup[$idioma]['Borrar']}">
             </div>
-    HTML;
+  HTML;
 
-  if (isset($_POST["borrar"])) {
+  if (isset($_SESSION["confirmar_borrar"]) && $_SESSION["confirmar_borrar"]) {
     echo <<<HTML
           <div class="seguridad">
               <p>{$mensajesBackup[$idioma]['Seguridad']}</p>
@@ -959,10 +941,13 @@ function htmlPagGestionBD()
               <input type="submit" name="confirmar_borrar" value="Estoy segurísimo">
           </div>
   HTML;
+
+    $_SESSION["confirmar_borrar"] = false;
   }
 
   echo "</form></div>";
 }
+
 
 function htmlPagComentarios()
 {
