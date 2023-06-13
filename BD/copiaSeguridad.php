@@ -28,6 +28,7 @@ function backup($db)
     foreach ($tablas as $tab) {
         $result = mysqli_query($db, 'SELECT * FROM ' . $tab);
         $num = mysqli_num_fields($result);
+        $fields = mysqli_fetch_fields($result);
 
         $salida .= 'DROP TABLE IF EXISTS ' . $tab . ';';
         $row2 = mysqli_fetch_row(mysqli_query($db, 'SHOW CREATE TABLE ' . $tab));
@@ -37,14 +38,19 @@ function backup($db)
             $salida .= 'INSERT INTO ' . $tab . ' VALUES(';
             for ($j = 0; $j < $num; $j++) {
                 if (!is_null($row[$j])) {
-                    $row[$j] = addslashes($row[$j]);
-                    $row[$j] = preg_replace("/\n/", "\\n", $row[$j]);
-                    if (isset($row[$j]))
-                        $salida .= '"' . $row[$j] . '"';
-                    else
-                        $salida .= '""';
-                } else
+                    if ($fields[$j]->type == MYSQLI_TYPE_BLOB || $fields[$j]->type == MYSQLI_TYPE_LONG_BLOB || $fields[$j]->type == MYSQLI_TYPE_MEDIUM_BLOB || $fields[$j]->type == MYSQLI_TYPE_TINY_BLOB) {
+                        $salida .= '"' . base64_encode($row[$j]) . '"';
+                    } else {
+                        $row[$j] = addslashes($row[$j]);
+                        $row[$j] = preg_replace("/\n/", "\\n", $row[$j]);
+                        if (isset($row[$j]))
+                            $salida .= '"' . $row[$j] . '"';
+                        else
+                            $salida .= '""';
+                    }
+                } else {
                     $salida .= 'NULL';
+                }
                 if ($j < ($num - 1))
                     $salida .= ',';
             }
@@ -55,11 +61,12 @@ function backup($db)
     return $salida;
 }
 
+
 // Restaurar base de datos
 function restaurar($db, $f)
 {
     mysqli_query($db, 'SET FOREIGN_KEY_CHECKS=0');
-    borrar($db);
+    borrar($db, 1);
     $error = [];
     $sql = file_get_contents($f);
     $queries = explode(';', $sql);
@@ -77,7 +84,7 @@ function restaurar($db, $f)
 }
 
 // Borrar tablas
-function borrar($db)
+function borrar($db, $n)
 {
     $result = mysqli_query($db, 'SHOW TABLES');
 
@@ -105,10 +112,10 @@ function borrar($db)
         insertarLog("Intento fallido de borrar la base de datos.", $db);
     }
 
-    /*if (!isset($_SESSION["restaurar"]) || (isset($_SESSION["restaurar"]) && !$_SESSION["restaurar"])) {
+    if ($n == 0 ) {
         header("Location: ../index.php");
         __htmlLogout();
-    }*/
+    }
 }
 
 

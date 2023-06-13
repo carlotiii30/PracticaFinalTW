@@ -41,7 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         echo "<meta http-equiv='refresh' content='0;url=../gestionBD.php'>";
     } else if (isset($_POST["confirmar_borrar"]) && isset($_POST["confirmar"]) && $_POST["confirmar"] === "si") {
         $_SESSION["confirmar_borrar"] = false;
-        borrar($db);
+        borrar($db, 0);
     }
 
     desconexion($db);
