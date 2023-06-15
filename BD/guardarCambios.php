@@ -1,4 +1,18 @@
 <?php
+/**
+ * Fichero para guardar los cambios de un usuario.
+ * 
+ * Autores: Carlota de la Vega Soriano y Manuel Vico Arboledas.
+ */
+
+
+/**
+ *  Función que procesa el formulario de editar perfil de un usuario.
+ * 
+ *  @param int $idUsuario ID del usuario que se está modificando.
+ * 
+ *  @return array Retorna un array con los datos del usuario.
+ */
 function guardarCambios($idUsuario){
     global $erroresCambios;
     global $cambiosValidados;

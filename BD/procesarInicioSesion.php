@@ -1,4 +1,10 @@
 <?php
+/**
+ * Fichero que procesa el formulario inicio de sesión
+ * 
+ * Autores: Carlota de la Vega Soriano y Manuel Vico Arboledas.
+ */
+
 require('baseDatos.php'); // Conexión y desconexión
 require('../funcion.php');
 
