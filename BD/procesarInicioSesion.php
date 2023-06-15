@@ -38,12 +38,17 @@ if (is_string($db = conexion())) {
                 $_SESSION['idUsuario'] = $idUsuario;
 
                 insertarLog("El usuario $nombreUsuario ha iniciado sesión", $db);
+                $_SESSION["mensaje"] = "Bienvenido $nombreUsuario. Puedes empezar a navegar por la página.";
 
                 header("Location: ../index.php");
             } else {
-                // El inicio de sesión falló
+                if ($usuario['estado'] == "inactivo") {
+                    insertarLog("El usuario $nombreUsuario ha intentado iniciar sesión, pero no está activo en el sistema.", $db);
+                }
+                else {
+                    insertarLog("El usuario $nombreUsuario ha intentado iniciar sesión sin éxito.", $db);
+                }
                 header("Location: ../index.php");
-                insertarLog("El usuario $nombreUsuario ha intentado iniciar sesión sin éxito.", $db);
             }
         } else {
             // El inicio de sesión falló
