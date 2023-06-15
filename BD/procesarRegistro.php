@@ -106,23 +106,32 @@ function registrarUsuario()
  */
 function agregarFoto($idUsuario)
 {
-	// Conexión
-	$db = conexion();
+    // Conexión
+    $db = conexion();
 
-	$imagen = file_get_contents($_FILES['images']['tmp_name']);
-	$_SESSION['imagen'] = $imagen;
+    if (isset($_FILES['images']) && $_FILES['images']['error'] == UPLOAD_ERR_OK) {
+        $imagen = file_get_contents($_FILES['images']['tmp_name']);
+        $_SESSION['imagen'] = $imagen;
 
-	if (subirFoto("usuarios", $db, $idUsuario)) {
-		$_SESSION['mensaje'] = "¡Registrado y con foto!";
-		desconexion($db);
-	}
-	else {
-		$_SESSION['mensaje'] = "Registrado, pero sin foto... Puede añadirla editando su perfil.";
-	}
-	
+        if (subirFoto("usuarios", $db, $idUsuario)) {
+            $_SESSION['mensaje'] = "¡Registrado y con foto!";
+        } else {
+            $_SESSION['mensaje'] = "Registrado, pero no se pudo subir la foto. Puede añadirla editando su perfil.";
+        }
+    } else {
+        // Si no se proporciona ninguna imagen, establecer la imagen predeterminada
+        $imagen = file_get_contents("./vista/imagenes/usuario.png");
+        $_SESSION['imagen'] = $imagen;
+        subirFoto("usuarios", $db, $idUsuario);
+        $_SESSION['mensaje'] = "Registrado. Se le ha asignado una imagen por defecto. Puede modificarla en su perfil.";
+    }
+
+    desconexion($db);
+
     // Redirigimos.
     header('Location: index.php');
-	exit;
+    exit;
 }
+
 
 ?>
