@@ -16,6 +16,8 @@
         "AyudaSesion": "Datos para iniciar sesión. Son obligatorios.",
 
         "Estado": "Estado",
+        "Activo": "Activo",
+        "Inactivo": "Inactivo",
 
         "Enviar": "Enviar formulario",
         "Borrar": "Borrar formulario",
@@ -40,6 +42,8 @@
         "AyudaSesion": "Data to log in. They are mandatory.",
 
         "Estado": "Status",
+        "Activo": "Active",
+        "Inactivo": "Inactive",
 
         "Enviar": "Submit form",
         "Borrar": "Reset form",
@@ -64,6 +68,8 @@
         "AyudaSesion": "Données pour se connecter. Elles sont obligatoires.",
 
         "Estado": "État",
+        "Activo": "Actif",
+        "Inactivo": "Inactif",
 
         "Enviar": "Soumettre le formulaire",
         "Borrar": "Supprimer le formulaire",

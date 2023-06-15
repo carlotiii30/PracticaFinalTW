@@ -14,7 +14,11 @@
         "Valoraciones": "Valoraciones",
 
         "Enviar": "Enviar datos",
-        "Confirmar": "Confirmar datos"
+        "Confirmar": "Confirmar datos",
+
+        "Borrar": "Borrar foto",
+        "Fotografias": "Fotografías adjuntas",
+        "Aniadir": "Añadir foto"
     },
 
     "en": {
@@ -31,7 +35,12 @@
         "Creador": "Created by",
         "Valoraciones": "Ratings",
 
-        "Enviar": "Submit data"
+        "Enviar": "Submit data",
+        "Confirmar": "Confirm data",
+
+        "Borrar": "Delete photo",
+        "Fotografias": "Attached photos",
+        "Aniadir": "Add photo"
     },
 
     "fr": {
@@ -48,6 +57,11 @@
         "Creador": "Créé par",
         "Valoraciones": "Notes",
 
-        "Enviar": "Soumettre des données"
+        "Enviar": "Soumettre des données",
+        "Confirmar": "confirmer des données",
+
+        "Borrar": "Supprimer la photo",
+        "Fotografias": "Photos jointes",
+        "Aniadir": "Ajouter la photo"
     }
 }

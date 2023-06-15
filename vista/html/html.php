@@ -1212,8 +1212,8 @@ function modificarUsuario($idUsuario)
       echo $mensajesRegistro[$idioma]["Estado"];
       echo '</label>';
       echo '<select name="estado" ' . $esAdmin . ' ' . $disabled . '>';
-      echo '<option value="activo"' . (!$cambiosValidados ? ($usuario['estado'] == 'activo' ? ' selected' : '') : ($datos['estado'] == 'activo' ? ' selected' : '')) . '>Activo</option>';
-      echo '<option value="inactivo"' . (!$cambiosValidados ? ($usuario['estado'] == 'inactivo' ? ' selected' : '') : ($datos['estado'] == 'inactivo' ? ' selected' : '')) . '>Inactivo</option>';
+      echo '<option value="activo"' . (!$cambiosValidados ? ($usuario['estado'] == 'activo' ? ' selected' : '') : ($datos['estado'] == 'activo' ? ' selected' : '')) . '>' . $mensajesRegistro[$idioma]["Activo"] . '</option>';
+      echo '<option value="inactivo"' . (!$cambiosValidados ? ($usuario['estado'] == 'inactivo' ? ' selected' : '') : ($datos['estado'] == 'inactivo' ? ' selected' : '')) . '>' . $mensajesRegistro[$idioma]["Inactivo"] . '</option>';
       echo '</select>';
       if ($disabled == "disabled") {
         if ($_SESSION['rol'] != "admin")
@@ -1222,7 +1222,7 @@ function modificarUsuario($idUsuario)
       }
       //echo '<input type="text" name="estado" value="' . ($usuario['estado']) . '"' . $esAdmin . $disabled . '>';
 
-      echo '<label for="rol">Rol:</label>';
+      echo '<label for="rol">Rol</label>';
       echo '<select name="rol" ' . $esAdmin . ' ' . $disabled . '>';
       echo '<option value="colaborador"' . (!$cambiosValidados ? ($usuario['rol'] == 'colaborador' ? ' selected' : '') : ($datos['rol'] == 'colaborador' ? ' selected' : '')) . '>Colaborador</option>';
       echo '<option value="admin"' . (!$cambiosValidados ? ($usuario['rol'] == 'admin' ? ' selected' : '') : ($datos['rol'] == 'admin' ? ' selected' : '')) . '>Admin</option>';
@@ -1296,7 +1296,7 @@ function __htmlEstadoIncidencia($idIncidencia)
         <div class="estado">
             <form method="post" action="">
               <h2 class="subtitulo">
-                {$mensajesIncidencias[$idioma]["Datos"]}
+                {$mensajesIncidencias[$idioma]["Estado"]}
                </h2>
               <div class="entrada">
       HTML;
@@ -1319,17 +1319,23 @@ function __htmlEstadoIncidencia($idIncidencia)
 
       echo '<label><input type="radio" name="estado" value="Resuelta"' . ($estado == 'Resuelta' ? ' checked' : '') . ($admin ? ' disabled' : '') . '>';
       echo 'Resuelta';
+      echo '</label>';
 
+      echo '</div>';
+
+      if (!$admin) {
       echo <<<HTML
-                </label>
-              </div>
               <div class="botones">
                 <input type="submit" name= "modificarEstado" value="{$mensajesIncidencias[$idioma]["Enviar"]}">
                 <input type="hidden" name="idIncidencia" value="$id">
               </div>
-            </form>
-        </div>
       HTML;
+      }
+
+      echo '
+            </form>
+        </div>';
+
     } else {
       echo 'No se encontraron registros en la tabla incidencias.';
     }
@@ -1449,7 +1455,7 @@ function __htmlFotosIncidencia($idIncidencia)
       <div class="adjuntas">
         <div class="entrada">
           <h2 class="subtitulo">
-            Fotografías adjuntas
+            {$mensajesIncidencias[$idioma]["Fotografias"]}
           </h2>
     HTML;
 
@@ -1462,7 +1468,7 @@ function __htmlFotosIncidencia($idIncidencia)
         echo $imageData;
         echo '<form method="post" action="">';
         echo '<div class="botones">';
-        echo '<input type="submit" name="borrarFoto" value="Borrar foto">';
+        echo '<input type="submit" name="borrarFoto" value="' . $mensajesIncidencias[$idioma]["Borrar"] . '">';
         echo '<input type="hidden" name="idFoto" value="' . $row['id'] . '">';
         echo '</div>';
         echo '</form>';
@@ -1476,7 +1482,7 @@ function __htmlFotosIncidencia($idIncidencia)
             <label for="foto">
               <input type="file" name="images"> 
             </label>
-            <input type="submit" name="subir" value="Añadir fotografía">
+            <input type="submit" name="subir" value="{$mensajesIncidencias[$idioma]['Aniadir']}">
             <input type="hidden" name="idIncidencia" value="$id">
           </form>
         </div>

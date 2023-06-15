@@ -334,7 +334,7 @@ aside form {
 }
 
 .editarIncidencia form {
-    margin: 0;
+    margin-bottom: 5px;
     padding: 5px;
     background-color: rgb(208, 185, 208);
     border: 1px solid rgb(172, 134, 172);
@@ -355,6 +355,9 @@ aside form {
     border: 1px solid rgb(172, 134, 172);
 }
 
+.editarIncidencia .estado {
+    margin-bottom: 5px;
+}
 .editarIncidencia .estado form {
     margin: 0;
     padding: 5px;
@@ -379,15 +382,24 @@ aside form {
     border: 1px solid rgb(172, 134, 172);
 }
 
-.editarIncidencia .adjuntas .foto{
-    border: 1px solid rgb(172, 134, 172);
+.editarIncidencia .adjuntas .foto {
+    border: 2px solid white;
+    margin: 10px;
+}
+
+.editarIncidencia .adjuntas form {
+    border: none;
 }
 
 .editarIncidencia .adjuntas .entrada img {
     width: 250px;
     height: auto;
     overflow: hidden;
-    margin: 5px;
+    margin: 15px;
+}
+
+.editarIncidencia .adjuntas form input{
+    border: none;
 }
 
 
@@ -643,6 +655,14 @@ aside form {
 }
 
 .modificar .entrada input {
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    border: 1px solid rgb(172, 134, 172);
+}
+
+.modificar .entrada select {
     width: 100%;
     padding: 5px;
     margin-bottom: 10px;
