@@ -1,5 +1,19 @@
 <?php
+/**
+ * Fichero con las funciones relacionadas con las incidencias.
+ * 
+ * Autores: Carlota de la Vega Soriano y Manuel Vico Arboledas.
+ */
 
+/**
+ * Función para insertar una incidencia en la base de datos, tras el procesamiento de un formulario.
+ * 
+ * @global array $erroresIncidencia Array que contiene los errores de validación del formulario.
+ * @global bool $confirmada Indica si la inserción de la incidencia ha sido confirmada.
+ * @global bool $insertada Indica si la inserción de la incidencia ha sido realizada.
+ * 
+ * @return void
+ */
 function insertarIncidencia()
 {
     global $erroresIncidencia;
@@ -63,6 +77,11 @@ function insertarIncidencia()
 }
 
 
+/**
+ * Función para subir una foto de una incidencia a la base de datos, tras el procesamiento de un formulario.
+ * 
+ * @return void
+ */
 function agregarFotoIncidencia()
 {
     // Verificar si se ha enviado una foto
@@ -88,6 +107,13 @@ function agregarFotoIncidencia()
     exit;
 }
 
+/**
+ * Función para borrar una foto de una incidencia de la base de datos.
+ * 
+ * @param int $idFoto ID de la foto a borrar.
+ * 
+ * @return void
+ */
 function borrarFoto($idFoto)
 {
     $db = conexion();
@@ -106,6 +132,11 @@ function borrarFoto($idFoto)
     desconexion($db);
 }
 
+/**
+ * Función para procesar el formulario de editar una incidencia.
+ * 
+ * @return void
+ */
 function procesamientoEditar(){
     //Código para procesar el formulario de estado de la incidencia
     if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['modificarEstado'])){

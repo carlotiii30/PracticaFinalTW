@@ -75,7 +75,9 @@ HTML;
 
 /**
  * Función para dar formato a los usuarios.
- * Se le pasa por parámetro un usuario de la tabla y la base de datos.
+ * 
+ * @param array $usuario Datos del usuario.
+ * @param mysqli $db Objeto mysqli que representa la conexión con la base de datos.
  * 
  * Hay un campo oculto para obtener el id del usuario.
  */
@@ -133,7 +135,9 @@ function __formatoUsuario($usuario, $db)
 
 /**
  * Función para borrar un usuario de la tabla de usuarios.
- * Se le pasa por parámetro el id del usuario a borrar y la base de datos.
+ * 
+ * @param int $id ID del usuario que se va a borrar.
+ * @param mysqli $db Objeto mysqli que representa la conexión con la base de datos.
  */
 function borrarUsuario($id, $db) {
 

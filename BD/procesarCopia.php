@@ -1,8 +1,18 @@
 <?php
+/**
+ * Fichero para procesar el formulario de gestión de la base de datos.
+ * 
+ * Autores: Carlota de la Vega Soriano y Manuel Vico Arboledas.
+ */
+
 require("baseDatos.php");
 require("copiaSeguridad.php");
 
 session_start();
+
+/**
+ *  Código que procesa el formulario de gestión de la base de datos.
+ */
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $db = conexion();

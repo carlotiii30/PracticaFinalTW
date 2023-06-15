@@ -1,7 +1,12 @@
 <?php
+/**
+ * Fichero que procesa el formulario para filtrar las incidencias.
+ * 
+ * Autores: Carlota de la Vega Soriano y Manuel Vico Arboledas.
+ */
+
 $db = conexion();
 
-// Procesar los datos del formulario
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && (!isset($_POST['editar']) && !isset($_POST['logout']))) {
     // Sentencia por defecto si no se rellena el formulario, pero se envia, se muestran todas las incidencias
     

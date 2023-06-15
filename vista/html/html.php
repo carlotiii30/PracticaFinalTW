@@ -1,7 +1,22 @@
 <?php
+/**
+ * Fichero con las funciones relacionadas con el html y la estructura de la página.
+ * 
+ * Autores: Carlota de la Vega Soriano y Manuel Vico Arboledas.
+ */
+
 include "codigoInicial.php";
 
 session_start();
+
+/**
+ * Función con el código html de la parte superior de la página.
+ * 
+ * @param string $titulo Título de la página.
+ * @param string $activo Página activa, para marcar el menú.
+ * 
+ * Contiene la sección de idiomas, el inicio de la página, el encabezado y el menú.
+ */
 function htmlStart($titulo, $activo = '')
 {
   __htmlIdiomas();
@@ -9,12 +24,23 @@ function htmlStart($titulo, $activo = '')
   __htmlEncabezado($activo);
 }
 
+/**
+ * Función con el código html de la parte inferior de la página.
+ * 
+ * Contiene el pie de página y el cierre de la página.
+ */
 function htmlEnd()
 {
   __htmlPiepagina();
   __htmlFin();
 }
 
+/**
+ * Función que muestra un menu dependiendo del rol del usuario.
+ * 
+ * @param string $activo Página activa, para marcar el menú.
+ * 
+ */
 function htmlNavGeneral($activo)
 {
   if (!isset($_SESSION['autenticado'])) {
@@ -26,6 +52,11 @@ function htmlNavGeneral($activo)
   }
 }
 
+/**
+ * Función que muestra un menu para los usuarios no autenticados.
+ * 
+ * @param string $activo Página activa, para marcar el menú.
+ */
 function htmlNavVisitante($activo)
 {
   global $mensajes;
@@ -36,6 +67,11 @@ function htmlNavVisitante($activo)
   ], $activo);
 }
 
+/**
+ * Función que muestra un menu para los usuarios administradores.
+ * 
+ * @param string $activo Página activa, para marcar el menú.
+ */
 function htmlNavAdmin($activo)
 {
   global $mensajes;
@@ -51,6 +87,11 @@ function htmlNavAdmin($activo)
   ], $activo);
 }
 
+/**
+ * Función que muestra un menu para los usuarios colaboradores.
+ * 
+ * @param string $activo Página activa, para marcar el menú.
+ */
 function htmlNavColaborador($activo)
 {
   global $mensajes;
@@ -63,6 +104,13 @@ function htmlNavColaborador($activo)
   ], $activo);
 }
 
+/**
+ * Función que genera el código html de un menú.
+ * 
+ * @param string $clase Clase del menú.
+ * @param array $menu Array con los elementos del menú.
+ * @param string $activo Página activa, para marcar el menú.
+ */
 function htmlNav($clase, $menu, $activo = '')
 {
   echo "<nav class='$clase'>";
@@ -75,6 +123,30 @@ function htmlNav($clase, $menu, $activo = '')
   __htmlContenidosIni();
 }
 
+/** 
+ * Función que genera el código html de la barra lateral.
+ * 
+ * Muestra el login o el usuario logeado, dependiendo de si se ha iniciado sesión o no.
+ * Muestra los widgets.
+ */
+function htmlAside()
+{
+  echo '<aside>';
+  if (!isset($_SESSION['autenticado'])) {
+    __htmlLogin();
+  } else {
+    __htmlLogeado();
+  }
+  __htmlWidgets(1);
+  __htmlWidgets(2);
+}
+
+/**
+ * Función que genera el código html de la página de inicio.
+ * 
+ * Muestra un mensaje en el caso de que se haya redirigido desde otra página.
+ * En caso contrario, muestra un mensaje de bienvenida y una breve descripción de la página.
+ */
 function htmlPagInicio()
 {
   global $mensajes;
@@ -103,18 +175,9 @@ function htmlPagInicio()
 
 }
 
-function htmlAside()
-{
-  echo '<aside>';
-  if (!isset($_SESSION['autenticado'])) {
-    __htmlLogin();
-  } else {
-    __htmlLogeado();
-  }
-  __htmlWidgets(1);
-  __htmlWidgets(2);
-}
-
+/**
+ * Función que genera el código html de la página del log.
+ */
 function htmlPagLog()
 {
   // Conexion
@@ -132,6 +195,12 @@ function htmlPagLog()
   // Mostrar log
   mostrarLog($datos);
 }
+
+/**
+ * Función que muestra los datos del log en formato html.
+ * 
+ * //@param array $datos Datos de la tabla de log.
+ */
 
 function mostrarLog($datos)
 {
@@ -159,6 +228,9 @@ function mostrarLog($datos)
   HTML;
 }
 
+/**
+ * Función que genera el código html de la página nueva incidencia.
+ */
 function htmlPagNuevaIncidencia()
 {
   global $mensajesIncidencias;
@@ -276,6 +348,11 @@ HTML;
     HTML;
 }
 
+/**
+ * Función que genera el código html de la página de ver incidencias.
+ * 
+ * @param int $pagina Página actual.
+ */
 function htmlPagVerIncidencias($pagina)
 {
   global $mensajesCriterios;
@@ -361,6 +438,9 @@ function htmlPagVerIncidencias($pagina)
 
 }
 
+/**
+ * Función que genera el código html de la página de mis incidencias.
+ */
 function htmlPagMisIncidencias()
 {
   // Conexion
@@ -384,10 +464,9 @@ function htmlPagMisIncidencias()
   echo "</div>";
 }
 
-
-
-// ******** Funciones privadas de este módulo
-
+/**
+ * Función que genera el código html correspondientes al formulario para seleccionar idiomas
+ */
 function __htmlIdiomas()
 {
   global $mensajes;
@@ -429,7 +508,11 @@ function __htmlIdiomas()
 
 }
 
-// Cabecera de página web
+/**
+ * Función que genera el código html correspondiente a la cabecera de la página web.
+ * 
+ * @param string $titulo Título de la página.
+ */
 function __htmlInicio($titulo)
 {
   echo <<<HTML

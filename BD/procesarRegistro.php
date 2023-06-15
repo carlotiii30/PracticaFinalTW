@@ -1,5 +1,19 @@
 <?php 
+/**
+ * Fichero con las funciones relacionadas con el registro de un usuario.
+ * 
+ * Autores: Carlota de la Vega Soriano y Manuel Vico Arboledas.
+ */
 
+/**
+ * Función que procesa el formulario de registro de un usuario.
+ * 
+ * @global array $erroresRegistro Array que contiene los errores de validación del formulario.
+ * @global bool $confirmado Indica si el registro ha sido confirmado.
+ * @global bool $registrado Indica si el registro ha sido realizado.
+ * 
+ * @return void
+ */
 function registrarUsuario()
 {
 	global $erroresRegistro;
@@ -83,6 +97,13 @@ function registrarUsuario()
 	}
 }
 
+/**
+ * Función que añade una foto de perfil a un usuario.
+ * 
+ * @param int $idUsuario ID del usuario al que se le añade la foto.
+ * 
+ * @return void
+ */
 function agregarFoto($idUsuario)
 {
 	// Conexión

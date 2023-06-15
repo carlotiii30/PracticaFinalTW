@@ -1,6 +1,18 @@
 <?php
+/**
+ * Fichero para el procesamiento de gestion de la BD.
+ * 
+ * Autores: Carlota de la Vega Soriano y Manuel Vico Arboledas.
+ */
 
 if (!function_exists('insertarLog')) {
+
+    /**
+     * Función que inserta un registro en la tabla logs.
+     * 
+     * @param string $accion Acción que se va a registrar en la tabla logs.
+     * @param mysqli $db Objeto mysqli que representa la conexión con la base de datos.
+     */
     function insertarLog($accion, $db)
     {
         $accion = "INFO: " . $accion; // Concatenar "INFO: " al inicio de $accion
@@ -13,7 +25,12 @@ if (!function_exists('insertarLog')) {
     }
 }
 
-// Copia de seguridad de la base de datos
+/**
+ * Función que genera una copia de seguridad de la base de datos.
+ * 
+ * @param mysqli $db Objeto mysqli que representa la conexión con la base de datos.
+ * @return string Retorna un string con el contenido de la copia de seguridad.
+ */
 function backup($db)
 {
     // Obtener listado de tablas
@@ -62,7 +79,14 @@ function backup($db)
 }
 
 
-// Restaurar base de datos
+/**
+ * Función que restaura una copia de seguridad de la base de datos.
+ * 
+ * @param mysqli $db Objeto mysqli que representa la conexión con la base de datos.
+ * @param string $f Ruta del fichero que contiene la copia de seguridad.
+ * 
+ * @return string Retorna un string con los errores que se han producido durante la restauración.
+ */
 function restaurar($db, $f)
 {
     mysqli_query($db, 'SET FOREIGN_KEY_CHECKS=0');
@@ -83,7 +107,14 @@ function restaurar($db, $f)
     return implode("\n", $error);
 }
 
-// Borrar tablas
+/**
+ *  Función que borra todos los registros de todas las tablas de la base de datos.
+ * 
+ *  @param mysqli $db Objeto mysqli que representa la conexión con la base de datos.
+ *  @param int $n Si $n es 0, se redirige a la página de inicio. Si $n es 1, no se redirige.
+ * 
+ *  @return void
+ */
 function borrar($db, $n)
 {
     $result = mysqli_query($db, 'SHOW TABLES');
@@ -118,8 +149,11 @@ function borrar($db, $n)
     }
 }
 
-
-// Reiniciar numeracion
+/**
+ *  Función que reinicia la numeración de las tablas de la base de datos.
+ * 
+ *  @param mysqli $db Objeto mysqli que representa la conexión con la base de datos.
+ */
 function reiniciarNumeracionTablas($db)
 {
     $tables = array();

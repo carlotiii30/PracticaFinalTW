@@ -31,7 +31,8 @@ function htmlPagLog()
 
 /**
  * Función para mostrar los datos del log.
- * Se le pasa por parámetro los datos de la tabla de log que se quieren visualizar.
+ * 
+ * @param array $datos Datos de la tabla de log.
  * 
  * Muestra una tabla con la fecha y la acción correspondiente a cada entrada de la tabla.
  */

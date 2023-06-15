@@ -1,10 +1,19 @@
 <?php
-
-// - - - Conexión y desconexión - - - -
+/**
+ * Fichero con las funciones relacionadas con la conexión y desconexión de la base de datos.
+ * 
+ * Autores: Carlota de la Vega Soriano y Manuel Vico Arboledas.
+ */
 
 require_once('credenciales.php');
 
-// Conexión a la BBDD
+
+/**
+ * Establece una conexión con la base de datos.
+ *
+ * @return mysqli|string Retorna un objeto mysqli si la conexión se establece correctamente.
+ *                       Si hay un error de conexión, retorna un mensaje de error en formato string.
+ */
 function conexion()
 {
     $db = mysqli_connect(host, admin, clave, bbdd);
@@ -17,7 +26,11 @@ function conexion()
     return $db;
 }
 
-// Desconexión de la BBDD
+/**
+ * Cierra la conexión con la base de datos.
+ *
+ * @param mysqli $db Objeto mysqli que representa la conexión con la base de datos.
+ */
 function desconexion($db)
 {
     mysqli_close($db);
