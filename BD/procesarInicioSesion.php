@@ -5,7 +5,7 @@
  * Autores: Carlota de la Vega Soriano y Manuel Vico Arboledas.
  */
 
-require('baseDatos.php'); // Conexión y desconexión
+require('../core/baseDatos.php'); // Conexión y desconexión
 require('../funcion.php');
 
 // Conexión con la BBDD

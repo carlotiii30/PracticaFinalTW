@@ -5,8 +5,8 @@
  * Autores: Carlota de la Vega Soriano y Manuel Vico Arboledas.
  */
 
-require("baseDatos.php");
-require("copiaSeguridad.php");
+ require('../core/baseDatos.php');
+ require('../core/copiaSeguridad.php');
 
 session_start();
 
@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 
     // Opción 2: Restaurar copia de seguridad
-    else if (isset($_POST["restaurar"])) {
+   /* else if (isset($_POST["restaurar"])) {
         $_SESSION["restaurar"] = true;
         echo "<meta http-equiv='refresh' content='0;url=../gestionBD.php'>";
     } else if (isset($_POST["subir"])) {
@@ -39,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         }
 
         $_SESSION["restaurar"] = false;
-    }
+    }*/
 
     // Opción 3: Borrar la BBDD (se reinicia)
     else if (isset($_POST["borrar"])) {

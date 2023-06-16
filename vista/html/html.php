@@ -1058,9 +1058,9 @@ function htmlPagGestionBD()
     $_SESSION["confirmar_borrar"] = false;
   }
 
-  if (!isset($_SESSION["restaurar"])) {
+  /*if (!isset($_SESSION["restaurar"])) {
     $_SESSION["restaurar"] = false;
-  }
+  }*/
 
 
   echo <<<HTML
@@ -1068,7 +1068,7 @@ function htmlPagGestionBD()
         <form method="post" action="./BD/procesarCopia.php" enctype="multipart/form-data">
             <div class="botones">
                 <input type="submit" name="descargar" value="{$mensajesBackup[$idioma]['Descargar']}">
-                <input type="submit" name="restaurar" value="{$mensajesBackup[$idioma]['Restaurar']}">
+                <!-- <input type="submit" name="restaurar" value="{$mensajesBackup[$idioma]['Restaurar']}"> -->
                 <input type="submit" name="borrar" value="{$mensajesBackup[$idioma]['Borrar']}">
             </div>
   HTML;
@@ -1084,7 +1084,7 @@ function htmlPagGestionBD()
     HTML;
   }
 
-  if (isset($_SESSION["restaurar"]) && $_SESSION["restaurar"]) {
+  /*if (isset($_SESSION["restaurar"]) && $_SESSION["restaurar"]) {
     echo <<<HTML
           <div class="restaurar">
               <label for="fichero">{$mensajesBackup[$idioma]['Fichero']}:</label>
@@ -1092,7 +1092,7 @@ function htmlPagGestionBD()
               <input type="submit" name="subir" value="{$mensajesBackup[$idioma]['Subir']}">
           </div>
     HTML;
-  }
+  }*/
 
   echo "</form></div>";
 }

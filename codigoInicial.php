@@ -5,7 +5,7 @@
  * Autores: Carlota de la Vega Soriano y Manuel Vico Arboledas.
  */
 
-include "BD/baseDatos.php";
+include "core/baseDatos.php";
 include "funcion.php";
 include "BD/procesarIncidencia.php";
 
