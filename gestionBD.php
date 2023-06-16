@@ -1,4 +1,10 @@
 <?php
+/**
+ * Fichero para mostrar la página de gestión de Base de Datos.
+ * 
+ * Autores: Carlota de la Vega Soriano y Manuel Vico Arboledas.
+ */
+
 require('vista/html/html.php'); // Maquetado de página
 require('BD/copiaSeguridad.php'); // Backup
 

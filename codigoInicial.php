@@ -1,4 +1,10 @@
 <?php
+/**
+ * Fichero con el código inicial de todas las páginas.
+ * 
+ * Autores: Carlota de la Vega Soriano y Manuel Vico Arboledas.
+ */
+
 include "BD/baseDatos.php";
 include "funcion.php";
 include "BD/procesarIncidencia.php";

@@ -527,13 +527,17 @@ function __htmlInicio($titulo)
   HTML;
 }
 
-// Contenidos INICIO
+/**
+ * Función que genera el código html correspondiente a los contenidos de la página web.
+ */
 function __htmlContenidosIni()
 {
   echo '<main>';
 }
 
-// Encabezado
+/**
+ * Función que genera el código html correspondiente al encabezado de la página web.
+ */
 function __htmlEncabezado($activo)
 {
   echo <<<HTML
@@ -545,7 +549,9 @@ function __htmlEncabezado($activo)
 }
 
 
-// Pie de página
+/**
+ * Función que genera el código html correspondiente al pie de página de la página web.
+ */
 function __htmlPiepagina()
 {
   __htmlContenidosFin();
@@ -556,18 +562,25 @@ function __htmlPiepagina()
   HTML;
 }
 
-// Contenidos FIN
+/**
+ * Función que genera el código html correspondiente para cerrar el aside y el main de la página web.
+ */
 function __htmlContenidosFin()
 {
   echo '</aside></main>';
 }
 
-// Cierre de página web
+/**
+ * Función que genera el código html correspondiente al cierre de la página web.
+ */
 function __htmlFin()
 {
   echo '</body></html>';
 }
 
+/**
+ * Función que genera el código html correspondiente al formulario de inicio de sesión de la página web.
+ */
 function __htmlLogin()
 {
   global $mensajes;
@@ -599,6 +612,9 @@ function __htmlLogin()
     HTML;
 }
 
+/**
+ * Función que desconecta al usuario y lo redirige a la página de inicio.
+ */
 function __htmlLogout()
 {
   session_destroy();
@@ -609,6 +625,9 @@ function __htmlLogout()
   exit;
 }
 
+/**
+ * Función que genera el código html correspondiente al formulario de usuario logeado de la página web.
+ */
 function __htmlLogeado()
 {
   global $mensajes;
@@ -650,6 +669,11 @@ function __htmlLogeado()
 }
 
 
+/**
+ * Función que genera el código html correspondiente a para mostrar las incidencias.
+ * 
+ * //@param array incidencias Array con las incidencias.
+ */
 function mostrarIncidencias($incidencias)
 {
   if ($_SERVER["REQUEST_METHOD"] === "POST") {
@@ -704,6 +728,12 @@ function mostrarIncidencias($incidencias)
 }
 
 
+/**
+ * Función para dar formato a una incidencia.
+ * 
+ * //@param array incidencia Array con los datos de la incidencia.
+ * 
+ */
 function __formatoIncidencia($incidencia)
 {
   global $mensajesIncidencias;
@@ -795,7 +825,11 @@ function __formatoIncidencia($incidencia)
 
 }
 
-// Para visualizar las fotos.
+/**
+ * Función para mostrar las fotos de una incidencia.
+ * 
+ * //@param int $id Id de la incidencia.
+ */
 function mostrarFotos($id)
 {
   $db = conexion();
@@ -824,6 +858,11 @@ function mostrarFotos($id)
 
 
 // Formato para los comentarios
+/**
+ * Función para mostrar los comentarios de una incidencia.
+ * 
+ * //@param int $id Id de la incidencia.
+ */
 function mostrarComentarios($id)
 {
   $db = conexion();
@@ -880,6 +919,9 @@ function mostrarComentarios($id)
   desconexion($db);
 }
 
+/**
+ * Función que genera el código html correspondiente a la página gestión de usuarios.
+ */
 function htmlPagGestionUsuarios()
 {
   global $idioma;
@@ -939,6 +981,12 @@ HTML;
   }
 }
 
+/**
+ * Función para dar formato a un usuario.
+ * 
+ * //@param array $usuario Array con los datos del usuario.
+ * //@param mysqli $db Conexión con la base de datos.
+ */
 function __formatoUsuario($usuario, $db)
 {
   global $mensajesRegistro;
@@ -998,6 +1046,9 @@ function __formatoUsuario($usuario, $db)
 
 }
 
+/**
+ * Función que genera el código html correspondiente a la página gestión de la base de datos.
+ */
 function htmlPagGestionBD()
 {
   global $mensajesBackup;
@@ -1046,7 +1097,10 @@ function htmlPagGestionBD()
   echo "</form></div>";
 }
 
-
+/**
+ * Función que genera el código html correspondiente para hacer un comentario en una incidencia.
+ * 
+ */
 function htmlPagComentarios()
 {
   echo <<<HTML
@@ -1072,7 +1126,9 @@ function htmlPagComentarios()
   }
 }
 
-
+/**
+ * Función que procesa el formulario para insertar un comentario en una incidencia.
+ */
 function insertarComentario()
 {
   // Conexión con la BBDD
@@ -1127,7 +1183,11 @@ function insertarComentario()
   }
 }
 
-
+/**
+ * Función que genera el código html correspondiente a los widgets de la página web.
+ * 
+ * //@param int $opcion Opción para indicar que widget mostrar.
+ */
 function __htmlWidgets($opcion)
 {
   $db = conexion();
@@ -1164,6 +1224,12 @@ function __htmlWidgets($opcion)
     __htmlWidgetsFormato($top, $opcion);
 }
 
+/**
+ * Función que genera el código html correspondiente al formato de los widgets de la página web.
+ * 
+ * //@param array $top Array con los datos de los usuarios.
+ * //@param int $opcion Opción para indicar que widget mostrar.
+ */
 function __htmlWidgetsFormato($top, $opcion)
 {
   global $mensajes;
@@ -1184,6 +1250,11 @@ function __htmlWidgetsFormato($top, $opcion)
   echo "</div>";
 }
 
+/**
+ * Función que genera el código html correspondiente para editar la información de un usuario.
+ * 
+ * //@param int $idUsuario Id del usuario.
+ */
 function modificarUsuario($idUsuario)
 {
   global $mensajesRegistro, $idioma;
@@ -1342,6 +1413,14 @@ function modificarUsuario($idUsuario)
 
 }
 
+/**
+ * Función que genera el código html correspondiente de editar una incidencia.
+ * Tanto el formulario para editar el estado, como el formulario para editar
+ * la información de la incidencia y el formulario para añadir fotografías 
+ * a la incidencia.
+ * 
+ * //@param int $idIncidencia Id de la incidencia.
+ */
 function htmlPagEditarIncidencia($idIncidencia)
 {
   procesamientoEditar();
@@ -1350,6 +1429,11 @@ function htmlPagEditarIncidencia($idIncidencia)
   __htmlFotosIncidencia($idIncidencia);
 }
 
+/**
+ * Función que genera el código html correspondiente para cambiar el estado de una incidencia.
+ * 
+ * //@param int $idIncidencia Id de la incidencia.
+ */
 function __htmlEstadoIncidencia($idIncidencia)
 {
   global $mensajesIncidencias;
@@ -1425,6 +1509,12 @@ function __htmlEstadoIncidencia($idIncidencia)
     desconexion($db);
   }
 }
+
+/**
+ * Función que genera el código html correspondiente para editar la información de una incidencia.
+ * 
+ * //@param int $idIncidencia Id de la incidencia.
+ */
 function __htmlIncidencia($idIncidencia)
 {
   global $mensajesIncidencias;
@@ -1518,6 +1608,11 @@ function __htmlIncidencia($idIncidencia)
   }
 }
 
+/**
+ * Función que genera el código html correspondiente para añadir fotografías a una incidencia.
+ * 
+ * //@param int $idIncidencia Id de la incidencia.
+ */
 function __htmlFotosIncidencia($idIncidencia)
 {
   global $mensajesIncidencias;

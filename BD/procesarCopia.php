@@ -10,10 +10,6 @@ require("copiaSeguridad.php");
 
 session_start();
 
-/**
- *  Código que procesa el formulario de gestión de la base de datos.
- */
-
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $db = conexion();
 

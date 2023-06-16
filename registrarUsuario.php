@@ -1,4 +1,10 @@
 <?php
+/**
+ * Fichero para mostrar la página de registrar un usuario.
+ * 
+ * Autores: Carlota de la Vega Soriano y Manuel Vico Arboledas.
+ */
+
 include('vista/html/html.php'); // Maquetado de página
 require "BD/procesarRegistro.php";
 

@@ -1,6 +1,16 @@
 <?php
+/**
+ * Fichero con funciones generales para diferentes archivos
+ * 
+ * Autores: Carlota de la Vega Soriano y Manuel Vico Arboledas.
+ */
 
-// Función para insertar una fila a la tabla de log 
+/**
+ * Función para insertar una fila a la tabla de log.
+ * 
+ * @param string $accion Acción que se va a insertar en la tabla.
+ * @param mysqli $db Conexión a la base de datos.
+ */
 function insertarLog($accion, $db)
 {
     $accion = "INFO: " . $accion; // Concatenar "INFO: " al inicio de $accion
@@ -12,10 +22,16 @@ function insertarLog($accion, $db)
     $stmt->close();
 }
 
-// Función para subir la foto de un usuario o de una incidencia indicar a que tabla insertar si usuarios o fotos
-//La función sirve, para que funcione tiene que haber enviado un formulario donde un input sea:
-// <input type="file" name="images"> y poner <form method="POST" action="esto da igual" enctype="multipart/form-data">
-function subirFoto($tabla, $db, $id)
+/**
+ * Función para subir una foto a la base de datos.
+ * 
+ * @param string $tabla Nombre de la tabla a la que se va a insertar la foto.
+ * @param mysqli $db Conexión a la base de datos.
+ * @param int $id ID del usuario o incidencia a la que se le va a insertar la foto.
+ * 
+ * @return bool Retorna true si se ha subido la foto correctamente, false en caso contrario.
+ */
+ function subirFoto($tabla, $db, $id)
 {
     $image = $_SESSION['imagen'];
     $query = "UPDATE $tabla SET foto = ? WHERE id = ?";
@@ -28,6 +44,16 @@ function subirFoto($tabla, $db, $id)
         return false;
 }
 
+/**
+ * Función para subir una foto de una incidencia a la base de datos.
+ * 
+ * @param string $tabla Nombre de la tabla a la que se va a insertar la foto.
+ * @param mysqli $db Conexión a la base de datos.
+ * @param int $id ID del usuario o incidencia a la que se le va a insertar la foto.
+ * @param string $image Imagen a insertar.
+ * 
+ * @return bool Retorna true si se ha subido la foto correctamente, false en caso contrario.
+ */
 function subirFotoIncidencia($tabla, $db, $id, $image)
 {
     $query = "INSERT INTO $tabla (foto, IdIncidencia) VALUES (?, ?)";
@@ -42,7 +68,13 @@ function subirFotoIncidencia($tabla, $db, $id, $image)
 
 
 
-// Descargar foto de un usuario
+/**
+ * Función para descargar una foto de un usuario. La función imprime la foto directamente.
+ * 
+ * @param string $tabla Nombre de la tabla de la que se va a descargar la foto.
+ * @param int $idUsuario ID del usuario del que se va a descargar la foto.
+ * @param mysqli $db Conexión a la base de datos.
+ */
 function descargarFoto($tabla, $idUsuario, $db)
 {
     $foto = null;
@@ -66,7 +98,12 @@ function descargarFoto($tabla, $idUsuario, $db)
     echo $imageData;
 }
 
-// Función para las valoraciones
+/**
+ * Función para valorar una incidencia.
+ * 
+ * @param int $incidencia ID de la incidencia a valorar.
+ * @param string $accion Acción a realizar (sumar o restar).
+ */
 function valoracion($incidencia, $accion)
 {
     //¿Cómo se supone que vota el visitante?
@@ -111,8 +148,13 @@ function valoracion($incidencia, $accion)
 
 }
 
-// Método para obtener el nombre de usuario a partir de la id de la tabla de incidencias.
-
+/**
+ * Función para obtener el nombre de usuario a partir de la id de la tabla de incidencias.
+ * 
+ * @param int $idUsuario ID del usuario del que se va a obtener el nombre.
+ * 
+ * @return string Nombre del usuario.
+ */
 function obtenerNombreUsuario($idUsuario)
 {
     $db = conexion();
@@ -138,6 +180,13 @@ function obtenerNombreUsuario($idUsuario)
 
 }
 
+/**
+ * Función para obtener las valoraciones a partir de la id de la tabla de incidencias.
+ * 
+ * @param int $idIncidencia ID de la incidencia de la que se van a obtener las valoraciones.
+ * 
+ * @return array Array con las valoraciones positivas y negativas.
+ */
 function obtenerValoraciones($idIncidencia)
 {
     $db = conexion();
@@ -163,6 +212,13 @@ function obtenerValoraciones($idIncidencia)
     return $valoraciones;
 }
 
+/**
+ * Función para comprobar si un usuario o visitante puede valorar una incidencia.
+ * 
+ * @param int $idIncidencia ID de la incidencia a comprobar.
+ * 
+ * @return bool Retorna true si el usuario o visitante puede valorar la incidencia, false en caso contrario.
+ */
 function puedeValorar($idIncidencia)
 {
     $puedeVotar = false;
@@ -196,6 +252,11 @@ function puedeValorar($idIncidencia)
 }
 
 
+/**
+ * Función para borrar una incidencia
+ * 
+ * @param int $id ID de la incidencia a borrar.
+ */
 function borrarIncidencia($id)
 {
     $db = conexion();
@@ -216,6 +277,12 @@ function borrarIncidencia($id)
     
 }
 
+/**
+ * Función para borrar un usuario
+ * 
+ * @param int $id ID del usuario a borrar.
+ * @param mysqli $db Conexión a la base de datos.
+ */
 function borrarUsuario($id, $db)
 {
     // Borramos todas las incidencias relacionadas con el usuario
@@ -246,6 +313,11 @@ function borrarUsuario($id, $db)
     exit;
 }
 
+/**
+ * Función para borrar un comentario
+ * 
+ * @param int $id ID del comentario a borrar.
+ */
 function borrarComentario($id)
 {
     $db = conexion();
