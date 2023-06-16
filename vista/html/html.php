@@ -521,6 +521,7 @@ function __htmlInicio($titulo)
   <head>
   <meta charset="utf-8" />
   <link rel="stylesheet" href="vista/css/estilos.css" />
+  <link rel="stylesheet" href="vista/css/registro.css" />
   <title>{$titulo}</title>
   </head>
   <body>	
@@ -1374,7 +1375,6 @@ function modificarUsuario($idUsuario)
           $datos['estado'] = $usuario['estado'];
         echo '<input type="hidden" name="estado" value="' . $datos['estado'] . '">';
       }
-      //echo '<input type="text" name="estado" value="' . ($usuario['estado']) . '"' . $esAdmin . $disabled . '>';
 
       echo '<label for="rol">Rol</label>';
       echo '<select name="rol" ' . $esAdmin . ' ' . $disabled . '>';
@@ -1386,7 +1386,6 @@ function modificarUsuario($idUsuario)
           $datos['rol'] = $usuario['rol'];
         echo '<input type="hidden" name="rol" value="' . $datos['rol'] . '">';
       }
-      // echo '<input type="text" name="rol" value="' . ($usuario['rol']) . '"' . $esAdmin . $disabled .'>';
 
       echo '<div class="botones">';
       if ($cambiosValidados == false) {
@@ -1491,7 +1490,7 @@ function __htmlEstadoIncidencia($idIncidencia)
       echo '</div>';
 
       if (!$admin) {
-      echo <<<HTML
+        echo <<<HTML
               <div class="botones">
                 <input type="submit" name= "modificarEstado" value="{$mensajesIncidencias[$idioma]["Enviar"]}">
                 <input type="hidden" name="idIncidencia" value="$id">
@@ -1669,5 +1668,166 @@ function __htmlFotosIncidencia($idIncidencia)
     HTML;
   }
 }
+
+function htmlPagRegistrarUsuario($erroresRegistro)
+{
+  global $mensajesRegistro, $idioma;
+  global $registrado, $confirmado;
+
+  echo '<div class="registro">';
+  echo '<h1>' . $mensajesRegistro[$idioma]["DatosGeneral"] . '</h1>';
+
+  echo '<form method="POST" action="./registrarUsuario.php">';
+
+  echo '<div class="subform">';
+  echo '<h1>' . $mensajesRegistro[$idioma]["DatosPersonales"] . '</h1>';
+  echo '<div class="datos">';
+  echo '<div class="entrada">';
+  echo '<label for="nombre">' . $mensajesRegistro[$idioma]["Nombre"] . '</label>';
+  echo '<input name="nombre" value="' . (isset($_POST['nombre']) ? $_POST['nombre'] : '') . '" ' . ($confirmado ? 'readonly' : '') . '>';
+
+  if (isset($erroresRegistro['nombre'])) {
+    echo '<p class="error">';
+    echo $erroresRegistro['nombre'];
+    echo '</p>';
+  }
+
+  echo '</div>';
+  echo '<div class="entrada">';
+  echo '<label for="apellidos">' . $mensajesRegistro[$idioma]["Apellidos"] . '</label>';
+  echo '<input name="apellidos" value="' . (isset($_POST['apellidos']) ? $_POST['apellidos'] : '') . '" ' . ($confirmado ? 'readonly' : '') . '>';
+
+  if (isset($erroresRegistro['apellidos'])) {
+    echo '<p class="error">';
+    echo $erroresRegistro['apellidos'];
+    echo '</p>';
+  }
+
+  echo '</div>';
+  echo '<div class="entrada">';
+  echo '<label for="telefono">' . $mensajesRegistro[$idioma]["Telefono"] . '</label>';
+  echo '<input name="telefono" value="' . (isset($_POST['telefono']) ? $_POST['telefono'] : '') . '" ' . ($confirmado ? 'readonly' : '') . '>';
+
+  if (isset($erroresRegistro['telefono'])) {
+    echo '<p class="error">';
+    echo $erroresRegistro['telefono'];
+    echo '</p>';
+  }
+
+  echo '</div>';
+  echo '<div class="entrada">';
+  echo '<label for="direccion">' . $mensajesRegistro[$idioma]["Direccion"] . '</label>';
+  echo '<input name="direccion" value="' . (isset($_POST['direccion']) ? $_POST['direccion'] : '') . '" ' . ($confirmado ? 'readonly' : '') . '>';
+
+  if (isset($erroresRegistro['direccion'])) {
+    echo '<p class="error">';
+    echo $erroresRegistro['direccion'];
+    echo '</p>';
+  }
+
+  echo '</div>';
+  echo '</div>';
+  echo '<div class="ayuda">';
+  echo '<p>' . $mensajesRegistro[$idioma]["AyudaPersonales"] . '</p>';
+  echo '</div>';
+  echo '</div>';
+
+  echo '<div class="subform">';
+  echo '<h1>' . $mensajesRegistro[$idioma]["DatosSesion"] . '</h1>';
+  echo '<div class="datos">';
+  echo '<div class="entrada">';
+  echo '<label for="email">' . $mensajesRegistro[$idioma]["Email"] . '</label>';
+  echo '<input name="email" value="' . (isset($_POST['email']) ? $_POST['email'] : '') . '" ' . ($confirmado ? 'readonly' : '') . '>';
+
+  if (isset($erroresRegistro['email'])) {
+    echo '<p class="error">';
+    echo $erroresRegistro['email'];
+    echo '</p>';
+  }
+
+  echo '</div>';
+  echo '<div class="entrada">';
+  echo '<div class="contrasenia-contenedor">';
+  echo '<div class="campo">';
+  echo '<label for="password1">' . $mensajesRegistro[$idioma]["Contrasenia"] . '</label>';
+  echo '<input type="password" name="password1" value="' . (isset($_POST['password1']) ? $_POST['password1'] : '') . '" ' . ($confirmado ? 'readonly' : '') . '>';
+  echo '</div>';
+
+  echo '<div class="campo">';
+  echo '<label for="password2">' . $mensajesRegistro[$idioma]["Confirmar"] . '</label>';
+  echo '<input type="password" name="password2" value="' . (isset($_POST['password2']) ? $_POST['password2'] : '') . '" ' . ($confirmado ? 'readonly' : '') . '>';
+  echo '</div>';
+
+  if (isset($erroresRegistro['contraseña'])) {
+    echo '<p class="error">';
+    echo $erroresRegistro['contraseña'];
+    echo '</p>';
+  }
+
+  echo '</div>';
+  echo '</div>';
+  echo '</div>';
+
+  echo '<div class="ayuda">';
+  echo '<p>' . $mensajesRegistro[$idioma]["AyudaSesion"] . '</p>';
+  echo '</div>';
+  echo '</div>';
+
+  if (isset($_SESSION['autenticado'])) {
+    if ($_SESSION['rol'] == 'admin') {
+      echo '<div class="subform">';
+      echo '<h1>Usuario en el sistema</h1>';
+      echo '<div class="datos">';
+      echo '<div class="entrada">';
+      echo '<label for="estado">' . $mensajesRegistro[$idioma]["Estado"] . ':</label>';
+      echo '<select name="estado" ' . ($confirmado ? 'readonly' : '') . '>';
+      echo '<option value="activo" ' . (isset($_POST['estado']) && $_POST['estado'] === 'activo' ? 'selected' : '') . '>Activo</option>';
+      echo '<option value="inactivo" ' . (isset($_POST['estado']) && $_POST['estado'] === 'inactivo' ? 'selected' : '') . '>Inactivo</option>';
+      echo '</select>';
+      echo '</div>';
+      echo '<div class="entrada">';
+      echo '<label for="rol">Rol:</label>';
+      echo '<select name="rol" ' . ($confirmado ? 'readonly' : '') . '>';
+      echo '<option value="colaborador" ' . (isset($_POST['rol']) && $_POST['rol'] === 'colaborador' ? 'selected' : '') . '>Colaborador</option>';
+      echo '<option value="admin" ' . (isset($_POST['rol']) && $_POST['rol'] === 'admin' ? 'selected' : '') . '>Admin</option>';
+      echo '</select>';
+      echo '</div>';
+      echo '</div>';
+      echo '</div>';
+    }
+  }
+    if (!$registrado) {
+      echo '<div class="botones">';
+        if (!$confirmado) {
+          echo '<button name="enviar">' . $mensajesRegistro[$idioma]["Enviar"] . '</button>';
+        }
+        else {
+          echo '<button name="confirmar">' . $mensajesRegistro[$idioma]["Validar"] . '</button>';
+        }
+      echo '</div>';
+    }
+    echo '</form>';
+
+    if ($registrado) {
+      echo '<form method="POST" action="./registrarUsuario.php" enctype="multipart/form-data">';
+      echo '<div class="subform">';
+      echo '<h1> Foto </h1>';
+      echo '<div class="datos">';
+      echo '<div class="entrada">';
+      echo '<label for="images">Foto</label>';
+      echo '<input type="file" name="images">';
+      echo '</div>';
+      echo '</div>';
+      echo '</div>';
+      echo '<div class="botones">';
+      echo '<button name="enviarFoto">' . $mensajesRegistro[$idioma]["Enviar"] . '</button>';
+      echo '</div>';
+      echo '</form>';
+    }
+    echo '</div>';
+}
+
+
+
 
 ?>
