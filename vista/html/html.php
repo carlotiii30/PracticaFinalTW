@@ -6,7 +6,6 @@
  */
 
 include "./auxiliar/codigoInicial.php";
-include "./auxiliar/scripts.php";
 
 session_start();
 
@@ -793,7 +792,7 @@ function __formatoIncidencia($incidencia)
     if ($_SESSION['idUsuario'] == $incidencia["idUsuario"] || $_SESSION['rol'] == "admin") {
 
       echo <<<HTML
-            <button type="submit" name="borrar" onmouseover="return confirm('¿Estás seguro de que deseas borrar esta incidencia?')">
+            <button type="submit" name="borrar" onclick="return confirm('¿Estás seguro de que deseas borrar esta incidencia?')">
                 <img src="vista/imagenes/borrar.png">
             </button>
     HTML;
