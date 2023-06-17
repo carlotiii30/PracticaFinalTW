@@ -180,6 +180,11 @@ function htmlPagInicio()
  */
 function htmlPagLog()
 {
+  if (!isset($_SESSION['autenticado']) || (isset($_SESSION['rol']) && $_SESSION['rol'] != "admin")) {
+    header('Location: index.php');
+    exit;
+  }
+
   // Conexion
   $db = conexion();
 
@@ -238,6 +243,11 @@ function htmlPagNuevaIncidencia()
   global $insertada;
   global $confirmada;
   global $erroresIncidencia;
+
+  if (!isset($_SESSION['autenticado'])) { // El usuario no está autenticado, redirigirlo a la página de inicio de sesión
+    header('Location: index.php');
+    exit;
+  }
 
   if (isset($_POST["enviar"]) || isset($_POST["confirmar"]))
     insertarIncidencia();
@@ -914,6 +924,11 @@ function htmlPagGestionUsuarios()
   global $idioma;
   global $mensajes;
 
+  if (!isset($_SESSION['autenticado']) || (isset($_SESSION['rol']) && $_SESSION['rol'] != "admin")) { 
+    header('Location: index.php');
+    exit;
+  }
+
   echo <<<HTML
   <div class="principalGestion">
     <div class="gestionUsuarios">
@@ -1040,6 +1055,11 @@ function htmlPagGestionBD()
 {
   global $mensajesBackup;
   global $idioma;
+
+  if (!isset($_SESSION['autenticado']) || (isset($_SESSION['rol']) && $_SESSION['rol'] != "admin")) { 
+    header('Location: index.php');
+    exit;
+  }
 
   if (!isset($_SESSION["confirmar_borrar"])) {
     $_SESSION["confirmar_borrar"] = false;
@@ -1248,6 +1268,11 @@ function modificarUsuario($idUsuario)
   global $cambiosValidados;
   global $erroresCambios;
 
+  if (!isset($_SESSION['autenticado'])) { 
+    header('Location: index.php');
+    exit;
+  }
+
   $erroresCambios = array();
 
   $datos = guardarCambios($idUsuario);
@@ -1408,6 +1433,12 @@ function modificarUsuario($idUsuario)
  */
 function htmlPagEditarIncidencia($idIncidencia)
 {
+
+  if (!isset($_SESSION['autenticado'])) { 
+    header('Location: index.php');
+    exit;
+  }
+
   procesamientoEditar();
   __htmlEstadoIncidencia($idIncidencia);
   __htmlIncidencia($idIncidencia);
