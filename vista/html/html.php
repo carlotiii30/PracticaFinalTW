@@ -6,6 +6,7 @@
  */
 
 include "./auxiliar/codigoInicial.php";
+include "./auxiliar/scripts.php";
 
 session_start();
 
@@ -679,9 +680,7 @@ function mostrarIncidencias($incidencias)
       $incidencia = $_POST["incidencia"];
       $puedeVotar = puedeValorar($incidencia);
 
-      if (isset($_POST["editar"])) {
-
-      } else if (isset($_POST["borrar"])) {
+      if (isset($_POST["borrar"])) {
         borrarIncidencia($incidencia);
       } else if (isset($_POST["sumar"]) && $puedeVotar) {
         valoracion($incidencia, "sumar");
@@ -794,7 +793,7 @@ function __formatoIncidencia($incidencia)
     if ($_SESSION['idUsuario'] == $incidencia["idUsuario"] || $_SESSION['rol'] == "admin") {
 
       echo <<<HTML
-            <button name="borrar">
+            <button type="submit" name="borrar" onclick="return confirm('¿Estás seguro de que deseas borrar esta incidencia?')">
                 <img src="vista/imagenes/borrar.png">
             </button>
     HTML;
@@ -898,14 +897,16 @@ function mostrarComentarios($id)
       if (isset($_SESSION['autenticado'])) {
         if ($_SESSION['idUsuario'] == $idUsuario || $_SESSION['rol'] == "admin") {
 
-          echo "<div class='opciones'>
-                      <form method='post' action=''>
-                      <input type='hidden' name='comentario' value='$idComentario'>
-                        <button name='borrarComentario'>
-                          <img src='vista/imagenes/borrar.png'>
-                        </button>
-                      </form>
-                    </div>";
+          echo <<<HTML
+            <div class='opciones'>
+                <form method='post' action=''>
+                  <input type='hidden' name='comentario' value='$idComentario'>
+                  <button type='submit' name='borrarComentario' onclick='return confirm("¿Estás seguro de que deseas borrar este comentario?")'>
+                      <img src='vista/imagenes/borrar.png'>
+                  </button>
+                </form>
+              </div>
+        HTML;
         }
       }
       echo "</div>
@@ -1030,7 +1031,7 @@ function __formatoUsuario($usuario, $db)
 
   echo <<<HTML
                 
-                <button name="borrar">
+                <button type="submit" name="borrar" onclick="return confirm('¿Estás seguro de que deseas borrar este usuario?')">
                     <img src="vista/imagenes/borrar.png">
                 </button>
               </form>
