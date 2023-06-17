@@ -6,7 +6,6 @@
  */
 
 include "./auxiliar/codigoInicial.php";
-include "./auxiliar/scripts.php";
 
 session_start();
 
