@@ -8,22 +8,22 @@
     color: gray;
 }
 
-.subform:hover {
+.registro .subform:hover {
     background-color: rgba(196, 167, 196, 0.844);
 }
 
-.subform:hover h1 {
+.registro .subform:hover h1 {
     color: rgb(46, 45, 45);
 }
 
-.subform {
+.registro .subform {
     display: flex;
     border: 1px solid lightgrey;
     padding: 5px;
     margin: 10px;
 }
 
-.subform h1 {
+.registro .subform h1 {
     border: 1px solid lightgrey;
     border-style:dotted;
     border-top: white;
@@ -42,7 +42,7 @@
     padding: 10px;
 }
 
-.entrada label {
+.registro .entrada label {
     display: block;
     font-size: smaller;
 }
@@ -59,7 +59,7 @@
     margin: 0px 0px 0px 30px;
 }
 
-.subform:hover .ayuda {
+.registro .subform:hover .ayuda {
     display: block;
     color: rgb(82, 15, 163);
 }
