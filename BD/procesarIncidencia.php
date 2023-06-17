@@ -78,36 +78,6 @@ function insertarIncidencia()
 
 
 /**
- * Función para subir una foto de una incidencia a la base de datos, tras el procesamiento de un formulario.
- * 
- * @return void
- */
-function agregarFotoIncidencia()
-{
-    // Verificar si se ha enviado una foto
-    if (!empty($_FILES['images']['name'])) {
-        $db = conexion();
-
-        $image = file_get_contents($_FILES['images']['tmp_name']);
-        $idIncidencia = $_SESSION["nuevaIncidencia"];
-
-        if (subirFotoIncidencia("fotos", $db, $idIncidencia, $image)) {
-            $_SESSION['mensaje'] = "Nueva incidencia registrada con foto.";
-        } else {
-            $_SESSION['mensaje'] = "Hemos registrado una nueva incidencia, pero ha ocurrido un error al guardar la foto.";
-        }
-
-        desconexion($db);
-    }else{
-        $_SESSION['mensaje'] = "Se lo salta todo";
-    }
-    
-    // Redirigir al index
-    header('Location: index.php');
-    exit;
-}
-
-/**
  * Función para borrar una foto de una incidencia de la base de datos.
  * 
  * @param int $idFoto ID de la foto a borrar.

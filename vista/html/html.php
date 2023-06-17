@@ -242,9 +242,6 @@ function htmlPagNuevaIncidencia()
   if (isset($_POST["enviar"]) || isset($_POST["confirmar"]))
     insertarIncidencia();
 
-  if (isset($_POST["enviarFoto"]))
-    agregarFotoIncidencia();
-
   $readonly = $confirmada ? "readonly" : "";
 
   echo <<<HTML
@@ -327,20 +324,9 @@ HTML;
           HTML;
     }
   } else {
-    echo <<<HTML
-            </form>
-            <form method="POST" action="" enctype="multipart/form-data">
-              <div class="entrada">
-                <label for="images">
-                  Foto
-                </label>
-                <input type="file" name="images">
-              </div>
-              <div class="botones">
-                <input type="submit" value="{$mensajesIncidencias[$idioma]['Enviar']}" name='enviarFoto'">
-              </div>
-            </form>
-          HTML;
+      echo '</form>';
+      $_SESSION['editandoInc'] = $_SESSION['nuevaIncidencia'];
+      echo "<meta http-equiv='refresh' content='0;url=./editarIncidencia.php'>";
   }
 
   echo <<<HTML
