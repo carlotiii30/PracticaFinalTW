@@ -5,9 +5,9 @@
  * Autores: Carlota de la Vega Soriano y Manuel Vico Arboledas.
  */
 
-include "core/baseDatos.php";
-include "funcion.php";
-include "BD/procesarIncidencia.php";
+include "./core/baseDatos.php";
+include "funciones.php";
+include "./BD/procesarIncidencia.php";
 
 // - - - - Guardamos la URL de la página actual - - - -
 $pagina_actual = basename($_SERVER['PHP_SELF']);

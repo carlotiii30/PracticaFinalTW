@@ -6,7 +6,7 @@
  */
 
 require('../core/baseDatos.php'); // Conexión y desconexión
-require('../funcion.php');
+require('../auxiliar/funciones.php');
 
 // Conexión con la BBDD
 if (is_string($db = conexion())) {

@@ -5,7 +5,7 @@
  * Autores: Carlota de la Vega Soriano y Manuel Vico Arboledas.
  */
 
-include "codigoInicial.php";
+include "./auxiliar/codigoInicial.php";
 
 session_start();
 
