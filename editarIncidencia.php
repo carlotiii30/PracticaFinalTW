@@ -14,7 +14,13 @@ htmlNavGeneral($mensajes[$idioma]["VerIncidencias"]);
 if(isset($_POST['editarInc'])){
     $_SESSION['editandoInc'] = $_POST['editarInc'];
 }
-htmlPagEditarIncidencia($_SESSION['editandoInc']);
+
+if(isset($_SESSION['editandoInc'])){
+    htmlPagEditarIncidencia($_SESSION['editandoInc']);
+}else{
+    header('Location: index.php');
+    exit;
+}
 htmlAside();
 htmlEnd();
 ?>

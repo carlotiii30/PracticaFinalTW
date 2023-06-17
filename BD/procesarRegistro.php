@@ -45,6 +45,9 @@ function registrarUsuario()
 
 			if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 				$erroresRegistro['email'] = "El email no es correcto";
+			}else{
+				if(existeEmail($email))
+					$erroresRegistro['email'] = "El email ya existe";
 			}
 
 			if ($password1 !== $password2) {
@@ -131,6 +134,37 @@ function agregarFoto($idUsuario)
     // Redirigimos.
     header('Location: index.php');
     exit;
+}
+
+/**
+ * Función que comprueba si un email ya existe en la base de datos.
+ * 
+ * @param string $email Email a comprobar.
+ * 
+ * @return bool True si existe, false si no.
+ */
+function existeEmail($email){
+	// Conexión
+	$db = conexion();
+
+	// Consulta
+	$sql = "SELECT * FROM usuarios WHERE email = ?";
+	$stmt = $db->prepare($sql);
+	$stmt->bind_param("s", $email);
+
+	// Ejecutar la consulta
+	$stmt->execute();
+	$result = $stmt->get_result();
+
+	// Cerramos la declaración y la conexión con la base de datos
+	$stmt->close();
+	desconexion($db);
+
+	if ($result->num_rows > 0) {
+		return true;
+	} else {
+		return false;
+	}
 }
 
 

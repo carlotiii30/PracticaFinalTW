@@ -27,7 +27,7 @@ function insertarIncidencia()
         $descripcion = isset($_POST['descripcion']) ? $_POST['descripcion'] : '';
         $lugar = isset($_POST['lugar']) ? $_POST['lugar'] : '';
         $keywords = isset($_POST['keywords']) ? $_POST['keywords'] : '';
-        $estado = "pendiente";
+        $estado = "Pendiente";
 
         if (isset($_POST['enviar'])) {
             // - - - Validamos los datos - - - 

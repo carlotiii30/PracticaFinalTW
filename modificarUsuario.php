@@ -14,7 +14,13 @@ htmlNavGeneral('');
 if(isset($_POST['editar'])){
     $_SESSION['editando'] = $_POST['usuario'];
 }
-modificarUsuario($_SESSION['editando']);
+
+if(isset($_SESSION['editando'])){
+    modificarUsuario($_SESSION['editando']);
+}else{
+    header('Location: index.php');
+    exit;
+}
 
 htmlEnd();
 ?>
