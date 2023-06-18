@@ -27,9 +27,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && (!isset($_POST['editar']) && !isset
     if(isset($_POST['pagina']) && $_POST['pagina'] == "misIncidencias"){
         $idUsuario = $_SESSION['idUsuario'];
         if(isset($_POST['ordenar']) && ($_POST['ordenar'] === "Mg" || $_POST['ordenar'] === "NoMg"))
-            $sql .= " AND i.idUsuario = ?";
+            $sql .= " AND i.idUsuario = '$idUsuario'";
         else
-            $sql .= " AND idUsuario = ?";
+            $sql .= " AND idUsuario = '$idUsuario'";
     }
     
     // FIltra según el estado de las incidencias
@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && (!isset($_POST['editar']) && !isset
         $estados = $_POST['estado'];
         $sqlEstados = "";
         foreach ($estados as $estado){
-            $sqlEstados .= " OR estado = ?";
+            $sqlEstados .= " OR estado = '$estado'";
         }
         //La función ltrim elimina el primer OR que encuentra en sqlEstados
         $sql .= " AND (" . ltrim($sqlEstados, " OR") . ")";
@@ -45,16 +45,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && (!isset($_POST['editar']) && !isset
 
     // Filtra según el lugar
     if(isset($_POST['lugar']) && !empty($_POST['lugar'])){
-        $lugar = $_POST['lugar'];
+        $lugar = mysqli_real_escape_string($db, $_POST['lugar']);
 
-        $sql .= " AND lugar = ?";
+        $sql .= " AND lugar = '$lugar'";
     }
 
-    // Filtra si el texto esta contenido en la descripción
+    // Filtra si el texto esta contenido en la descripción, titulo o keywords
     if(isset($_POST['texto']) && !empty($_POST['texto'])){
-        $texto = $_POST['texto'];
-        
-        $sql .= " AND (descripcion LIKE ? OR titulo LIKE ? OR keywords LIKE ?)";
+        $texto = mysqli_real_escape_string($db, $_POST['texto']);
+
+        $sql .= " AND (descripcion LIKE '%$texto%' OR titulo LIKE '%$texto%' OR keywords LIKE '%$texto%')";
     }
 
     if(isset($_POST['ordenar'])){
@@ -70,39 +70,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && (!isset($_POST['editar']) && !isset
         }
     }
 
-    // Preparar la consulta con sentencias preparadas
-    $stmt = $db->prepare($sql);
-
-    // Asignar los parámetros de las sentencias preparadas
-    if(isset($_POST['pagina']) && $_POST['pagina'] == "misIncidencias"){
-        $idUsuario = $_SESSION['idUsuario'];
-        if(isset($_POST['ordenar']) && ($_POST['ordenar'] === "Mg" || $_POST['ordenar'] === "NoMg"))
-            $stmt->bind_param("s", $idUsuario);
-        else
-            $stmt->bind_param("s", $idUsuario);
-    }
-
-    if(isset($_POST['estado']) && !empty($_POST['estado'])){
-        $estados = $_POST['estado'];
-        foreach ($estados as $estado){
-            $stmt->bind_param("s", $estado);
-        }
-    }
-
-    if(isset($_POST['lugar']) && !empty($_POST['lugar'])){
-        $stmt->bind_param("s", $lugar);
-    }
-
-    if(isset($_POST['texto']) && !empty($_POST['texto'])){
-        $texto = "%$texto%";
-        $stmt->bind_param("sss", $texto, $texto, $texto);
-    }
-
     // Ejecutar la consulta
-    $stmt->execute();
-
-    // Obtener los resultados
-    $result = $stmt->get_result();
+    $result = $db->query($sql);
 
     if(isset($result)){
         $incidencias = array();
@@ -113,8 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && (!isset($_POST['editar']) && !isset
         }
     }
 
-    // Cerrar la declaración y la conexión con la base de datos
-    $stmt->close();
+    // Cerrar la conexión con la base de datos
     desconexion($db);
 }
 

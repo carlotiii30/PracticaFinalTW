@@ -351,6 +351,16 @@ HTML;
  */
 function htmlPagVerIncidencias($pagina)
 {
+  if($_SERVER["REQUEST_METHOD"] != "POST"){
+    if (isset($_SESSION["idIncidencia"])) {
+      unset($_SESSION["idIncidencia"]);
+    }
+
+    if (isset($_SESSION["comentarioInsertado"])) {
+      unset($_SESSION["comentarioInsertado"]);
+    }
+  }
+  
   global $mensajesCriterios;
   global $idioma;
   global $incidencias;
@@ -676,16 +686,16 @@ function mostrarIncidencias($incidencias, $pagina)
     if (isset($_POST["comentar"])) {
       if ($_POST["incidencia"] == $dato["id"]) {
         $_SESSION["idIncidencia"] = $dato["id"];
-        htmlPagComentarios();
+        htmlPagComentarios($pagina);
       }
-    } else if (isset($_SESSION["idIncidencia"])) {
+    }else if (isset($_SESSION["idIncidencia"])) {
       if ($_SESSION["idIncidencia"] == $dato["id"]) {
         if (!isset($_SESSION["comentarioInsertado"]) || (isset($_SESSION["comentarioInsertado"]) && !$_SESSION["comentarioInsertado"])) {
-          htmlPagComentarios();
+          htmlPagComentarios($pagina);
         }
       }
     }
-    if (isset($_SESSION["comentarioInsertado"]) && $_SESSION["comentarioInsertado"]) {
+    if (isset($_SESSION["comentarioInsertado"]) && $_SESSION["idIncidencia"]) {
       unset($_SESSION["comentarioInsertado"]);
       unset($_SESSION["idIncidencia"]);
 
@@ -1084,7 +1094,7 @@ function htmlPagGestionBD()
  * Función que genera el código html correspondiente para hacer un comentario en una incidencia.
  * 
  */
-function htmlPagComentarios()
+function htmlPagComentarios($pagina)
 {
   echo <<<HTML
       <div class="comentar-incidencia ">
@@ -1095,6 +1105,7 @@ function htmlPagComentarios()
           <textarea name="comentario" rows="4" cols="50"></textarea>
           <div class="botones">
             <input type="submit" name="enviarComentario" value="Enviar comentario">
+            <input type="hidden" name="pagina" value="$pagina">
           </div>
         </form>
       </div>
