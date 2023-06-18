@@ -25,13 +25,13 @@ if (is_string($db = conexion())) {
         // Continuamos
         $sql = "SELECT * FROM usuarios WHERE email='$usuario'";
         $result = $db->query($sql);
-
+        session_start();
         if ($result && $result->num_rows > 0) {
             $usuario = $result->fetch_assoc();
             $hash = $usuario['password'];
             if(password_verify($password, $hash) && $usuario['estado'] == "activo") {
                 $idUsuario = $usuario["id"];
-                session_start();
+            
                 $_SESSION['autenticado'] = true;
                 $_SESSION['rol'] = $usuario["rol"];
                 $_SESSION['nombreUsuario'] = $nombreUsuario;
@@ -43,15 +43,18 @@ if (is_string($db = conexion())) {
                 header("Location: ../index.php");
             } else {
                 if ($usuario['estado'] == "inactivo") {
+                    $_SESSION["mensaje"] = "El $nombreUsuario esta actualmente inactivo, contacte con algún administrador.";
                     insertarLog("El usuario $nombreUsuario ha intentado iniciar sesión, pero no está activo en el sistema.", $db);
                 }
                 else {
+                    $_SESSION["mensaje"] = "El usuario o la contraseña son incorrectos.";
                     insertarLog("El usuario $nombreUsuario ha intentado iniciar sesión sin éxito.", $db);
                 }
                 header("Location: ../index.php");
             }
         } else {
             // El inicio de sesión falló
+            $_SESSION["mensaje"] = "El usuario o la contraseña son incorrectos.";
             header("Location: ../index.php");
             insertarLog("El usuario $nombreUsuario ha intentado iniciar sesión sin éxito.", $db);
         }
