@@ -554,7 +554,7 @@ function __htmlPiepagina()
   __htmlContenidosFin();
   echo <<<HTML
   <footer>
-    <p><a href="./PracticaFinal.pdf"> Trabajo final de Tecnologías Web. &copy; Carlota de la Vega Soriano y Manuel Vico Arboledas</a></p>
+    <p><a href="./documentacion.pdf"> Trabajo final de Tecnologías Web. &copy; Carlota de la Vega Soriano y Manuel Vico Arboledas</a></p>
   </footer>
   HTML;
 }
