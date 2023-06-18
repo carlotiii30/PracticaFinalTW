@@ -428,36 +428,10 @@ function htmlPagVerIncidencias($pagina)
   HTML;
 
   if (isset($incidencias)) {
-    mostrarIncidencias($incidencias);
+    mostrarIncidencias($incidencias, $pagina);
   }
   echo '</div>';
 
-}
-
-/**
- * Función que genera el código html de la página de mis incidencias.
- */
-function htmlPagMisIncidencias()
-{
-  // Conexion
-  $db = conexion();
-
-  // Recuperacion de datos de la base de datos
-  $idUsuario = $_SESSION['idUsuario'];
-  $sql = "SELECT * FROM incidencias WHERE idUsuario = ? ORDER BY fecha DESC";
-  $stmt = $db->prepare($sql);
-  $stmt->bind_param("i", $idUsuario);
-  $stmt->execute();
-  $datos = $stmt->get_result();
-
-
-  // Desconexión
-  desconexion($db);
-
-  // Mostrar incidencias
-  echo "<div class='mis-incidencias'>";
-  mostrarIncidencias($datos);
-  echo "</div>";
 }
 
 /**
@@ -671,7 +645,7 @@ function __htmlLogeado()
  * 
  * //@param array incidencias Array con las incidencias.
  */
-function mostrarIncidencias($incidencias)
+function mostrarIncidencias($incidencias, $pagina)
 {
   if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // Posibilidades del formulario.
@@ -697,7 +671,7 @@ function mostrarIncidencias($incidencias)
   }
 
   foreach ($incidencias as $dato) {
-    __formatoIncidencia($dato);
+    __formatoIncidencia($dato, $pagina);
 
     if (isset($_POST["comentar"])) {
       if ($_POST["incidencia"] == $dato["id"]) {
@@ -729,7 +703,7 @@ function mostrarIncidencias($incidencias)
  * //@param array incidencia Array con los datos de la incidencia.
  * 
  */
-function __formatoIncidencia($incidencia)
+function __formatoIncidencia($incidencia, $pagina)
 {
   global $mensajesIncidencias;
   global $idioma;
@@ -779,6 +753,7 @@ function __formatoIncidencia($incidencia)
             <button name="editar">
               <img src="vista/imagenes/editar.png">
             </button>
+            <input type="hidden" name="pagina" value="$pagina">
           </div>
         </form>
     HTML;
@@ -812,6 +787,7 @@ function __formatoIncidencia($incidencia)
             <button name="comentar">
                 <img src="vista/imagenes/comentario.png">
             </button>
+            <input type="hidden" name="pagina" value="$pagina">
           </div>
         </form>
       </div>
