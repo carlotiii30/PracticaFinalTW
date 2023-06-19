@@ -334,9 +334,9 @@ HTML;
           HTML;
     }
   } else {
-      echo '</form>';
-      $_SESSION['editandoInc'] = $_SESSION['nuevaIncidencia'];
-      echo "<meta http-equiv='refresh' content='0;url=./editarIncidencia.php'>";
+    echo '</form>';
+    $_SESSION['editandoInc'] = $_SESSION['nuevaIncidencia'];
+    echo "<meta http-equiv='refresh' content='0;url=./editarIncidencia.php'>";
   }
 
   echo <<<HTML
@@ -351,7 +351,7 @@ HTML;
  */
 function htmlPagVerIncidencias($pagina)
 {
-  if($_SERVER["REQUEST_METHOD"] != "POST"){
+  if ($_SERVER["REQUEST_METHOD"] != "POST") {
     if (isset($_SESSION["idIncidencia"])) {
       unset($_SESSION["idIncidencia"]);
     }
@@ -360,7 +360,7 @@ function htmlPagVerIncidencias($pagina)
       unset($_SESSION["comentarioInsertado"]);
     }
   }
-  
+
   global $mensajesCriterios;
   global $idioma;
   global $incidencias;
@@ -688,7 +688,7 @@ function mostrarIncidencias($incidencias, $pagina)
         $_SESSION["idIncidencia"] = $dato["id"];
         htmlPagComentarios($pagina);
       }
-    }else if (isset($_SESSION["idIncidencia"])) {
+    } else if (isset($_SESSION["idIncidencia"])) {
       if ($_SESSION["idIncidencia"] == $dato["id"]) {
         if (!isset($_SESSION["comentarioInsertado"]) || (isset($_SESSION["comentarioInsertado"]) && !$_SESSION["comentarioInsertado"])) {
           htmlPagComentarios($pagina);
@@ -910,7 +910,7 @@ function htmlPagGestionUsuarios()
   global $idioma;
   global $mensajes;
 
-  if (!isset($_SESSION['autenticado']) || (isset($_SESSION['rol']) && $_SESSION['rol'] != "admin")) { 
+  if (!isset($_SESSION['autenticado']) || (isset($_SESSION['rol']) && $_SESSION['rol'] != "admin")) {
     header('Location: index.php');
     exit;
   }
@@ -1042,7 +1042,7 @@ function htmlPagGestionBD()
   global $mensajesBackup;
   global $idioma;
 
-  if (!isset($_SESSION['autenticado']) || (isset($_SESSION['rol']) && $_SESSION['rol'] != "admin")) { 
+  if (!isset($_SESSION['autenticado']) || (isset($_SESSION['rol']) && $_SESSION['rol'] != "admin")) {
     header('Location: index.php');
     exit;
   }
@@ -1142,7 +1142,10 @@ function insertarComentario()
   // Id de la incidencia
   $idIncidencia = $_SESSION['idIncidencia'];
 
-  $comentario = isset($_POST['comentario']) ? $_POST['comentario'] : '';
+  if (isset($_POST['comentario'])) {
+    $comentario = strip_tags($_POST['comentario']);
+    $comentario = htmlentities($comentario, ENT_QUOTES);
+  }
 
   // Verificar si el comentario no está vacío
   if (!empty($comentario)) {
@@ -1255,7 +1258,7 @@ function modificarUsuario($idUsuario)
   global $cambiosValidados;
   global $erroresCambios;
 
-  if (!isset($_SESSION['autenticado'])) { 
+  if (!isset($_SESSION['autenticado'])) {
     header('Location: index.php');
     exit;
   }
@@ -1421,7 +1424,7 @@ function modificarUsuario($idUsuario)
 function htmlPagEditarIncidencia($idIncidencia)
 {
 
-  if (!isset($_SESSION['autenticado'])) { 
+  if (!isset($_SESSION['autenticado'])) {
     header('Location: index.php');
     exit;
   }
@@ -1800,35 +1803,34 @@ function htmlPagRegistrarUsuario($erroresRegistro)
       echo '</div>';
     }
   }
-    if (!$registrado) {
-      echo '<div class="botones">';
-        if (!$confirmado) {
-          echo '<button name="enviar">' . $mensajesRegistro[$idioma]["Enviar"] . '</button>';
-        }
-        else {
-          echo '<button name="confirmar">' . $mensajesRegistro[$idioma]["Validar"] . '</button>';
-        }
-      echo '</div>';
-    }
-    echo '</form>';
-
-    if ($registrado) {
-      echo '<form method="POST" action="./registrarUsuario.php" enctype="multipart/form-data">';
-      echo '<div class="subform">';
-      echo '<h1> Foto </h1>';
-      echo '<div class="datos">';
-      echo '<div class="entrada">';
-      echo '<label for="images">Foto</label>';
-      echo '<input type="file" name="images">';
-      echo '</div>';
-      echo '</div>';
-      echo '</div>';
-      echo '<div class="botones">';
-      echo '<button name="enviarFoto">' . $mensajesRegistro[$idioma]["Enviar"] . '</button>';
-      echo '</div>';
-      echo '</form>';
+  if (!$registrado) {
+    echo '<div class="botones">';
+    if (!$confirmado) {
+      echo '<button name="enviar">' . $mensajesRegistro[$idioma]["Enviar"] . '</button>';
+    } else {
+      echo '<button name="confirmar">' . $mensajesRegistro[$idioma]["Validar"] . '</button>';
     }
     echo '</div>';
+  }
+  echo '</form>';
+
+  if ($registrado) {
+    echo '<form method="POST" action="./registrarUsuario.php" enctype="multipart/form-data">';
+    echo '<div class="subform">';
+    echo '<h1> Foto </h1>';
+    echo '<div class="datos">';
+    echo '<div class="entrada">';
+    echo '<label for="images">Foto</label>';
+    echo '<input type="file" name="images">';
+    echo '</div>';
+    echo '</div>';
+    echo '</div>';
+    echo '<div class="botones">';
+    echo '<button name="enviarFoto">' . $mensajesRegistro[$idioma]["Enviar"] . '</button>';
+    echo '</div>';
+    echo '</form>';
+  }
+  echo '</div>';
 }
 
 

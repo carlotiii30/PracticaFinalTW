@@ -22,11 +22,25 @@ function insertarIncidencia()
 
     // Verificar si se ha enviado el formulario
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        // Obtener los datos enviados del formulario
-        $titulo = isset($_POST['titulo']) ? $_POST['titulo'] : '';
-        $descripcion = isset($_POST['descripcion']) ? $_POST['descripcion'] : '';
-        $lugar = isset($_POST['lugar']) ? $_POST['lugar'] : '';
-        $keywords = isset($_POST['keywords']) ? $_POST['keywords'] : '';
+        if (isset($_POST['titulo'])) {
+            $titulo = strip_tags($_POST['titulo']);
+            $titulo = htmlentities($titulo, ENT_QUOTES);
+        }
+
+        if (isset($_POST['descripcion'])) {
+            $descripcion = strip_tags($_POST['descripcion']);
+            $descripcion = htmlentities($descripcion, ENT_QUOTES);
+        }
+
+        if (isset($_POST['lugar'])) {
+            $lugar = strip_tags($_POST['lugar']);
+            $lugar = htmlentities($lugar, ENT_QUOTES);
+        }
+
+        if (isset($_POST['keywords'])) {
+            $keywords = $_POST['keywords'];
+        }
+
         $estado = "Pendiente";
 
         if (isset($_POST['enviar'])) {
@@ -107,10 +121,11 @@ function borrarFoto($idFoto)
  * 
  * @return void
  */
-function procesamientoEditar(){
+function procesamientoEditar()
+{
     //Código para procesar el formulario de estado de la incidencia
-    if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['modificarEstado'])){
-        if($_SESSION['rol'] == "admin"){
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['modificarEstado'])) {
+        if ($_SESSION['rol'] == "admin") {
             $db = conexion();
             $id = $_POST['idIncidencia'];
             $estado = $_POST['estado'];
@@ -122,7 +137,7 @@ function procesamientoEditar(){
             if ($stmt->execute()) {
                 // Insertar en el log
                 insertarLog("Se ha modificado el estado de la incidencia correctamente", $db);
-                
+
                 // Mensaje de correcto
                 $_SESSION['mensaje'] = "¡Enhorabuena! La información ha sido modificada con éxito.";
                 $stmt->close();
@@ -137,23 +152,23 @@ function procesamientoEditar(){
             desconexion($db);
         }
     }
-    
+
     //Código para procesar el formulario de editar incidencia
     global $erroresIncidencia;
     global $confirmada;
 
-    if(isset($_POST['editarInc'])){
+    if (isset($_POST['editarInc'])) {
         $confirmada = false;
     }
-    
-    if($_SERVER['REQUEST_METHOD'] === 'POST' && (isset($_POST['editar']) || isset($_POST['confirmar'])) && !isset($_POST['editarInc'])){
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && (isset($_POST['editar']) || isset($_POST['confirmar'])) && !isset($_POST['editarInc'])) {
         $titulo = isset($_POST['titulo']) ? $_POST['titulo'] : '';
         $descripcion = isset($_POST['descripcion']) ? $_POST['descripcion'] : '';
         $lugar = isset($_POST['lugar']) ? $_POST['lugar'] : '';
         $keywords = isset($_POST['keywords']) ? $_POST['keywords'] : '';
 
-        
-            // - - - Validamos los datos - - - 
+
+        // - - - Validamos los datos - - - 
         if (empty($titulo)) {
             $erroresIncidencia['titulo'] = "El nombre no puede estar vacío";
         }
@@ -165,10 +180,10 @@ function procesamientoEditar(){
             $erroresIncidencia['lugar'] = "El lugar no puede estar vacío";
         }
 
-            // Si no hay errores, procesamos los datos.
+        // Si no hay errores, procesamos los datos.
         if (count($erroresIncidencia) == 0) {
             $confirmada = true;
-            if(isset($_POST['confirmar'])){
+            if (isset($_POST['confirmar'])) {
                 $db = conexion();
                 $id = $_POST['idIncidencia'];
                 $sql = "UPDATE incidencias SET titulo = ?, descripcion = ?, lugar = ?, keywords = ? WHERE id = ?";
@@ -179,7 +194,7 @@ function procesamientoEditar(){
                 if ($stmt->execute()) {
                     // Insertar en el log
                     insertarLog("Se ha modificado la incidencia correctamente", $db);
-                    
+
                     // Mensaje de correcto
                     $_SESSION['mensaje'] = "¡Enhorabuena! La información ha sido modificada con éxito.";
                     $stmt->close();
@@ -198,12 +213,12 @@ function procesamientoEditar(){
 
 
     // Código para procesar el formulario para subir fotos y borrar fotos
-    if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['borrarFoto'])){
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['borrarFoto'])) {
         $id = $_POST['idFoto'];
         borrarFoto($id);
     }
 
-    if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['subir']) && isset($_FILES['images'])){
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['subir']) && isset($_FILES['images'])) {
         $db = conexion();
         $idIncidencia = $_POST['idIncidencia'];
         $image = file_get_contents($_FILES['images']['tmp_name']);
